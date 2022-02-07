@@ -1,11 +1,27 @@
 html,
 body {
+  background-color: var(--bg-color-dark-blue);
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    }
+:root{
+  --bg-color-dark-blue:#1F1C41;
+  --color-light-gray:#C4C4C4;
 }
 
+/* MUI configuracion :) */
+.MuiTextField-root{
+  background-color: var(--color-light-gray);
+  margin-bottom: 20px;
+}
+.MuiAppBar-root{
+  background-color:var(--bg-color-dark-blue);
+  border-bottom: 2px solid;
+}
+
+/* Estilos */
 a {
   color: inherit;
   text-decoration: none;
