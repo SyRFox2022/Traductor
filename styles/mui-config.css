@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
 /* MUI configuracion :) */
 
 /*Config FilledInput*/
@@ -25,5 +27,14 @@
     background-color: var(--bg-color-old-blue);
     height: fit-content;
   }
+
+  /*Config Typography*/
+  .MuiTypography-root{
+    font-family: 'Lato', sans-serif;
+  }
+  
+  /*Config Iconos*/
+  
+
 
   

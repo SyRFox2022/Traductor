@@ -8,7 +8,8 @@ return(<>
 
     <Typography variant="h2" sx={{
         color:'white',
-        p:'1rem'
+        p:'1rem',
+        fontFamily: 'inherit',
         }} >
             {title}
     </Typography>

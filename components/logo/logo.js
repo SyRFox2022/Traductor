@@ -5,9 +5,19 @@ export default function LogoCustom({Nombre, Logo}) {
 
   return (
 
-    <Stack spacing={0} sx={{ textAlign: 'center', pb:"1rem" }} >
+    <Stack spacing={0} sx={{
+       textAlign: 'center',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        pb: '1rem',
+
+       }} >
     <img className={Style.imgLogo} src={Logo}/>
-    <Typography>
+    <Typography  >
       {Nombre}
     </Typography>
   </Stack>

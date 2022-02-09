@@ -2,8 +2,13 @@ import {Stack, TextField, Typography, Button, InputAdornment, IconButton, Filled
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import Style from '../styles/login.module.css'
 import {useState} from 'react'
+import { useRouter } from 'next/router'
 
 export default function Login(){
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => {
@@ -12,6 +17,10 @@ export default function Login(){
   const handleMouseDownPassword = (event) => {
     event.preventDefault()
   }
+  const handleSubmit = () => {
+   router.push('/')
+  }
+ 
 
     return(
         <>
@@ -22,13 +31,12 @@ export default function Login(){
               p:'30px',
               borderRadius:'5px',
               border: '1px solid',
-              mt:'2.5%',
+              mt:'3%',
               ml:'30%',
               mr:'30%',
               widht:'auto',
               height:'auto',
               backgroundColor:'white',
-              mb:'2.5%'
             }}
           spacing={3}
         >
@@ -46,6 +54,7 @@ export default function Login(){
               required
               id="email"
               size='lg'
+              onChange={(e)=>{setEmail(e.target.value)}}
             />
 
             <Typography variant="h6" align="left" >
@@ -56,6 +65,7 @@ export default function Login(){
                 required
                 id="contraseña"
                 type={showPassword ? 'text' : 'password'}
+                onChange={(e)=>{setPassword(e.target.value)}}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -72,7 +82,7 @@ export default function Login(){
 
             </div>
 
-            <Button variant="contained">
+            <Button variant="contained" onClick={handleSubmit} >
               Iniciar sesion
             </Button>
 
