@@ -9,7 +9,6 @@ export default function Home() {
 
   return (<>
     <Bannerhero title="Manejo de Archivos" />
-    <Stack>
       
     <div className={Style.containerBody} id="div2">
       <Stack spacing={2} >
@@ -50,7 +49,7 @@ export default function Home() {
       </div>
 
     </div>
-    </Stack>
+    
    
 
     
