@@ -37,19 +37,21 @@ return(
             Fiorella Pérez
           </Typography>
 
-            <IconButton
+            
+              {openIcon ?
+              <Link href="/login">
+              <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
             >
-              {openIcon ?
-              
               <LogoutOutlinedIcon color="error" />
-             
+              </IconButton>
+              </Link>
               : ""}
-            </IconButton>
+            
 
           <IconButton
               size="large"
@@ -57,8 +59,9 @@ return(
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
+              onClick={()=>setOpenIcon(!openIcon)}
             >
-              <AccountCircle onClick={()=>setOpenIcon(!openIcon)}/>
+              <AccountCircle />
             </IconButton>
 
         </Toolbar>

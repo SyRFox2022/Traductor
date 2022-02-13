@@ -65,7 +65,7 @@ export default function TemporaryDrawer() {
           </Link>
             <ListItemButton >
               <Link href="/recaudadores">
-                <ListItemText primary="Entidades" />
+                <ListItemText primary="Recaudadores" />
               </Link>
                 {open ? <ExpandLess onClick={handleClick} /> : <ExpandMore onClick={handleClick} />}
              </ListItemButton>

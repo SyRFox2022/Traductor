@@ -2,13 +2,17 @@ import Bannerhero from '../components/banner-hero/banner-hero.js';
 import Style from '../styles/recaudadores.module.css';
 import {Typography, Stack,List,ListItemButton, ListItemIcon, ListItemText, Divider} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ListRecaudador from '../components/list-recaudador/list-recaudador.js';
 
 export default function Recaudadores (){
     const [recaudadores, setRecaudadores] = useState("");
+    
+    useEffect(() => {
+        setRecaudadores(localStorage.getItem("recaudadores"));
+    }, []);
+     
+
     return(
     <>
     <Bannerhero title="Recaudadores" />
@@ -20,16 +24,16 @@ export default function Recaudadores (){
         
     <List>
         <ListItemButton>
-            <Typography variant="h5"  >Entes Recaudoras</Typography >
+            <Typography variant="h5"  >Entes Recaudores</Typography >
             <ListItemIcon>
                 <AddOutlinedIcon sx={{color:"green"}}/>
             </ListItemIcon>
         </ListItemButton>
         <Divider/>
         
-        <ListRecaudador title="Ente 1" />
-        <ListRecaudador title="Ente 2" />
-        <ListRecaudador title="Ente 3" />
+        <ListRecaudador title="PagoFacil" />
+        <ListRecaudador title="RapiPago" />
+        <ListRecaudador title="IBM" />
         
     </List>
        
@@ -38,8 +42,11 @@ export default function Recaudadores (){
     
 
 <div className={Style.containerRight}>
-
+<Typography variant="h2" sx={{color:"var(--color-grey)"}} >{recaudadores}</Typography >
 </div>
+
+
+
 </div>
 </>
     );
