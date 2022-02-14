@@ -4,15 +4,11 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Checkbox from '@mui/material/Checkbox';
 import { useState} from 'react';
 
-export default function listRecaudador({title}) {
-    const [checked, setChecked] = useState(false);
-    
-    const [openDiv, setOpenDiv] = useState(false);
-    
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
+export default function listRecaudador({title, checked}) {
+    const [checkedList, setCheckedList] = useState(checked);
+    const handleChange = () => {
+        setCheckedList(!checkedList);
         localStorage.setItem('recaudadores', title);
-        console.log(localStorage.getItem('recaudadores'));
     };
 
     return (
@@ -21,12 +17,11 @@ export default function listRecaudador({title}) {
 
        
         <Checkbox
-            checked={checked}
+            checked={checkedList}
             onChange={handleChange}
-            inputProps={{ 'aria-label': 'controlled' }}/>
+            inputProps={{ 'aria-label': 'controlled' }}
+        />
 
-        
-        
         <ListItemText primary={title} />
 
         <ListItemIcon >

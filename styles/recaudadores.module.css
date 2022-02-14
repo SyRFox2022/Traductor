@@ -7,14 +7,17 @@
     bottom: 0%;
     top:25%;
 }
-.containerRight{
+
+.datosrec{
     border-left: 0.5px solid var(--color-grey);
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
+    padding-left: 2%;
 }
+
 .containerLeft{
     width:25%;
     padding: 1rem;
