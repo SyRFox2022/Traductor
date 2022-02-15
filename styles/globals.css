@@ -20,6 +20,8 @@ body {
   --color-grey:grey;
   --color-other-grey:#5e6360 ;
   --color-black:black;
+  --bg-color-lb-table: #E3E1EF;
+  --color-lv-table: #9B93C7;
 }
 
 /* Estilos */

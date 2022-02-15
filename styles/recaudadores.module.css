@@ -14,11 +14,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: left;
+    align-items: center;
     padding-left: 2%;
 }
 
 .containerLeft{
     width:25%;
     padding: 1rem;
+}
+
+.fila{
+    border: 3px solid var(--color-lv-table);
 }

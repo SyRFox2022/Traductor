@@ -1,6 +1,6 @@
 import Bannerhero from '../components/banner-hero/banner-hero.js';
 import Style from '../styles/recaudadores.module.css';
-import {Typography, Stack,List,ListItemButton, ListItemIcon, ListItemText, Divider, Checkbox,Radios} from '@mui/material';
+import {Typography, Stack,List,ListItemButton, ListItemIcon, ListItemText, Divider, Checkbox,ListItem} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { useState, useEffect } from 'react';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -17,24 +17,23 @@ export default function Recaudadores (){
     return(
     <>
     <Bannerhero title="Recaudadores" />
-    <h1>Recaudadores</h1>
    
 
 <div className={Style.containerBody} id="div2">
 <div className={Style.containerLeft}>
         
     <List>
-        <ListItemButton>
+        <ListItem>
             <Typography variant="h5"  >Entes Recaudores</Typography >
             <ListItemIcon>
                 <AddOutlinedIcon sx={{color:"green"}}/>
             </ListItemIcon>
-        </ListItemButton>
+        </ListItem>
         <Divider/>
        {recaudadores.map((title) => {
          return (
             <span key={title}>
-        <ListItemButton >  
+        <ListItem>  
         <Checkbox
             checked={recaudador === title ? true : false}
             onChange={(e) => handleChange(e,title)}
@@ -48,7 +47,7 @@ export default function Recaudadores (){
             <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
         </ListItemIcon>
 
-        </ListItemButton>
+        </ListItem>
             <Divider/>  
             </span>
        )})}
@@ -61,7 +60,7 @@ export default function Recaudadores (){
 {recaudador === "" ? 
 
     <div>
-        <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold", textAlign:"center"}} >Seleccione una Entidad</Typography >  
+        <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold"}} >Seleccione una Entidad</Typography >  
     </div> 
 : 
 <>
