@@ -60,7 +60,7 @@ export default function Recaudadores (){
 {recaudador === "" ? 
 
     <div>
-        <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold"}} >Seleccione una Entidad</Typography >  
+        <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold", textAlign:"center" }} >Seleccione una Entidad</Typography >  
     </div> 
 : 
 <>

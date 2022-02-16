@@ -1,0 +1,45 @@
+.containerBody{
+    background-color: var(--color-white);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0%;
+    top:25%;
+    padding: 3%;
+}
+.containerTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5%;
+    margin: 0% 5%;
+}
+.containerInfo{
+    background-color: var(--color-info-table);
+    display: flex;
+    flex-direction: row;
+    margin: 0% 5%;
+}
+.containerInfoRight{
+    width: 50%;
+    border-left: 1px solid #C4C4C4;
+    padding: 2%;
+}
+
+.containerInfoLeft{
+    width: 50%;
+    padding: 2%;
+}
+.tableDenied tr td {
+    padding: 1rem;
+}
+
+.downloadButton{
+    position:absolute; 
+    bottom:3%;
+    right:8%;
+    /* cuando esten los cosos desplegables, se cambia lo de arriba =) */
+    display: flex;
+    flex-direction: row;
+}

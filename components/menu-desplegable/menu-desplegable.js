@@ -12,7 +12,20 @@ export default function TemporaryDrawer() {
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
-
+  const listMenuu = [
+    {
+      name: 'Inicio',
+      url: '/',
+    },
+    {
+      name: 'Recaudadores',
+      url: '/recaudadores',
+    },
+    {
+      name: 'Archivos',
+      url: '/archivo',
+    },
+  ];
   const handleClick = () => {
     setOpen(!open);
   };
@@ -57,26 +70,17 @@ export default function TemporaryDrawer() {
         </IconButton>
     </List>
 
-        <List sx={{pt:'0%'}}>  
-          <Link href="/">      
-            <ListItem button sx={{pt:'0%'}}>
-                <ListItemText primary="Inicio" />
-            </ListItem>
-          </Link>
-            <ListItemButton >
-              <Link href="/recaudadores">
-                <ListItemText primary="Recaudadores" />
-              </Link>
-                {open ? <ExpandLess onClick={handleClick} /> : <ExpandMore onClick={handleClick} />}
-             </ListItemButton>
+        <List sx={{pt:'0%'}}> 
 
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary="PagoFacil" />
-                </ListItemButton>
-                </List>
-            </Collapse>  
+        {listMenuu.map((lista) =>{
+          return ( 
+          <Link key={lista.name} href={lista.url}>      
+            <ListItemButton >
+                <ListItemText primary={lista.name} />
+            </ListItemButton>
+          </Link>
+        )})} 
+          
         </List>
         
       <Divider sx={{bgcolor:'white'}}/>
