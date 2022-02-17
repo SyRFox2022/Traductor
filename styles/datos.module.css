@@ -1,11 +1,9 @@
 .containerBody{
     background-color: var(--color-white);
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    bottom: 0%;
-    top:25%;
     padding: 3%;
 }
 .containerTitle{
@@ -21,6 +19,7 @@
     flex-direction: row;
     margin: 0% 5%;
 }
+
 .containerInfoRight{
     width: 50%;
     border-left: 1px solid #C4C4C4;
@@ -31,15 +30,46 @@
     width: 50%;
     padding: 2%;
 }
+
 .tableDenied tr td {
     padding: 1rem;
 }
 
 .downloadButton{
-    position:absolute; 
-    bottom:3%;
-    right:8%;
-    /* cuando esten los cosos desplegables, se cambia lo de arriba =) */
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: right;
 }
+
+.containerDatos{
+    margin: 3%;
+    height: 100%;
+}
+
+.tableDatos {
+    background-color: var(--color-info-table);
+    width: 100%;
+    margin-top: 10px;
+    
+}
+
+.tableDatos td{
+    width: 33%;
+}
+
+.tableDatos .tableT{ 
+    padding-left: 10px;
+    display: -webkit-inline-box; 
+}
+
+
+.tableDatos .tableD{
+    background-color: var(--color-light-gray);
+    padding-left: 10px;
+    padding-right: 50%;
+    margin-left: 10px;
+    width: 75%;
+}
+
+

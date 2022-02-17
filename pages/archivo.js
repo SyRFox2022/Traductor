@@ -152,7 +152,7 @@ return( <>
             return (
                 <TableBody key={archivo.id}>
                     <TableRow>
-                        <Link href="/datos">
+                        <Link href="/datos" passHref>
                         <TableCell>{archivo.nombre}</TableCell>
                         </Link>
                         <TableCell>{archivo.descripcion}</TableCell>
