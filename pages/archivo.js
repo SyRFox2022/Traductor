@@ -123,7 +123,7 @@ return( <>
 
         <Select 
             sx={{ml:"1%", 
-            height:"35px", 
+            height:"35px",  
             backgroundColor:"var(--color-light-gray)", 
             border:"0",}}
             value={order}
@@ -152,7 +152,7 @@ return( <>
             return (
                 <TableBody key={archivo.id}>
                     <TableRow>
-                        <Link href="/datos" passHref>
+                        <Link href={`/archivo/${archivo.nombre}`} passHref>
                         <TableCell>{archivo.nombre}</TableCell>
                         </Link>
                         <TableCell>{archivo.descripcion}</TableCell>

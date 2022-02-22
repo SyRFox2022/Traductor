@@ -1,24 +1,45 @@
-import Bannerhero from '../components/banner-hero/banner-hero.js';
-import Style from '../styles/datos.module.css';
+import Bannerhero from '../../components/banner-hero/banner-hero.js';
+import Style from '../../styles/datos.module.css';
 import { useState, useEffect } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Typography, Button,  List, ListItemButton, ListItemText, Collapse, ListItem } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import PrintIcon from '@mui/icons-material/Print';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-export default function Datos(){
-    const [openDatos, setOpenDatos] = useState(false);
-    const handleClickDatos = (id) => {
-        setOpenDatos(!openDatos)
-        if (typeof window === 'object') {
-        console.log(document.getElementById(id))
-    }
+export default function ArchivoEsp(){
+    const router = useRouter();
+    const nombreArchivo = router.query.ArchivoEsp;
+    const [open, setOpen] = useState([true,true,true])
+    const handleClickDatos = (i) => {
+        if(i=='0'){
+        setOpen([!open[i],open[1],open[2]])
+        }
+        else if (i=='1')
+        {
+            setOpen([open[0],!open[i],open[2]])
+            }
+        else{
+            setOpen([open[0],open[1],!open[i]])
+            }
     };
    
-
+    let Activo = [
+        {
+            open:false
+        },
+        {
+            open:true
+        },
+        {
+            open:true
+        },
+        
+    ]
+   // const [openDatos, setOpenDatos] = useState(Activo);
     const datosArchivo = [
         {
             mensaje: 'Cantidad Total registros',
@@ -82,7 +103,7 @@ export default function Datos(){
 
     return(<>
     
-    <Bannerhero title=" UPN21J21.ONL " />
+    <Bannerhero title={nombreArchivo} />
 
     <div className={Style.containerBody}>
         <Link href="/archivo" passHref> 
@@ -124,14 +145,14 @@ export default function Datos(){
         </div>
 
         <div className={Style.containerDatos}>
-        {tipoDatos.map((tipo)=>{
+        {tipoDatos.map((tipo,i)=>{
             return(
                 <List key={tipo.nombre}>
-                <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={()=> handleClickDatos(tipo.nombre)}>
+                <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={()=> handleClickDatos(i)}>
                         <ListItemText primary={tipo.nombre} />
-                        {openDatos ? <ExpandLess /> : <ExpandMore />}
+                        {open[i] ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
-                    <Collapse  in={openDatos} timeout="auto" unmountOnExit>
+                    <Collapse  in={open[i]} timeout="auto" unmountOnExit>
 
                             <table className={Style.tableDatos}>
                                 
