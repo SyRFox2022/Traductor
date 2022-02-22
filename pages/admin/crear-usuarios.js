@@ -1,0 +1,91 @@
+import {Stack, TextField, Typography, Button, InputAdornment, IconButton, FilledInput} from '@mui/material'
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+import Style from '../../styles/login.module.css'
+import {useState} from 'react'
+import { useRouter } from 'next/router'
+import FormInput from '../../components/form-input'
+
+export default function CrearUsuarios(){
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault()
+  }
+  const handleSubmit = () => {
+   router.push('/')
+  }
+ 
+
+    return(
+        <>
+        <Stack
+          component="form"
+          alignItems="center"
+          sx={{
+              p:'30px',
+              borderRadius:'5px',
+              border: '1px solid',
+              mt:'3%',
+              ml:'30%',
+              mr:'30%',
+              widht:'auto',
+              height:'auto',
+              backgroundColor:'white',
+            }}
+          spacing={3}
+        >
+            <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
+                Iniciar Sesion
+            </Typography>
+
+            <div className={Style.form}>
+            <FormInput Label='Nombre/s' id='name'/>
+            <FormInput Label='Apellido/s' id='lastname'/>
+            <FormInput Label='Correo' id='email'/>
+            <FormInput Label='Nombre/s' id='name'/>
+
+             
+            <Typography variant="h6" align="left" >
+                Contraseña
+            </Typography>
+
+            <FilledInput
+                required
+                id="contraseña"
+                type={showPassword ? 'text' : 'password'}
+                onChange={(e)=>{setPassword(e.target.value)}}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+            />
+
+            </div>
+
+            <Button variant="contained" onClick={handleSubmit} >
+              Iniciar sesion
+            </Button>
+
+            <Typography variant="subtitle1" >
+            ¿No tienes cuenta? Consulta a tu administrador.
+            </Typography>
+        </Stack>
+        
+        </>
+    )
+}

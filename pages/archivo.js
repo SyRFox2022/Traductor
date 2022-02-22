@@ -153,7 +153,7 @@ return( <>
                 <TableBody key={archivo.id}>
                     <TableRow>
                         <Link href={`/archivo/${archivo.nombre}`} passHref>
-                        <TableCell>{archivo.nombre}</TableCell>
+                        <TableCell sx={{'&:hover':{cursor:'pointer'}}} >{archivo.nombre}</TableCell>
                         </Link>
                         <TableCell>{archivo.descripcion}</TableCell>
                         <TableCell>{archivo.fecha}</TableCell>

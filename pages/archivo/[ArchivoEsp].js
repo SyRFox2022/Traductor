@@ -1,45 +1,24 @@
 import Bannerhero from '../../components/banner-hero/banner-hero.js';
 import Style from '../../styles/datos.module.css';
-import { useState, useEffect } from 'react';
+import ListDesplegable from '../../components/list-desplegable';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Typography, Button,  List, ListItemButton, ListItemText, Collapse, ListItem } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import PrintIcon from '@mui/icons-material/Print';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+
 
 export default function ArchivoEsp(){
+    const styles = {
+        link: {
+          '&:hover': {
+            cursor: "pointer",
+          }
+        }
+      };
     const router = useRouter();
     const nombreArchivo = router.query.ArchivoEsp;
-    const [open, setOpen] = useState([true,true,true])
-    const handleClickDatos = (i) => {
-        if(i=='0'){
-        setOpen([!open[i],open[1],open[2]])
-        }
-        else if (i=='1')
-        {
-            setOpen([open[0],!open[i],open[2]])
-            }
-        else{
-            setOpen([open[0],open[1],!open[i]])
-            }
-    };
-   
-    let Activo = [
-        {
-            open:false
-        },
-        {
-            open:true
-        },
-        {
-            open:true
-        },
-        
-    ]
-   // const [openDatos, setOpenDatos] = useState(Activo);
     const datosArchivo = [
         {
             mensaje: 'Cantidad Total registros',
@@ -107,7 +86,7 @@ export default function ArchivoEsp(){
 
     <div className={Style.containerBody}>
         <Link href="/archivo" passHref> 
-        <ArrowBackIcon />
+        <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}}} />
         </Link>
 
         <div className={Style.containerTitle}>
@@ -145,30 +124,9 @@ export default function ArchivoEsp(){
         </div>
 
         <div className={Style.containerDatos}>
-        {tipoDatos.map((tipo,i)=>{
+        {tipoDatos.map((tipo)=>{
             return(
-                <List key={tipo.nombre}>
-                <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={()=> handleClickDatos(i)}>
-                        <ListItemText primary={tipo.nombre} />
-                        {open[i] ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-                    <Collapse  in={open[i]} timeout="auto" unmountOnExit>
-
-                            <table className={Style.tableDatos}>
-                                
-                            {datosTabla.map((dato)=>{
-                          return( 
-                            <tr key={dato.nombre}> 
-                                <td className={Style.tableT}>Nombre:   <div className={Style.tableD}>{dato.nombre}</div></td>  
-                                <td className={Style.tableT}>Tipo:     <div className={Style.tableD}>{dato.tipo}</div></td>  
-                                <td className={Style.tableT}>Valor:    <div className={Style.tableD}>{dato.valor}</div></td>  
-                            </tr>
-                          )})} 
-                        
-                          </table>
-
-                    </Collapse> 
-            </List>
+                <ListDesplegable tipo={tipo} datoTablas={datosTabla} />
             )})}
 
         </div>
