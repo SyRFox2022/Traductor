@@ -6,20 +6,14 @@ import { useRouter } from 'next/router'
 import FormInput from '../../components/form-input'
 
 export default function CrearUsuarios(){
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
+  const [nombre, setNombre] = useState('')
+  const [correo, setCorreo]=useState('')
+  const [rol, setRol] = useState('')
+  const [apellido, setApellido]=useState('')
+  const [contraseña1, setContraseña1] = useState('')
+  const [contraseña2, setContraseña2]=useState('')
   const handleSubmit = () => {
-   router.push('/')
+  console.log(nombre)
   }
  
 
@@ -47,21 +41,19 @@ export default function CrearUsuarios(){
 
             <div className={Style.form}>
 
-            <FormInput text='Nombre/s' id='name' type='input' Type='input'/>
+            <FormInput estado={nombre} setEstado={setNombre} text='Nombre/s' id='name' type='input' Type='input'/>
 
-            <FormInput text='Apellido/s' id='lastname' type='input'/>
+            <FormInput estado={apellido} setEstado={setApellido}  text='Apellido/s' id='lastname' type='input'/>
 
-            <FormInput text='Correo' id='email' type='input'/>
+            <FormInput estado={correo} setEstado={setCorreo} text='Correo' id='email' type='input'/>
 
-            <FormInput text='Nombre/s' id='name' type='select'/>
+            <FormInput estado={rol} setEstado={setRol} text='Nombre/s' id='rol' type='select'/>
 
-            <FormInput text='Contraseña' id='name' type='password'/>
+            <FormInput estado={contraseña1} setEstado={setContraseña1} text='Contraseña' id='contraseña1' type='password'/>
 
-            <FormInput text='Confirme la contraseña' id='name' type='password'/>
+            <FormInput estado={contraseña2} setEstado={setContraseña2} text='Confirme la contraseña' id='contraseña2' type='password'/>
 
              
-           
-
             </div>
 
             <Button variant="contained" onClick={handleSubmit} >

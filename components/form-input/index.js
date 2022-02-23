@@ -3,7 +3,7 @@ import { Typography, FilledInput, InputAdornment, IconButton, Select, MenuItem }
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { useState } from 'react'
 
-export default function FormInput({text , id, type}) {
+export default function FormInput({text , id, type, estado, setEstado}) {
     const [showPassword, setShowPassword] = useState(false)
     const handleClickShowPassword = () =>{
         setShowPassword(!showPassword)
@@ -20,6 +20,8 @@ export default function FormInput({text , id, type}) {
 
             <FilledInput
               variant="outlined" 
+              value={estado}
+              onChange={(e)=>setEstado(e.target.value)}
               required
               id={id}
               size='lg'
@@ -35,6 +37,8 @@ export default function FormInput({text , id, type}) {
             </Typography>
 
             <FilledInput
+                value={estado}
+                onChange={(e)=>setEstado(e.target.value)}
                 required
                 id={id}
                 type={showPassword ? 'text' : 'password'}
@@ -61,6 +65,8 @@ export default function FormInput({text , id, type}) {
                 {text}
               </Typography>
               <Select
+                  value={estado}
+                  onChange={(e)=>setEstado(e.target.value)}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label={text}
