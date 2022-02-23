@@ -42,48 +42,31 @@ export default function CrearUsuarios(){
           spacing={3}
         >
             <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
-                Iniciar Sesion
+                Registrar Usuario
             </Typography>
 
             <div className={Style.form}>
-            <FormInput Label='Nombre/s' id='name'/>
-            <FormInput Label='Apellido/s' id='lastname'/>
-            <FormInput Label='Correo' id='email'/>
-            <FormInput Label='Nombre/s' id='name'/>
+
+            <FormInput text='Nombre/s' id='name' type='input' Type='input'/>
+
+            <FormInput text='Apellido/s' id='lastname' type='input'/>
+
+            <FormInput text='Correo' id='email' type='input'/>
+
+            <FormInput text='Nombre/s' id='name' type='select'/>
+
+            <FormInput text='Contraseña' id='name' type='password'/>
+
+            <FormInput text='Confirme la contraseña' id='name' type='password'/>
 
              
-            <Typography variant="h6" align="left" >
-                Contraseña
-            </Typography>
-
-            <FilledInput
-                required
-                id="contraseña"
-                type={showPassword ? 'text' : 'password'}
-                onChange={(e)=>{setPassword(e.target.value)}}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-            />
+           
 
             </div>
 
             <Button variant="contained" onClick={handleSubmit} >
-              Iniciar sesion
+              Registrar
             </Button>
-
-            <Typography variant="subtitle1" >
-            ¿No tienes cuenta? Consulta a tu administrador.
-            </Typography>
         </Stack>
         
         </>
