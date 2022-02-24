@@ -1,6 +1,6 @@
 //import styles from './Navbar.module.css'
 import TemporaryDrawer from '../menu-desplegable/menu-desplegable.js'
-import { Box, AppBar, IconButton, Button, Typography, Toolbar } from '@mui/material';
+import { Box, AppBar, IconButton, Typography, Toolbar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -39,7 +39,7 @@ return(
 
             
               {openIcon ?
-              <Link href="/login">
+              <Link href="/login" passHref>
               <IconButton
               size="large"
               edge="end"

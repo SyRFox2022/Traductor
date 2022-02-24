@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import Layout from '../components/layout/layout'
+import Layout from '../layouts/layout-basic'
 import Login from './login.js'
 
 

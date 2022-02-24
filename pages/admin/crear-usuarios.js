@@ -1,8 +1,6 @@
-import {Stack, TextField, Typography, Button, InputAdornment, IconButton, FilledInput} from '@mui/material'
-import {Visibility, VisibilityOff} from '@mui/icons-material';
+import { Stack, Typography, Button } from '@mui/material'
 import Style from '../../styles/login.module.css'
 import {useState} from 'react'
-import { useRouter } from 'next/router'
 import FormInput from '../../components/form-input'
 
 export default function CrearUsuarios(){

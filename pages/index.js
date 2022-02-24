@@ -1,5 +1,5 @@
-import Bannerhero from '../components/banner-hero/banner-hero.js';
-import LogoCustom from '../components/logo/logo.js';
+import Bannerhero from '../components/banner-hero';
+import LogoCustom from '../components/logo';
 import Style from '../styles/index.module.css';
 import {Typography, Stack } from '@mui/material';
 

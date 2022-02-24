@@ -1,4 +1,4 @@
-import Bannerhero from '../../components/banner-hero/banner-hero.js';
+import Bannerhero from '../../components/banner-hero';
 import Style from '../../styles/datos.module.css';
 import ListDesplegable from '../../components/list-desplegable';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';

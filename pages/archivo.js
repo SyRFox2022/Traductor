@@ -1,7 +1,7 @@
-import Bannerhero from '../components/banner-hero/banner-hero.js';
+import Bannerhero from '../components/banner-hero';
 import Style from '../styles/archivo.module.css';
-import {Typography,List, Select, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
-import { useState, useEffect } from 'react';
+import {Typography,List, Select, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
+import { useState } from 'react';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';

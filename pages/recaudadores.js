@@ -1,12 +1,12 @@
-import Bannerhero from '../components/banner-hero/banner-hero.js';
+import Bannerhero from '../components/banner-hero';
 import Style from '../styles/recaudadores.module.css';
-import {Typography, Stack,List,ListItemButton, ListItemIcon, ListItemText, Divider, Checkbox,ListItem} from '@mui/material';
+import {Typography, List, ListItemIcon, ListItemText, Divider, Checkbox,ListItem} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
-// parentNode nextSibling
+
 export default function Recaudadores (){
     const [recaudador, setRecaudador] = useState("");
     const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
