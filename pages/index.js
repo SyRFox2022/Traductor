@@ -36,7 +36,7 @@ export default function Home() {
       </Stack>
 
       <div className={Style.containerRight}>
-      <Typography variant="h4" sx={{pt:"0.5rem"}}>Accesos rapidos</Typography>
+      <Typography variant="h4" sx={{pt:"2rem"}}>Accesos rapidos</Typography>
       
       <div className={Style.containerLogos}>
           <LogoCustom Nombre="PagoFacil" Logo="https://iconape.com/wp-content/files/xd/209289/svg/209289.svg" />  

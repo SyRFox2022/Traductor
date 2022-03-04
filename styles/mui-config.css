@@ -6,16 +6,12 @@
 /*Config FilledInput*/
   .MuiFilledInput-root{
     background-color: var(--color-light-gray);
-    margin-bottom: 30px;
     width: 100%;
   }
 
   /*Config Select*/
   .MuiSelect-select{
-    background-color: var(--color-light-gray);
-    width: 100%;
-    margin: 0%;
-    
+    background-color: var(--color-light-gray);    
   }
 
 /*Config de la appbar*/

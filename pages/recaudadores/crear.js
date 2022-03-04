@@ -15,11 +15,29 @@ export default function Crear() {
     nombre: yup
       .string('Ingrese un nombre')
       .min(3, 'El nombre debe tener al menos 3 caracteres')
+      .max(50, 'El nombre debe tener como maximo 50 caracteres')
       .required('El nombre es requerido') ,
+
     codigo: yup
-      .string('Enter your password')
-      .min(8, 'Password should be of minimum 8 characters length')
-      .required('Password is required'),
+      .number('Ingrese un codigo')
+      .required('El codigo es requerido')
+      .min(1, 'El codigo debe tener al menos 1 caracter')
+      .max(10, 'El codigo debe tener maximo 10 caracteres'),
+
+    id: yup
+      .number('Ingrese un id')
+      .required('El id es requerido')
+      .min(1, 'El id debe tener al menos 1 caracter')
+      .max(10, 'El id debe tener maximo 10 caracteres'),
+
+    tipo: yup
+      .string('Ingrese un tipo')
+      .required('El tipo es requerido'),
+
+    state: yup
+      .string('Ingrese un estado')
+      .required('El estado es requerido'),
+
   });
 
     return (<>
@@ -44,8 +62,10 @@ export default function Crear() {
                 <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}}} /> 
         </Link>
 
+        <Typography variant="h3">Nueva entidad</Typography>
+
         <Formik
-       initialValues={{ nombre: '', password: '' }}
+       initialValues={{ nombre: '', codigo: '', tipo: '', state: '', id: '',}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting }) => {
          setTimeout(() => {
@@ -62,7 +82,6 @@ export default function Crear() {
          handleBlur,
          handleSubmit,
          isSubmitting,
-         /* and other goodies */
        }) => (
          <form onSubmit={handleSubmit}>
            
@@ -75,11 +94,11 @@ export default function Crear() {
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.nombre}
-             error={touched.email && Boolean(errors.email)}
+             error={touched.nombre && Boolean(errors.nombre)}
            />
-           {errors.nombre && touched.nombre && errors.nombre}
-
-           <Typography variant="h6" >
+            {touched.nombre && Boolean(errors.nombre) && <p className={Style.errorMsg}>{errors.nombre}</p>}
+            
+           <Typography variant="h6" sx={{mt:'20px'}} >
              Código entidad
            </Typography>
            <FilledInput
@@ -90,41 +109,45 @@ export default function Crear() {
              value={values.codigo}
              error={touched.codigo && Boolean(errors.codigo)}
            />
-           {errors.codigo && touched.codigo && errors.codigo}
-
-            <Typography variant="h6" >
+            {touched.codigo && Boolean(errors.codigo) && <p className={Style.errorMsg}>{errors.codigo}</p>}
+  
+            <Typography variant="h6" sx={{mt:'20px'}}>
              Tipo de archivo
            </Typography>
            <Select
+            defaultValue="Entrada"
              type="text"
              name="tipo"
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.tipo}
              error={touched.tipo && Boolean(errors.tipo)}
+             sx={{width:'100%',}}
              >
-           <MenuItem value={10}>Entrada</MenuItem>
-          <MenuItem value={20}>Salida</MenuItem>
+            <MenuItem value="Entrada">Entrada</MenuItem>
+            <MenuItem value="Salida">Salida</MenuItem>
            </Select>
-           {errors.tipo && touched.tipo && errors.tipo}
+            {touched.tipo && Boolean(errors.tipo) && <p className={Style.errorMsg}>{errors.tipo}</p>}
 
-           <Typography variant="h6" >
+           <Typography variant="h6" sx={{mt:'20px'}}>
              Estado
            </Typography>
            <Select
+            defaultValue="Activo"
              type="text"
              name="state"
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.state}
              error={touched.state && Boolean(errors.state)}
+             sx={{width:'100%',}}
              >
-            <MenuItem value={10}>Activo</MenuItem>
-            <MenuItem value={20}>Inactivo</MenuItem>
+            <MenuItem value="Activo">Activo</MenuItem>
+            <MenuItem value="Inactivo">Inactivo</MenuItem>
            </Select>
-           {errors.state && touched.state && errors.state}
-
-           <Typography variant="h6" >
+            {touched.state && Boolean(errors.state) && <p className={Style.errorMsg}>{errors.state}</p>}
+           
+           <Typography variant="h6" sx={{mt:'20px'}}>
              ID del programa
            </Typography>
            <FilledInput
@@ -135,7 +158,8 @@ export default function Crear() {
              value={values.id}
              error={touched.id && Boolean(errors.id)}
            />
-           {errors.id && touched.id && errors.id}
+            {touched.id && Boolean(errors.id) && <p className={Style.errorMsg}>{errors.id}</p>}
+
            
            <div className={Style.containerBoton}>
             <Button sx={{width:"30%"}} variant="contained" type="submit" disabled={isSubmitting} >Crear entidad</Button>
