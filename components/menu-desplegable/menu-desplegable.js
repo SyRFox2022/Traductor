@@ -33,6 +33,13 @@ export default function TemporaryDrawer() {
     setOpenAdmin(!openAdmin);
     };
 
+  const listMenuAdmin = [
+    {
+      name: 'Crear Usuario',
+      url: '/admin/crear-usuarios',
+    },
+
+  ]
 
   const toggleDrawer = () => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -93,9 +100,17 @@ export default function TemporaryDrawer() {
 
             <Collapse in={openAdmin} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary="Configuracion del cliente" />
-                </ListItemButton>
+
+              { 
+              listMenuAdmin.map((value)=>{
+              return(
+              <Link key={value.name} href={value.url} passHref>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText primary={value.name} />
+            </ListItemButton>
+              </Link> 
+            )})
+            }
                 </List>
             </Collapse> 
       </List>

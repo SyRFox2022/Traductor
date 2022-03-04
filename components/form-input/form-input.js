@@ -3,7 +3,7 @@ import { Typography, FilledInput, InputAdornment, IconButton, Select, MenuItem }
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import { useState } from 'react'
 
-export default function FormInput({text , id, type, estado, setEstado}) {
+export default function FormInput({text , id, type, estado, setEstado, datos}) {
     const [showPassword, setShowPassword] = useState(false)
     const handleClickShowPassword = () =>{
         setShowPassword(!showPassword)
@@ -64,17 +64,18 @@ export default function FormInput({text , id, type, estado, setEstado}) {
               <Typography variant="h6" align="left" >
                 {text}
               </Typography>
+
               <Select
                   value={estado}
                   onChange={(e)=>setEstado(e.target.value)}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label={text}
-                 
                 >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+
+                {datos.map((option)=>{ 
+                  return(
+                  <MenuItem key={option} value={option}>{option}</MenuItem>
+                  )})}
               </Select>
               
               </>

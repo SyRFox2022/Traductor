@@ -9,7 +9,7 @@ return(<>
     <Typography variant="h3" sx={{
         color:'white',
         p:'1rem',
-        fontFamily: 'inherit',
+        fontFamily: 'inherit',    
         }} >
             {title}
     </Typography>

@@ -6,11 +6,17 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import {useState} from 'react';
 import Link from 'next/link';
-
+import { useRouter } from 'next/router';
 
 export default function Navbar(){
-  
+const router = useRouter()
 const [openIcon, setOpenIcon] = useState(false);
+const handleLogout = () => {
+console.log('hola')
+localStorage.removeItem("auth")
+router.push('/login')
+
+}
   
 return(
 
@@ -39,17 +45,18 @@ return(
 
             
               {openIcon ?
-              <Link href="/login" passHref>
+             
               <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
               color="inherit"
+              onClick={handleLogout}
             >
               <LogoutOutlinedIcon color="error" />
               </IconButton>
-              </Link>
+             
               : ""}
             
 

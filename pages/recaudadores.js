@@ -1,19 +1,29 @@
 import Bannerhero from '../components/banner-hero';
 import Style from '../styles/recaudadores.module.css';
-import {Typography, List, ListItemIcon, ListItemText, Divider, Checkbox,ListItem} from '@mui/material';
+import {Typography, List, ListItemIcon, ListItemText, Divider, Checkbox,  ListItem , ListItemButton } from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import Link from 'next/link';
 
 
 export default function Recaudadores (){
     const [recaudador, setRecaudador] = useState("");
-    const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
+    const [recaudadores,setRecaudadores] = useState([]);
+    let recaudadoresw = ['PagoFacil','IBM', 'MasterCard'];
     const handleChange = (e,title) => {
         e.target.checked ? setRecaudador(title) : setRecaudador("");
     };
+    useEffect(() => {
+        
+    fetch('http://localhost:5000/recaudadores')
+         .then(response => response.json())
+         .then(data => setRecaudadores(data))
+         .catch(error => console.log(error));
 
+         
+    }, [])
     return(
     <>
     <Bannerhero title="Recaudadores" />
@@ -24,27 +34,39 @@ export default function Recaudadores (){
         
     <List>
         <ListItem>
-            <Typography variant="h5"  >Entes Recaudores</Typography >
-            <ListItemIcon>
-                <AddOutlinedIcon sx={{color:"green"}}/>
-            </ListItemIcon>
+            <Typography variant="h4"  >Entes Recaudores</Typography >
+            <Link href='/recaudadores/crear'>
+                <a>
+                    <ListItemIcon>
+                        <AddOutlinedIcon sx={{color:"green"}}/>
+                    </ListItemIcon>
+                </a>
+            </Link>
         </ListItem>
         <Divider/>
        {recaudadores.map((title) => {
          return (
-            <span key={title}>
+            <span key={title.nombre.toString()}>
         <ListItem>  
         <Checkbox
-            checked={recaudador === title ? true : false}
-            onChange={(e) => handleChange(e,title)}
+            checked={recaudador === title.nombre.toString() ? true : false}
+            onChange={(e) => handleChange(e,title.nombre.toString())}
             inputProps={{ 'aria-label': 'controlled' }}
         />
 
-        <ListItemText primary={title} />
+        <ListItemText primary={title.nombre.toString()} />
 
         <ListItemIcon >
-            <CreateOutlinedIcon sx={{color:"blue"}}/>
-            <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
+            <Link href={`/recaudadores/editar/${title.nombre.toString()}`}>
+            <ListItemButton>
+                <CreateOutlinedIcon sx={{color:"blue"}}/>
+            </ListItemButton>
+            </Link>
+            <Link href=''>
+            <ListItemButton>
+                <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
+            </ListItemButton>
+            </Link>
         </ListItemIcon>
 
         </ListItem>
@@ -66,7 +88,7 @@ export default function Recaudadores (){
 <>
     <table>
     <td>
-        <Typography variant="h4" sx={{color:"var(--bg-color-light-blue)", pb:"0.5%", fontWeight: "bold"}} >{recaudador}</Typography >
+        <Typography variant="h3" sx={{color:"var(--bg-color-light-blue)", pb:"0.5%", fontWeight: "bold"}} >{recaudador}</Typography >
     </td><td>
         <Typography variant="h5" sx={{textAlign:"right", pr:"30%", fontWeight: "bold"}} > Estado: Aburrida =) </Typography >
     </td>

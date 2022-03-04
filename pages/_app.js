@@ -1,26 +1,26 @@
 import '../styles/globals.css'
 import Layout from '../layouts/layout-basic'
 import Login from './login.js'
-
+import {useEffect, useState} from 'react'
 
 function MyApp({ Component, pageProps }) {
-  const isLogged = true
+  const [server,setServer] = useState(true)
+  useEffect(() => {
+    setServer(false)
+  }, [])
   
-  if (isLogged === true && Component.name != 'Login') {
-    return(
-  <Layout>
-    <Component {...pageProps} />
-  </Layout>
-  )}
-  else if (isLogged === true && Component.name === 'Login') {
-    return(
-      <Component {...pageProps} />
-    )
-  }
- else {
-   return(
-  <Login/>
-  )}
-}
+return(<>
+  {server == true ? <Login/> : localStorage.getItem('auth') ?  
+      <Layout>
+       <Component {...pageProps} />
+      </Layout>
+      : 
+     <Login/>
+     }
+  
+  </>
+   
+   )}
+
 
 export default MyApp

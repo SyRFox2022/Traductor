@@ -27,6 +27,7 @@ export default function CrearUsuarios(){
               mt:'3%',
               ml:'30%',
               mr:'30%',
+              mb: '1%',
               widht:'auto',
               height:'auto',
               backgroundColor:'white',
@@ -39,15 +40,15 @@ export default function CrearUsuarios(){
 
             <div className={Style.form}>
 
-            <FormInput estado={nombre} setEstado={setNombre} text='Nombre/s' id='name' type='input' Type='input'/>
+            <FormInput estado={nombre} setEstado={setNombre} text='Nombre/s' id='name' type='input' />
 
             <FormInput estado={apellido} setEstado={setApellido}  text='Apellido/s' id='lastname' type='input'/>
 
             <FormInput estado={correo} setEstado={setCorreo} text='Correo' id='email' type='input'/>
 
-            <FormInput estado={rol} setEstado={setRol} text='Nombre/s' id='rol' type='select'/>
+            <FormInput estado={rol} setEstado={setRol} text='Tipo de usuario' id='rol' type='select' datos={['admin','user']}/> 
 
-            <FormInput estado={contraseña1} setEstado={setContraseña1} text='Contraseña' id='contraseña1' type='password'/>
+            <div className={Style.pass}><FormInput estado={contraseña1} setEstado={setContraseña1} text='Contraseña' id='contraseña1' type='password'/></div>
 
             <FormInput estado={contraseña2} setEstado={setContraseña2} text='Confirme la contraseña' id='contraseña2' type='password'/>
 

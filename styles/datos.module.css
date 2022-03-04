@@ -5,7 +5,11 @@
     display: flex;
     flex-direction: column;
     padding: 3%;
+    position: absolute;
+    bottom: 0%;
+    top:25%;
 }
+
 .containerTitle{
     display: flex;
     flex-direction: row;
@@ -13,6 +17,7 @@
     margin-top: 5%;
     margin: 0% 5%;
 }
+
 .containerInfo{
     background-color: var(--color-info-table);
     display: flex;

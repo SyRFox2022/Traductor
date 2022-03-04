@@ -13,11 +13,12 @@ export default function LogoCustom({Nombre, Logo}) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        pb: '1rem',
+        pb: '2rem',
 
        }} >
     <img className={Style.imgLogo} src={Logo}/>
-    <Typography  >
+    
+    <Typography sx={{fontSize:'20px'}}>
       {Nombre}
     </Typography>
   </Stack>

@@ -18,6 +18,7 @@ export default function Login(){
     event.preventDefault()
   }
   const handleSubmit = () => {
+   localStorage.setItem("auth","true")
    router.push('/')
   }
  
@@ -40,6 +41,7 @@ export default function Login(){
             }}
           spacing={3}
         >
+
             <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
                 Iniciar Sesion
             </Typography>
