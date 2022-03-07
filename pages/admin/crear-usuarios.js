@@ -143,7 +143,8 @@ export default function CrearUsuarios(){
              sx={{width:'100%',}}
              >
             <MenuItem value="Admin">Admin</MenuItem>
-            <MenuItem value="User">User</MenuItem>
+            <MenuItem value="UserFull">User Full</MenuItem>
+            <MenuItem value="User Consulta">User Consulta</MenuItem>
            </Select>
            {touched.tipo && Boolean(errors.tipo) && <p className={Style.errorMsg}>{errors.tipo}</p>}
 

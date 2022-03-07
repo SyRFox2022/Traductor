@@ -126,7 +126,7 @@ export default function ArchivoEsp(){
         <div className={Style.containerDatos}>
         {tipoDatos.map((tipo)=>{
             return(
-                <ListDesplegable tipo={tipo} datoTablas={datosTabla} />
+                <ListDesplegable key={tipo.nombre} tipo={tipo} datoTablas={datosTabla} />
             )})}
 
         </div>
