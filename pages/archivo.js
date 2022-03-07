@@ -1,6 +1,6 @@
 import Bannerhero from '../components/banner-hero';
 import Style from '../styles/archivo.module.css';
-import {Typography,List, Select, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
+import {Typography,List, Select, FormControlLabel, Switch, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
 import { useState } from 'react';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +19,6 @@ export default function Archivos(){
             descripcion: 'descripcion1',
             fecha: 'fecha1',
             tipo: 'entrada',
-            estado: 'estado1',
         },
         {
             id: 2,
@@ -27,7 +26,6 @@ export default function Archivos(){
             descripcion: 'descripcion2',
             fecha: 'fecha2',
             tipo: 'salida',
-            estado: 'estado2',
         },
     ]
     const [recaudador, setRecaudador] = useState("");
@@ -125,9 +123,8 @@ return( <>
             sx={{ml:"1%", 
             height:"35px",  
             backgroundColor:"var(--color-light-gray)", 
-            border:"0",}}
+            border:"0"}}
             value={order}
-            onChange={handleChange}
             displayEmpty
             >
             <MenuItem value="">
@@ -158,7 +155,9 @@ return( <>
                         <TableCell>{archivo.descripcion}</TableCell>
                         <TableCell>{archivo.fecha}</TableCell>
                         <TableCell>{archivo.tipo} </TableCell>
-                        <TableCell>{archivo.estado} </TableCell>
+                        <TableCell>
+                            <Switch defaultChecked color="default" />
+                        </TableCell>
                         <TableCell>
                             <IconButton edge="end">
                                 <CreateOutlinedIcon sx={{color:"blue"}}/>
