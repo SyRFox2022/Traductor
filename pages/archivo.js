@@ -113,17 +113,20 @@ return( <>
     </div> 
 : 
 <>
+
     <Typography variant="h5" 
-    sx={{textAlign:"right",
+    sx={{
+        textAlign:"right",
         pb:"2%",
         pr:"3%",}}> 
         Ordenar por:
 
         <Select 
-            sx={{ml:"1%", 
-            height:"35px",  
+            sx={{
+            heigth:'2000px',
+            ml:"1%",   
             backgroundColor:"var(--color-light-gray)", 
-            border:"0"}}
+            border:"0",}}
             value={order}
             displayEmpty
             >
@@ -132,7 +135,7 @@ return( <>
             </MenuItem>
             <MenuItem value={10}>Entidad Asc</MenuItem>
             <MenuItem value={20}>Entidad Desc</MenuItem>
-            </Select>
+        </Select>
     </Typography>
 
     <Table>
@@ -156,7 +159,7 @@ return( <>
                         <TableCell>{archivo.fecha}</TableCell>
                         <TableCell>{archivo.tipo} </TableCell>
                         <TableCell>
-                            <Switch defaultChecked color="default" />
+                            <Switch defaultChecked />
                         </TableCell>
                         <TableCell>
                             <IconButton edge="end">

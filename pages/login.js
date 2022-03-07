@@ -26,7 +26,6 @@ export default function Login(){
     return(
         <>
         <Stack
-          component="form"
           alignItems="center"
           sx={{
               p:'30px',

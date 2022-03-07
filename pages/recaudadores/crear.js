@@ -4,8 +4,7 @@ import Link from 'next/link';
 import Style from '../../styles/crear.module.css';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-
-
+import { useState } from 'react';
 
 export default function Crear() {
    
@@ -21,12 +20,10 @@ export default function Crear() {
       .required('El codigo es requerido')
       .min(1, 'El codigo debe tener al menos 1 caracter'),
 
-
     idPrograma: yup
       .number('Ingrese un id')
       .required('El id es requerido')
-      .min(1, 'El id debe tener al menos 1 caracter')
-      .max(10, 'El id debe tener maximo 10 caracteres'),
+      .min(1, 'El id debe tener al menos 1 caracter'),
 
     tipoArchivo: yup
       .string('Ingrese un tipo')
@@ -41,7 +38,6 @@ export default function Crear() {
     return (<>
 
         <Stack 
-            component="form"
             sx={{
                 p:'30px',
                 borderRadius:'5px',
@@ -66,12 +62,16 @@ export default function Crear() {
        initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',foto:'hola.jpg'}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting }) => {
-        //dont reload the page after submit 
-
-        console.log(values);
+        fetch('http://localhost:5000/recaudadores', {
+          method: 'POST', // or 'PUT'
+          body: JSON.stringify(values), // data can be `string` or {object}!
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
         setSubmitting(false);
-          
-         
        }}
      >
        {({
@@ -80,7 +80,6 @@ export default function Crear() {
          touched,
          handleChange,
          handleBlur,
-         handleSubmit,
          isSubmitting,
        }) => (
          <Form >
@@ -124,8 +123,8 @@ export default function Crear() {
              error={touched.tipoArchivo && Boolean(errors.tipoArchivo)}
              sx={{width:'100%',}}
              >
-            <MenuItem value="Entrada">Entrada</MenuItem>
-            <MenuItem value="Salida">Salida</MenuItem>
+            <MenuItem value="E">Entrada</MenuItem>
+            <MenuItem value="S">Salida</MenuItem>
            </Select>
             {touched.tipoArchivo && Boolean(errors.tipoArchivo) && <p className={Style.errorMsg}>{errors.tipoArchivo}</p>}
 
@@ -142,8 +141,8 @@ export default function Crear() {
              error={touched.estado && Boolean(errors.estado)}
              sx={{width:'100%',}}
              >
-            <MenuItem value="Activo">Activo</MenuItem>
-            <MenuItem value="Inactivo">Inactivo</MenuItem>
+            <MenuItem value="A">Activo</MenuItem>
+            <MenuItem value="I">Inactivo</MenuItem>
            </Select>
             {touched.estado && Boolean(errors.estado) && <p className={Style.errorMsg}>{errors.estado}</p>}
            
@@ -162,7 +161,7 @@ export default function Crear() {
 
            
            <div className={Style.containerBoton}>
-            <Button sx={{width:"30%"}} variant="contained" type="submit" disabled={isSubmitting}  >Crear entidad</Button>
+            <Button sx={{width:"30%"}} variant="contained" type="submit"  >Crear entidad</Button>
            </div>
          </Form>
        )}
