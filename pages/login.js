@@ -22,7 +22,9 @@ export default function Login(){
     .then(res => res.json())
     .catch(err => console.log(err))
     .then(data => {
-      if(data.length > 0){
+
+      if(data?.length > 0){
+        localStorage.setItem("auth","true")
         router.push('/')
       }})
     

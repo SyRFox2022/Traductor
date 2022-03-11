@@ -5,18 +5,18 @@ import * as yup from 'yup';
 
 
 export default function CrearUsuarios(){
-  let datos = {	}
+
   const validationSchema = yup.object({
     FirstName: yup
       .string('Ingrese un nombre')
       .min(3, 'El nombre debe tener al menos 3 caracteres')
-      .max(50, 'El nombre debe tener como maximo 50 caracteres')
+      .max(30, 'El nombre debe tener como maximo 50 caracteres')
       .required('El nombre es requerido') ,
 
     FirstName: yup
       .string('Ingrese un apellido')
       .min(3, 'El apellido debe tener al menos 3 caracteres')
-      .max(60, 'El apellido debe tener como maximo 60 caracteres')
+      .max(30, 'El apellido debe tener como maximo 60 caracteres')
       .required('El apellido es requerido'),
 
     Mail: yup
@@ -59,7 +59,7 @@ export default function CrearUsuarios(){
         <Formik
           initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '',}}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting,resetForm }) => {
+          onSubmit={(values, { setSubmitting }) => {
             console.log(values)
             fetch('http://localhost:5000/usuarios', {
           method: 'POST', // or 'PUT'

@@ -128,7 +128,7 @@ export default function ArchivoEsp(){
             return(
                 <ListDesplegable key={tipo.nombre} tipo={tipo} datoTablas={datosTabla} />
             )})}
-
+            
         </div>
 
         <div className={Style.downloadButton}>
