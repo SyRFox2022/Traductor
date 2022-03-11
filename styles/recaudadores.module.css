@@ -25,3 +25,9 @@
 .fila{
     border: 3px solid var(--color-lv-table);
 }
+
+.modalButton{
+    width: 100%;
+    text-align-last: center;
+    margin-top: 3%;
+}

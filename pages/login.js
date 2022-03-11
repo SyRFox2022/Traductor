@@ -18,8 +18,14 @@ export default function Login(){
     event.preventDefault()
   }
   const handleSubmit = () => {
-   localStorage.setItem("auth","true")
-   router.push('/')
+    fetch('http://localhost:5000/usuarios/'+ email)
+    .then(res => res.json())
+    .catch(err => console.log(err))
+    .then(data => {
+      if(data.length > 0){
+        router.push('/')
+      }})
+    
   }
  
 

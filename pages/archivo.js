@@ -51,7 +51,7 @@ return( <>
         
     <List>
           <OutlinedInput
-            sx={{mb: "5%", 
+            sx={{mb: "5%",
             backgroundColor:"var(--color-light-gray)",
             border:"0",
             height: "35px"}}

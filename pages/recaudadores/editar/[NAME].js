@@ -1,69 +1,231 @@
-import { Stack, Typography, Button } from "@mui/material"
-import FormInput from "../../../components/form-input"
-import { useState, useEffect } from "react"
+import { Stack, Typography, Button, FilledInput, Select, MenuItem } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
+import Style from '../../../styles/crear.module.css';
+import { Formik, Form } from 'formik';
+import * as yup from 'yup';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import Style from '../../../styles/editar.module.css';
+import Alerta from '../../../components/alert'
 
-export default function Editar() {
-    const [nombre, setNombre] = useState('')
-    const [codigo, setCodigo] = useState('')
-    const [tipo, setTipo] = useState('')
-    const [estado, setState] = useState('')
-    const [id, setId] = useState('')
-    const [formato, setFormato] = useState('')
-    const router = useRouter();
-    const nombreEntidad = router.query.NAME;
-    
-    
-    useEffect(() => {
-       setNombre(nombreEntidad)
+
+async function Obtener(cod) {
+    try{
+    const response = await fetch('http://localhost:5000/recaudadores/'+cod);
+    const data = await response.json();
+    return data;
         }
-    , [])
+    catch(error){
+        console.log(error);
+    }
+}
     
-    return (
+
+export default function Crear() {
+    const [errorMsg, setErrorMsg] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [error , setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [datos,setDatos] = useState([{}]);
+    const [codigoRec, setCodigoRec] = useState('');
+    const router = useRouter();
+   
+    useEffect(() => {
+      if (router.asPath !== router.route) {
+        const codRecaudadores = router.query.NAME;
+        Obtener(codRecaudadores).then(data =>{
+          setCodigoRec(codRecaudadores);
+          setDatos(data);
+          setLoading(false);
+  
+        }
+          );
+      }
+      
+        
+
+    }, [router]);
+   
+  const validationSchema = yup.object({
+    nombre: yup
+      .string('Ingrese un nombre')
+      .min(3, 'El nombre debe tener al menos 3 caracteres')
+      .max(50, 'El nombre debe tener como maximo 50 caracteres')
+      .required('El nombre es requerido') ,
+
+    codRecaudadores: yup
+      .number('Ingrese un codigo')
+      .required('El codigo es requerido')
+      .min(1, 'El codigo debe tener al menos 1 caracter'),
+
+    idPrograma: yup
+      .number('Ingrese un id')
+      .required('El id es requerido')
+      .min(1, 'El id debe tener al menos 1 caracter'),
+
+    tipoArchivo: yup
+      .string('Ingrese un tipo')
+      .required('El tipo es requerido'),
+
+    estado: yup
+      .string('Ingrese un estado')
+      .required('El estado es requerido'),
+
+  });
+  
+    return (<>
+    {loading ? <h1>Cargando...</h1>  : 
+    <>
+    
         <Stack 
-        component="form"
-        sx={{
-            p:'30px',
-            borderRadius:'5px',
-            border: '1px solid',
-            mt:'3%',
-            ml:'30%',
-            mr:'30%',
-            mb:'1%',
-            widht:'auto',
-            height:'auto',
-            backgroundColor:'white',
-        }}
-        spacing={3}>
+            sx={{
+                p:'30px',
+                borderRadius:'5px',
+                border: '1px solid',
+                mt:'3%',
+                ml:'30%',
+                mr:'30%',
+                mb:'1%',
+                widht:'auto',
+                height:'auto',
+                backgroundColor:'white',
+            }}
+            spacing={3}>
+                
+        <Link href='/recaudadores' passHref>
+                <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}}} /> 
+        </Link>
+
+        {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
+
+        {success ? <> <Alerta tipo='success' mensaje='Editada con Exito ' /></>:null} 
+
+        <Typography variant="h3">Editar entidad</Typography>
+        <Formik
+       initialValues={{ 
+        nombre: datos[0]?.nombre, 
+        codRecaudadores: datos[0]?.codRecaudadores, 
+        tipoArchivo: datos[0]?.tipoArchivo, 
+        estado: datos[0]?.estado, 
+        idPrograma: datos[0]?.idPrograma ,}}
+       validationSchema={validationSchema}
+       onSubmit={(values, { setSubmitting }) => {
+        fetch('http://localhost:5000/recaudadores/'+ codigoRec, {
+          method: 'PUT', // or 'PUT'
+          body: JSON.stringify(values), // data can be `string` or {object}!
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        }).then(res => res.json())
+        .catch(error =>{
+          setError(true);
+          setErrorMsg(error)})
+        .then(response => setSuccess(true));
+        setSubmitting(false);
+       }}
+     >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         isSubmitting,
+       }) => (
+         <Form >
+           <Typography variant="h6" >
+             Nombre
+           </Typography>
+           <FilledInput
+             type="text"
+             name="nombre"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.nombre}
+             error={touched.nombre && Boolean(errors.nombre)}
+           />
+            {touched.nombre && Boolean(errors.nombre) && <p className={Style.errorMsg}>{errors.nombre}</p>}
             
-    <Link href='/recaudadores'>
-        <a>
-            <ArrowBackIcon />
-        </a>
-    </Link>
+           <Typography variant="h6" sx={{mt:'20px'}} >
+             Código entidad
+           </Typography>
+           <FilledInput
+             type="text"
+             name="codRecaudadores"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.codRecaudadores}
+             error={touched.codRecaudadores && Boolean(errors.codRecaudadores)}
+           />
+            {touched.codRecaudadores && Boolean(errors.codRecaudadores) && <p className={Style.errorMsg}>{errors.codRecaudadores}</p>}
+  
+            <Typography variant="h6" sx={{mt:'20px'}}>
+             Tipo de archivo
+           </Typography>
+           <Select
+            defaultValue="Entrada"
+             type="text"
+             name="tipoArchivo"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.tipoArchivo}
+             error={touched.tipoArchivo && Boolean(errors.tipoArchivo)}
+             sx={{width:'100%',}}
+             >
+            <MenuItem value="E">Entrada</MenuItem>
+            <MenuItem value="S">Salida</MenuItem>
+            <MenuItem value="ES">Entrada y Salida</MenuItem>
+           </Select>
+            {touched.tipoArchivo && Boolean(errors.tipoArchivo) && <p className={Style.errorMsg}>{errors.tipoArchivo}</p>}
 
-    <Typography variant="h2"> Editar entidad </Typography>
-    
-    <FormInput estado={nombre} setEstado={setNombre} text='Nombre/s' id='name' type='input' />
+           <Typography variant="h6" sx={{mt:'20px'}}>
+             Estado
+           </Typography>
+           <Select
+            defaultValue="Activo"
+             type="text"
+             name="estado"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.estado}
+             error={touched.estado && Boolean(errors.estado)}
+             sx={{width:'100%',}}
+             >
+            <MenuItem value="A">Activo</MenuItem>
+            <MenuItem value="I">Inactivo</MenuItem>
+           </Select>
+            {touched.estado && Boolean(errors.estado) && <p className={Style.errorMsg}>{errors.estado}</p>}
+           
+           <Typography variant="h6" sx={{mt:'20px'}}>
+             ID del programa
+           </Typography>
+           <FilledInput
+             type="text"
+             name="idPrograma"
+             onChange={handleChange}
+             onBlur={handleBlur}
+             value={values.idPrograma}
+             error={touched.idPrograma && Boolean(errors.idPrograma)}
+           />
+            {touched.idPrograma && Boolean(errors.idPrograma) && <p className={Style.errorMsg}>{errors.idPrograma}</p>}
 
-    <FormInput estado={codigo} setEstado={setCodigo} text='Código entidad' id='cod' type='input' />
-
-    <FormInput estado={tipo} setEstado={setTipo} text='Tipo de archivo' id='type' type='select' datos={['Entrada y salida','Entrada']}/>
-
-    <FormInput estado={estado} setEstado={setState} text='Estado' id='state' type='select' datos={['hola','hola2']} />
-
-    <FormInput estado={id} setEstado={setId} text='Id del progama' id='idp' type='input' />
+           
+           <div className={Style.containerButton}>
+            <Button sx={{width:"30%"}} variant="contained" type="submit"  >Aceptar</Button>
 
 
-    <div className={Style.containerBoton}>
-    <Button sx={{width:"30%"}} variant="contained" > Editar entidad</Button>
-    </div>
+           </div>
+         </Form>
+       )}
+     </Formik>
 
-    
+       
 
-    </Stack>
-    )
+        
+
+        </Stack>
+
+
+
+    </> }</>)
 }

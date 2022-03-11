@@ -1,5 +1,6 @@
-import { Stack, Typography, Button, FilledInput, Select, MenuItem } from "@mui/material";
+import { Stack, Typography, Button, FilledInput, Select, MenuItem, Alert, AlertTitle } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Alerta from '../../components/alert'
 import Link from 'next/link';
 import Style from '../../styles/crear.module.css';
 import { Formik, Form } from 'formik';
@@ -7,7 +8,9 @@ import * as yup from 'yup';
 import { useState } from 'react';
 
 export default function Crear() {
-   
+  const [errorMsg, setErrorMsg] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [error , setError] = useState(false);
   const validationSchema = yup.object({
     nombre: yup
       .string('Ingrese un nombre')
@@ -56,23 +59,36 @@ export default function Crear() {
                 <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}}} /> 
         </Link>
 
+         
+        {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
+
+        {success ? <> <Alerta tipo='success' mensaje='Creada con éxito' /></>:null} 
+
         <Typography variant="h3">Nueva entidad</Typography>
 
         <Formik
-       initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',foto:'hola.jpg'}}
+        
+       initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',}}
        validationSchema={validationSchema}
-       onSubmit={(values, { setSubmitting }) => {
+       onSubmit={(values, { setSubmitting,resetForm }) => {
         fetch('http://localhost:5000/recaudadores', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{
             'Content-Type': 'application/json'
           }
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', response));
-        setSubmitting(false);
-       }}
+          }).then(res => res.json())
+          .catch(error =>{ 
+          setError(true);
+          setErrorMsg(error)})
+          .then(response => {
+            setSuccess(true);
+            resetForm();
+  
+          });
+          setSubmitting(false);
+         
+         }}
      >
        {({
          values,
@@ -80,10 +96,9 @@ export default function Crear() {
          touched,
          handleChange,
          handleBlur,
-         isSubmitting,
+         handleReset,
        }) => (
          <Form >
-           
            <Typography variant="h6" >
              Nombre
            </Typography>
@@ -160,8 +175,11 @@ export default function Crear() {
             {touched.idPrograma && Boolean(errors.idPrograma) && <p className={Style.errorMsg}>{errors.idPrograma}</p>}
 
            
-           <div className={Style.containerBoton}>
+           <div className={Style.containerButton}>
             <Button sx={{width:"30%"}} variant="contained" type="submit"  >Crear entidad</Button>
+
+           
+
            </div>
          </Form>
        )}
