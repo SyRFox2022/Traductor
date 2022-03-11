@@ -56,8 +56,6 @@ export default function Recaudadores (){
          .then(response => response.json())
          .then(data => setRecaudadores(data))
          .catch(error => console.log(error));
-
-         
     }, [actualizarecaudador]);
 
     return(

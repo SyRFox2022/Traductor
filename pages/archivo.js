@@ -130,9 +130,6 @@ return( <>
             value={order}
             displayEmpty
             >
-            <MenuItem value="">
-                <em>None</em>
-            </MenuItem>
             <MenuItem value={10}>Entidad Asc</MenuItem>
             <MenuItem value={20}>Entidad Desc</MenuItem>
         </Select>

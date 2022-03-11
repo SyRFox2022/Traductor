@@ -1,10 +1,10 @@
 import Bannerhero from '../../components/banner-hero';
 import Style from '../../styles/formato.module.css';
-import {Typography, Collapse, List, FormControlLabel, ListItemButton, ListItemText, ListItemIcon, Switch} from '@mui/material';
+import {Typography, Button} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
+import ListDesplegable1 from '../../components/list-desplegable-1';
+
 
 
 
@@ -22,6 +22,10 @@ export default function Formato (){
         {
             title:'dato2',
             tipo:'Salida'
+        },
+        {
+            title:'dato3',
+            tipo:'Entrada'
         }
     ]
 
@@ -48,6 +52,7 @@ export default function Formato (){
     <Bannerhero title='Formato de Archivos (...)'/>
 
     <div className={Style.containerBody}>        
+    
         <div className={Style.containerDatos}>
 
             <Typography variant="h4">
@@ -57,41 +62,9 @@ export default function Formato (){
             </Typography>
 
             {listFormat.map((datos) =>{
-          return ( 
-            <List key={datos.title}
-            sx={{
-                backgroundColor:"var(--color-light-gray)",
-                borderRadius:"5px",
-                padding:"0%",
-                mt:"1%",
-                color:"black",}}>
-            <ListItemButton onClick={handleClick}>
-            <ListItemText primary={datos.title} />
-
-            <FormControlLabel 
-            sx={{mr:"1%"}}
-            value="start"
-            control={ <Switch defaultChecked size="small" />}
-            label={datos.tipo}
-            labelPlacement="start"
-             />
-
-            {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItemButton>
-            
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="hola" />
-              </ListItemButton>
-
-                </List>
-            </Collapse>
-
-            </List>
+            return(
+                <ListDesplegable1 key={datos.title} datos={datos} tipo={datos.tipo} datoTablas={datosTabla} />
             )})}
-
 
         </div>
     </div>

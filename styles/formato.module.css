@@ -10,12 +10,14 @@
 }
 
 .containerDatos{
+    border-radius: 5px;
     background-color: var(--bg-color-light-blue);
     width: 100%;
-    margin: 2.5%;
+    margin: 1.5%;
     padding: 1%;
     text-align: center;
     color: white;
+    
 }
 
 
