@@ -54,12 +54,14 @@ export default function Formato (){
     <div className={Style.containerBody}>        
     
         <div className={Style.containerDatos}>
-
+            
+            <div className={Style.containerTitle}>
             <Typography variant="h4">
              Formatos
-            
-            <AddOutlinedIcon sx={{color:"white", position:"absolute", right:"5%", top:"11%"}}/>
             </Typography>
+           
+            <AddOutlinedIcon sx={{color:"white"}}/>
+            </div>
 
             {listFormat.map((datos) =>{
             return(

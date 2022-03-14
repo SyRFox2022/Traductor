@@ -1,6 +1,6 @@
 import Bannerhero from '../components/banner-hero';
 import Style from '../styles/archivo.module.css';
-import {Typography,List, Select, FormControlLabel, Switch, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
+import {Typography,List, Select, Switch, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
 import { useState } from 'react';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
@@ -144,33 +144,38 @@ return( <>
             <TableCell sx={{fontWeight:"bold"}}>Estado</TableCell>
             <TableCell> <SettingsIcon/> </TableCell>
           </TableRow>
-
+    
         {listaArchivos.map((archivo) => {
-            return (
-                <TableBody key={archivo.id}>
-                    <TableRow>
-                        <Link href={`/archivo/${archivo.nombre}`} passHref>
-                        <TableCell sx={{'&:hover':{cursor:'pointer'}}} >{archivo.nombre}</TableCell>
-                        </Link>
-                        <TableCell>{archivo.descripcion}</TableCell>
-                        <TableCell>{archivo.fecha}</TableCell>
-                        <TableCell>{archivo.tipo} </TableCell>
-                        <TableCell>
-                            <Switch defaultChecked />
-                        </TableCell>
-                        <TableCell>
-                            <IconButton edge="end">
-                                <CreateOutlinedIcon sx={{color:"blue"}}/>
-                            </IconButton>
-                            <IconButton edge="end">
-                                <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
+        return (
+        <TableBody key={archivo.id}>
+            <TableRow>
+            <Link href={`/archivo/${archivo.nombre}`} passHref>
+            <TableCell sx={{'&:hover':{cursor:'pointer'}}} >{archivo.nombre}</TableCell>
+            </Link>
+                <TableCell>{archivo.descripcion}</TableCell>
+                <TableCell>{archivo.fecha}</TableCell>
+                <TableCell>{archivo.tipo} </TableCell>
+                <TableCell>
+                    <Switch defaultChecked />
+                </TableCell>
+                <TableCell>
+                    <IconButton edge="end">
+                        <CreateOutlinedIcon sx={{color:"blue"}}/>
+                    </IconButton>
+                    <IconButton edge="end">
+                        <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
+                    </IconButton>
+                </TableCell>
+            </TableRow>
+        </TableBody>
             )
         })}
       </Table>
+
+
+
+       
+      
 
     </>
 }
