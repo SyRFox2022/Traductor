@@ -1,4 +1,4 @@
-import { Stack, Typography, Button, FilledInput, Select, MenuItem, Alert, AlertTitle } from "@mui/material";
+import { Stack, Typography, Button, FilledInput, Select, MenuItem } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Alerta from '../../components/alert'
 import Link from 'next/link';
@@ -67,7 +67,6 @@ export default function Crear() {
         <Typography variant="h3">Nueva entidad</Typography>
 
         <Formik
-        
        initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting,resetForm }) => {
@@ -80,7 +79,8 @@ export default function Crear() {
           }).then(res => res.json())
           .catch(error =>{ 
           setError(true);
-          setErrorMsg(error)})
+          setErrorMsg(error)
+        })
           .then(response => {
             setSuccess(true);
             resetForm();

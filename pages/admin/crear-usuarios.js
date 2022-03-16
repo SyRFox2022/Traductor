@@ -2,33 +2,38 @@ import { Stack, Typography, Button, Select, FilledInput, MenuItem } from '@mui/m
 import Style from '../../styles/crear.module.css'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup';
+import Alerta from '../../components/alert'
+import { useState } from 'react';
+
 
 
 export default function CrearUsuarios(){
-
+  const [errorMsg, setErrorMsg] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [error , setError] = useState(false);
   const validationSchema = yup.object({
-    FirstName: yup
+    firstName: yup
       .string('Ingrese un nombre')
       .min(3, 'El nombre debe tener al menos 3 caracteres')
       .max(30, 'El nombre debe tener como maximo 50 caracteres')
       .required('El nombre es requerido') ,
 
-    FirstName: yup
+    lastName: yup
       .string('Ingrese un apellido')
       .min(3, 'El apellido debe tener al menos 3 caracteres')
       .max(30, 'El apellido debe tener como maximo 60 caracteres')
       .required('El apellido es requerido'),
 
-    Mail: yup
+    mail: yup
       .string('Ingrese un email')
       .email('Ingrese un mail valido')
       .required('El mail es requerido'),
 
-    Role: yup
+    role: yup
       .string('Ingrese un tipo')
       .required('El tipo es requerido') ,
 
-    Password: yup
+    password: yup
       .string('Ingrese una contraseña')
       .min(8, 'La contraseña debe tener al menos 8 caracteres')
       .max(60, 'La contraseña debe tener como maximo 60 caracteres')
@@ -54,22 +59,34 @@ export default function CrearUsuarios(){
             }}
           spacing={3}
         >
-            
+        
+        {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
+
+        {success ? <> <Alerta tipo='success' mensaje='Creada con éxito' /></>:null}
 
         <Formik
-          initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '',}}
+          initialValues={{ firstName: '', lastName: '', mail: '', role: '', password: '', company: 'default', status: 'A' }}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values)
-            fetch('http://localhost:5000/usuarios', {
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+
+          fetch('http://localhost:5000/usuarios', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{
             'Content-Type': 'application/json'
           }
           }).then(res => res.json())
-          .catch(error =>{ console.error('Error:', error)})
-          .then(response => { console.log('Success:', response)});
+          .catch(error =>{ 
+            console.error('Error:', error);
+            setError(true);
+            setErrorMsg(error);
+          })
+          .then(response => { 
+            console.log('Success:', response);
+            setSuccess(true);
+            resetForm();
+
+          });
             setSubmitting(false);
        }}
     >
@@ -81,8 +98,10 @@ export default function CrearUsuarios(){
          handleBlur,
          handleSubmit,
          isSubmitting,
+         handleReset,
        }) => (
          <Form >
+           
 
             <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
                 Registrar Usuario
@@ -93,39 +112,39 @@ export default function CrearUsuarios(){
            </Typography>
            <FilledInput
              type="text"
-             name="FirstName"
+             name="firstName"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.FirstName}
-             error={touched.FirstName && Boolean(errors.FirstName)}
+             value={values.firstName}
+             error={touched.firstName && Boolean(errors.firstName)}
            />
-            {touched.FirstName && Boolean(errors.FirstName) && <p className={Style.errorMsg}>{errors.FirstName}</p>}
+            {touched.firstName && Boolean(errors.firstName) && <p className={Style.errorMsg}>{errors.firstName}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Apellido/s
            </Typography>
            <FilledInput
              type="text"
-             name="LastName"
+             name="lastName"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.LastName}
-             error={touched.LastName && Boolean(errors.LastName)}
+             value={values.lastName}
+             error={touched.lastName && Boolean(errors.lastName)}
            />
-            {touched.LastName && Boolean(errors.LastName) && <p className={Style.errorMsg}>{errors.LastName}</p>}
+            {touched.lastName && Boolean(errors.lastName) && <p className={Style.errorMsg}>{errors.lastName}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Correo
            </Typography>
            <FilledInput
              type="text"
-             name="Mail"
+             name="mail"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.Mail}
-             error={touched.Mail && Boolean(errors.Mail)}
+             value={values.mail}
+             error={touched.mail && Boolean(errors.mail)}
            />
-            {touched.Mail && Boolean(errors.Mail) && <p className={Style.errorMsg}>{errors.Mail}</p>}
+            {touched.mail && Boolean(errors.mail) && <p className={Style.errorMsg}>{errors.mail}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Tipo de usuario
@@ -133,18 +152,18 @@ export default function CrearUsuarios(){
            <Select
               defaultValue="Admin"
              type="text"
-             name="Role"
+             name="role"
              onChange={handleChange}
              onBlur={handleBlur}
-             error={touched.Role && Boolean(errors.Role)}
-             value={values.Role}
+             error={touched.role && Boolean(errors.role)}
+             value={values.role}
              sx={{width:'100%',}}
              >
             <MenuItem value="admin">Admin</MenuItem>
             <MenuItem value="userfull">User Full</MenuItem>
-            <MenuItem value="user consulta">User Consulta</MenuItem>
+            <MenuItem value="userconsulta">User Consulta</MenuItem>
            </Select>
-           {touched.Role && Boolean(errors.Role) && <p className={Style.errorMsg}>{errors.Role}</p>}
+           {touched.role && Boolean(errors.role) && <p className={Style.errorMsg}>{errors.role}</p>}
 
            
            <Typography variant="h6" sx={{mt:'20px'}}>
@@ -152,13 +171,13 @@ export default function CrearUsuarios(){
            </Typography>
            <FilledInput
              type="password"
-             name="Password"
+             name="password"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.Password}
-             error={touched.Password && Boolean(errors.Password)}
+             value={values.password}
+             error={touched.password && Boolean(errors.password)}
            />
-            {touched.Password && Boolean(errors.Password) && <p className={Style.errorMsg}>{errors.Password}</p>}
+            {touched.password && Boolean(errors.password) && <p className={Style.errorMsg}>{errors.password}</p>}
 
            <div className={Style.containerButton}>
             <Button variant="contained" type="submit"  >

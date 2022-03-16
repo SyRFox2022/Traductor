@@ -32,7 +32,7 @@ export default function Crear() {
    
     useEffect(() => {
       if (router.asPath !== router.route) {
-        const codRecaudadores = router.query.NAME;
+        const codRecaudadores = router.query.Name;
         Obtener(codRecaudadores).then(data =>{
           setCodigoRec(codRecaudadores);
           setDatos(data);

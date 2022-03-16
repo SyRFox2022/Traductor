@@ -6,7 +6,10 @@ export default function Alerta({tipo,mensaje}){
     
     return(<>
 
-    <Alert variant="outlined" severity={tipo}>
+    <Alert 
+    variant="outlined" 
+    severity={tipo}
+    sx={{width:'80%'}}>
     <AlertTitle>{tipo}</AlertTitle>
     {mensaje}
     </Alert>

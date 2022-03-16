@@ -5,3 +5,8 @@
 .pass{
     margin-top: 20px;
 }
+.errorMsg{
+    color: red;
+    font-size: 0.7rem;
+    text-align: left;
+}
