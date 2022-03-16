@@ -34,6 +34,8 @@ export default function Login(){
     return(      
         <>
         
+        {err ? <Alerta tipo='error' mensaje="Datos invalidos"/>:null}
+
         <Stack
           alignItems="center"
           sx={{
@@ -49,7 +51,6 @@ export default function Login(){
             }}
           spacing={3}
         >
-            {err ? <Alerta tipo='error' mensaje="Datos invalidos"/>:null}
 
             <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
                 Iniciar Sesion
@@ -61,22 +62,46 @@ export default function Login(){
 
             fetch('http://localhost:5000/usuarios/'+ values.email)
               .then(res => res.json())
-              .catch(err => console.log(err))
+              .catch(err => {setErr(true)
+                setTimeout(() => {
+                  console.log(err);
+                  setErr(false)
+                }, 4000);
+              })
               .then(data => {
                 
                 if(data?.length > 0){
                   
                   if(data[0].Password === values.password){
+                  console.log('entre')
                   localStorage.setItem("auth","true")
+                  localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
+                   if(data[0].Role === "admin"){
+                    localStorage.setItem("role","admin")
+                    }
+                    else if(data[0].Role === "userfull"){
+                    localStorage.setItem("role","userfull")
+                    }
+                    else if(data[0].Role === "userconsulta"){
+                    localStorage.setItem("role","user")
+                    }
+
                   router.push('/')
-                  
+
+                   }
+                    else{
+                      setErr(true)
+                      setTimeout(() => {
+                        setErr(false)
+                      }, 4000);
+                    }
                   }
                   else{
                     setErr(true);
-                  }
-                }else{
-                  setErr(true);
-                }})
+                    setTimeout(() => {
+                      setErr(false)
+                    }, 4000);
+                  }})
 
             setSubmitting(false);
         }

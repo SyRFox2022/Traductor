@@ -1,0 +1,9 @@
+
+.containerAlert{
+   position: fixed;
+   top: 15%;
+   left: 0;
+   z-index: 99999;
+   width: 100%; 
+   text-align: -webkit-right;
+}

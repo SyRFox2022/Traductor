@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { IconButton, ListItemText,  Divider, Drawer, Box, List, ListItemButton, Collapse } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -9,9 +9,13 @@ import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import Link from 'next/link';
 
 export default function TemporaryDrawer() {
+  const [role, setRole] = useState('');
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
+  useEffect(() => {
+    setRole(localStorage.getItem('role'));
+  }, []);
   const listMenuu = [
     {
       name: 'Inicio',
@@ -89,7 +93,7 @@ export default function TemporaryDrawer() {
         )})} 
           
         </List>
-        
+        {role === 'admin' ? <>
       <Divider sx={{bgcolor:'white'}}/>
 
       <List >
@@ -114,6 +118,7 @@ export default function TemporaryDrawer() {
                 </List>
             </Collapse> 
       </List>
+     </> : null}
 
       <List sx={{
           position:'absolute',

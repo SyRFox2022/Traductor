@@ -1,6 +1,18 @@
 import Bannerhero from '../components/banner-hero';
 import Style from '../styles/recaudadores.module.css';
-import {Typography, Box, Modal, List, Button, ListItemIcon, ListItemText, Divider, Checkbox,  ListItem , ListItemButton } from '@mui/material';
+import
+ {  Typography,
+    Box,
+    Modal,
+    List,
+    Button,
+    ListItemIcon,
+    ListItemText,
+    Divider,
+    Checkbox,
+    ListItem,
+    ListItemButton
+}from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { useState, useEffect } from 'react';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -10,6 +22,7 @@ import Link from 'next/link';
 
 
 export default function Recaudadores (){
+    const [role, setRole] = useState('');
     const [open, setOpen] = useState(false);
     const [cod , setCod] = useState('');
     const [actualizarecaudador, setActualizaRecaudador] = useState(false);
@@ -52,6 +65,7 @@ export default function Recaudadores (){
     };
 
     useEffect(() => {
+    setRole(localStorage.getItem('role'));
     fetch('http://localhost:5000/recaudadores')
          .then(response => response.json())
          .then(data => setRecaudadores(data))
@@ -69,6 +83,7 @@ export default function Recaudadores (){
     <List>
         <ListItem>
             <Typography variant="h4"  >Entes Recaudores</Typography >
+            {role === 'admin' || role === 'userfull' ?
             <Link href='/recaudadores/crear'>
                 <a>
                     <ListItemIcon>
@@ -76,6 +91,7 @@ export default function Recaudadores (){
                     </ListItemIcon>
                 </a>
             </Link>
+            :null}
         </ListItem>
         <Divider/>
        {recaudadores.map((title) => {
@@ -89,9 +105,9 @@ export default function Recaudadores (){
         />
 
         <ListItemText primary={title.nombre.toString()} />
-
+            {role === 'admin' || role ==='userfull' ?
         <ListItemIcon >
-            <Link href={`/recaudadores/editar/${title.codRecaudadores.toString()}`}>
+            <Link href={`/recaudadores/editar/${title.codRecaudadores.toString()}`} passHref>
             <ListItemButton>
                 <CreateOutlinedIcon sx={{color:"blue"}}/>
             </ListItemButton>
@@ -104,6 +120,7 @@ export default function Recaudadores (){
                 
             
         </ListItemIcon>
+        :null}
 
         </ListItem>
             <Divider/>  

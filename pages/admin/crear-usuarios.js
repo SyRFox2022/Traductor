@@ -11,6 +11,7 @@ export default function CrearUsuarios(){
   const [errorMsg, setErrorMsg] = useState('');
   const [success, setSuccess] = useState(false);
   const [error , setError] = useState(false);
+
   const validationSchema = yup.object({
     firstName: yup
       .string('Ingrese un nombre')
@@ -37,7 +38,12 @@ export default function CrearUsuarios(){
       .string('Ingrese una contraseña')
       .min(8, 'La contraseña debe tener al menos 8 caracteres')
       .max(60, 'La contraseña debe tener como maximo 60 caracteres')
-      .required('La contraseña es requerida') ,
+      .required('La contraseña es requerida') 
+      .matches(
+        /^.(?=.{8,})((?=.[!@#$%^&()-_=+{};:,<.>]){1})(?=.\d)((?=.[a-z]){1})((?=.[A-Z]){1}).*$/,
+        "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial"
+      ),
+      
       
   });
 

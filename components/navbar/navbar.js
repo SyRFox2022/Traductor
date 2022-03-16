@@ -4,19 +4,25 @@ import { Box, AppBar, IconButton, Typography, Toolbar } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function Navbar(){
-const router = useRouter()
+const [name, setName] = useState('');
+const router = useRouter();
 const [openIcon, setOpenIcon] = useState(false);
 const handleLogout = () => {
-console.log('hola')
 localStorage.removeItem("auth")
+localStorage.removeItem("nombre")
+localStorage.removeItem("rol")
 router.push('/login')
-
 }
+
+useEffect(() => {
+  setName(localStorage.getItem('nombre'))
+  
+}, [])
   
 return(
 
@@ -40,7 +46,7 @@ return(
             </IconButton>
 
           <Typography variant="h6" component="div" sx={{pl:'20px',}}>
-            Fiorella Pérez
+            {name}
           </Typography>
 
             
