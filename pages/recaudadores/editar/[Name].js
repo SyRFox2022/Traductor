@@ -22,7 +22,7 @@ async function Obtener(cod) {
     
 
 export default function Crear() {
-    const [errorMsg, setErrorMsg] = useState('');
+    const [errorMsg, setErrorMsg] = useState();
     const [success, setSuccess] = useState(false);
     const [error , setError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -119,8 +119,18 @@ export default function Crear() {
         }).then(res => res.json())
         .catch(error =>{
           setError(true);
-          setErrorMsg(error)})
-        .then(response => setSuccess(true));
+          setErrorMsg(error)
+          setTimeout(() => {
+            setError(false)
+          }, 4000);
+        })
+        .then(response => {
+          setSuccess(true)
+          setTimeout(() => {
+            setSuccess(false)
+          }, 4000);
+        
+        });
         setSubmitting(false);
        }}
      >

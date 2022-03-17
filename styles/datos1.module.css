@@ -10,18 +10,6 @@
     top:25%;
 }
 
-.containerIdk{
-    display: flex;
-    flex-direction: row;
-    margin: 1%; 
-}
-
-.containerButtons{
-    text-align: right;
-    align-self: flex-end;
-    width: 85%;
-}
-
 .conteinerList{
     display: flex;
     flex-direction: row;
@@ -53,5 +41,24 @@
 .containerRight{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+
+.containerBottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1%; 
+}
+
+.containerSelect{
+    display: flex;
+    align-items: center;
+}
+
+.containerButtons{
+    display: flex;
+    align-self: flex-end;
+    width: 40%;
     justify-content: space-between;
 }

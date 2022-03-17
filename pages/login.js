@@ -123,6 +123,7 @@ export default function Login(){
             </Typography>
 
             <FilledInput
+              sx={{mb:'10%'}}
               variant="outlined" 
               required
               type="email"

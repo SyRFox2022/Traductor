@@ -11,7 +11,11 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export default function Archivos(){
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
+    const handleClick = () => {
+        setOpen(!open);
+      };
+      
     const listaArchivos = [
         {
             id: 1,
@@ -31,9 +35,6 @@ export default function Archivos(){
     const [recaudador, setRecaudador] = useState("");
     const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
     const [order, setOrder] = useState('');
-    const handleClick = () => {
-        setOpen(!open);
-      };
 
     const handleChange = (e,title) => {
         e.target.checked ? setRecaudador(title) : setRecaudador("");
@@ -121,17 +122,14 @@ return( <>
         pr:"3%",}}> 
         Ordenar por:
 
-        <Select 
-            sx={{
-            heigth:'2000px',
-            ml:"1%",   
-            backgroundColor:"var(--color-light-gray)", 
-            border:"0",}}
-            value={order}
-            displayEmpty
-            >
-            <MenuItem value={10}>Entidad Asc</MenuItem>
-            <MenuItem value={20}>Entidad Desc</MenuItem>
+        <Select
+            sx={{ml:'1%'}}
+            size="small"
+           defaultValue="desc"
+           type="text"
+           name="order" >
+                <MenuItem value={'desc'}>Entidad Desc</MenuItem>
+                <MenuItem value={'asc'}>Entidad Asc</MenuItem>
         </Select>
     </Typography>
 

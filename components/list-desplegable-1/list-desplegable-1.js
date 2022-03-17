@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { List, ListItemButton, ListItemText, Collapse, FormControlLabel, Switch, Button, Typography, Select, MenuItem, TextField } from '@mui/material';
+import { List, ListItemButton, Collapse, FormControlLabel, Switch, Button, Typography, Select, MenuItem, TextField } from '@mui/material';
 import Link from 'next/link';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
@@ -8,8 +8,50 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Style from '../../styles/datos1.module.css';
+import { Formik, Form } from 'formik'
+import * as yup from 'yup';
 
 export default function Index({datos,tipo,datoTablas}) {
+
+    const handleClickSubmit = () => {
+        datos1.map(dato => {
+            document.getElementById(dato.id).click();
+        })}
+
+
+    const validationSchema = yup.object({
+        nombre: yup
+        .string('El nombre debe ser un texto')
+        .required('El nombre es requerido'),
+        tipo: yup
+        .string('El tipo debe ser un texto')
+        .required('El tipo es requerido'),
+        longitud: yup
+        .string('La longitud debe ser un texto')
+        .required('La longitud es requerida'),
+    });
+
+
+    const [datos1, setDatos1] = useState(datoTablas);
+    let idAut = 1 + Math.max(...datos1.map(dato => dato.id));
+    console.log(idAut);
+    const handleAdd = () => {
+        setDatos1([...datos1, {
+            id: idAut,
+            longitud: '',
+            nombre: '',
+            tipo: '',
+            desde: '',
+        }]);
+    console.log(datos1);
+    }
+
+    const handleRemove = (id) => {
+        setDatos1(datos1.filter(dato => dato.id !== id));
+        console.log(id);
+    }
+
+
     const [open,setOpen] = useState(false)
     const handleClick = () =>{
         setOpen(!open)
@@ -50,8 +92,25 @@ export default function Index({datos,tipo,datoTablas}) {
 
                             
                                 
-                            {datoTablas.map((datos)=>{
-                          return( 
+                {datos1.map((datos)=>{
+                    return( 
+                        <Formik
+                        key={datos.id}
+                        initialValues={{ nombre:'', desde:'' ,longitud:'', tipo:'', id:datos.id }}
+                        validationSchema={validationSchema}
+                        onSubmit={(values, { setSubmitting, resetForm }) => {
+                            console.log(values);
+                         }}
+                        >
+                         {({
+                           values,
+                           errors,
+                           touched,
+                           handleChange,
+                           handleBlur,
+                         }) => (
+
+                            <Form >
                             <div className={Style.conteinerList} key={datos.id}>
 
                                 <div className={Style.conteinerCamp}>
@@ -59,6 +118,12 @@ export default function Index({datos,tipo,datoTablas}) {
                                    Nombre
                                 </Typography>
                                 <TextField
+                                    type="text"
+                                    name="nombre"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.nombre}
+                                    error={touched.nombre && Boolean(errors.nombre)}
                                     id="outlined-basic"
                                     label={datos.nombre}
                                     variant="outlined"
@@ -72,8 +137,33 @@ export default function Index({datos,tipo,datoTablas}) {
                                    Tipo
                                 </Typography>
                                 <TextField
+                                    type="text"
+                                    name="tipo"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.tipo}
+                                    error={touched.tipo && Boolean(errors.tipo)}
                                     id="outlined-basic"
                                     label={datos.tipo}
+                                    variant="outlined"
+                                    size="small"
+                                    sx={{width:"100%"}}
+                                />
+                                </div>
+
+                                <div className={Style.conteinerCamp}>
+                                <Typography variant="h6" sx={{pr:'2%'}}>
+                                   Desde
+                                </Typography>
+                                <TextField
+                                    type="text"
+                                    name="desde"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.desde}
+                                    error={touched.desde && Boolean(errors.desde)}
+                                    id="outlined-basic"
+                                    label={datos.desde}
                                     variant="outlined"
                                     size="small"
                                     sx={{width:"100%"}}
@@ -85,6 +175,12 @@ export default function Index({datos,tipo,datoTablas}) {
                                     Longitud
                                 </Typography>
                                 <TextField
+                                    type="text"
+                                    name="longitud"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.longitud}
+                                    error={touched.longitud && Boolean(errors.longitud)}
                                     id="outlined-basic"
                                     label={datos.longitud}
                                     variant="outlined"
@@ -93,51 +189,56 @@ export default function Index({datos,tipo,datoTablas}) {
                                 />
                                 </div>
 
-                                <div className={Style.conteinerCamp}>
-                                <Typography variant="h6" sx={{pr:'2%'}} >
-                                   Valor
-                                </Typography>
-                                <TextField
-                                    id="outlined-basic"
-                                    label={datos.valor}
-                                    variant="outlined"
-                                    size="small"
-                                    sx={{width:"100%"}}
-                                />
-                                </div>
-
                                 <div className={Style.containerBtn}>
-                                <ListItemButton>
-                                <AddIcon />
-                                </ListItemButton>
-                                <ListItemButton>
+                                <ListItemButton onClick={()=>handleRemove(datos.id) }>
                                 <RemoveIcon />
                                 </ListItemButton>
                                 </div>
                             </div>
+                            <Button sx={{display:'none'}} id={datos.id} type="submit"  />
+                            </Form>
+                         )}
+                            </Formik>
+                         
                             )})} 
                         
-             
+                    <div className={Style.containerBottom}>
 
-                    <div className={Style.containerIdk}>
-
+                    <div className={Style.containerSelect}>
                     <Typography variant="h6" sx={{mr:"2%"}}>
                         Tipo:
-                        <Select >
-                            <MenuItem value={10}>Entrada</MenuItem>
-                            <MenuItem value={20}>Salida</MenuItem>
-                        </Select>
                     </Typography>
 
+                    <Select
+                        size="small"
+                        sx={{ml:'1%'}}
+                        defaultValue="entrada"
+                        type="text"
+                        name="role" >
+                            <MenuItem value={'entrada'}>Entrada</MenuItem>
+                            <MenuItem value={'salida'}>Salida</MenuItem>
+                    </Select>
+                    </div>
+                   
+
                     <div className={Style.containerButtons}>
+
+                    <Button 
+                     sx={{mr:'1%'}}
+                     onClick={handleAdd}
+                     variant="text"
+                    >
+                        <AddIcon />
+                    </Button>
+
+                    
                     <Link href='../../formato/hola/campo' passHref>
                         <Button sx={{backgroundColor:'black'}}>
                             Editar Formato de Campos
                         </Button>
                     </Link>
-                        
-
-                        <Button sx={{ml:'1%'}}>
+                    
+                        <Button sx={{ml:'1%'}} onClick={handleClickSubmit}>
                             Guardar
                             <SaveOutlinedIcon />
                         </Button>

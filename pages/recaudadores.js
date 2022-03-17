@@ -22,10 +22,14 @@ import Link from 'next/link';
 
 
 export default function Recaudadores (){
+    const [recaudador, setRecaudador] = useState("");
+    const [recaudadores,setRecaudadores] = useState([]);
+    const [datosRecaudador, setDatosRecaudadores] = useState([{}]);
     const [role, setRole] = useState('');
     const [open, setOpen] = useState(false);
     const [cod , setCod] = useState('');
     const [actualizarecaudador, setActualizaRecaudador] = useState(false);
+    const [loading , setLoading] = useState(false);
     const handleOpen = (codEnte) => {
         setCod(codEnte);
         setOpen(true);
@@ -58,10 +62,22 @@ export default function Recaudadores (){
         .catch(error => console.log(error));
         };
 
-    const [recaudador, setRecaudador] = useState("");
-    const [recaudadores,setRecaudadores] = useState([]);
-    const handleChange = (e,title) => {
+    
+
+    const handleChange = (e,title,cod) => {
+        setLoading(true);
         e.target.checked ? setRecaudador(title) : setRecaudador("");
+        fetch('http://localhost:5000/recaudadores/'+ cod, {
+        method: 'GET',
+    })
+        .then(res => res.json()) // or res.json()
+        .then(res => {
+            setDatosRecaudadores(res);
+            setLoading(false);
+            console.log(res);
+        })    
+        .catch(error => console.log(error));
+
     };
 
     useEffect(() => {
@@ -100,7 +116,7 @@ export default function Recaudadores (){
         <ListItem>  
         <Checkbox
             checked={recaudador === title.nombre.toString() ? true : false}
-            onChange={(e) => handleChange(e,title.nombre.toString())}
+            onChange={(e) => handleChange(e,title.nombre.toString(),title.codRecaudadores.toString())}
             inputProps={{ 'aria-label': 'controlled' }}
         />
 
@@ -155,7 +171,7 @@ export default function Recaudadores (){
        
 
 <div className={Style.datosrec}>
-{recaudador === "" ? 
+{recaudador === "" && loading === false ? 
 
     <div>
         <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold", textAlign:"center" }} >Seleccione una Entidad</Typography >  
@@ -164,9 +180,9 @@ export default function Recaudadores (){
 <>
     <table>
     <td>
-        <Typography variant="h3" sx={{color:"var(--bg-color-light-blue)", pb:"0.5%", fontWeight: "bold"}} >{recaudador}</Typography >
+        <Typography variant="h3" sx={{color:"var(--bg-color-light-blue)", pb:"0.5%", fontWeight: "bold"}} >{datosRecaudador[0].nombre}</Typography >
     </td><td>
-        <Typography variant="h5" sx={{textAlign:"right", pr:"30%", fontWeight: "bold"}} > Estado: Aburrida =) </Typography >
+        <Typography variant="h5" sx={{textAlign:"right", pr:"30%", fontWeight: "bold"}} > Estado:  </Typography >
     </td>
     </table>
 
@@ -174,8 +190,11 @@ export default function Recaudadores (){
 
     <table>
     <td>
-        <Typography variant="h6" > Formato archivo de entrada: </Typography >
-        <Typography variant="h6" > Formato archivo de salida: </Typography >
+        <Link href={`/formato/${datosRecaudador[0].codRecaudadores}`}>
+        <a className={Style.link}>
+        <Typography variant="h6"> Formato de archivos </Typography >
+        </a>
+        </Link>
     </td><td>
         <Typography variant="h6" > Archivos totales de entrada: </Typography >
         <Typography variant="h6" sx={{pb:"1%"}} > Archivos totales de salida: </Typography >

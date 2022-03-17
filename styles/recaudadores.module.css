@@ -1,5 +1,6 @@
 .containerBody{
     background-color: var(--color-white);
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -18,6 +19,7 @@
 }
 
 .containerLeft{
+    height: 100%;
     width:30%;
     padding: 1rem;
 }
@@ -30,4 +32,10 @@
     width: 100%;
     text-align-last: center;
     margin-top: 3%;
+}
+
+.link:hover{
+    color:blue;
+    cursor: pointer;
+    text-decoration: underline;
 }
