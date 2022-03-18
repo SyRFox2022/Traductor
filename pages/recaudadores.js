@@ -182,7 +182,7 @@ export default function Recaudadores (){
     <td>
         <Typography variant="h3" sx={{color:"var(--bg-color-light-blue)", pb:"0.5%", fontWeight: "bold"}} >{datosRecaudador[0].nombre}</Typography >
     </td><td>
-        <Typography variant="h5" sx={{textAlign:"right", pr:"30%", fontWeight: "bold"}} > Estado:  </Typography >
+        <Typography variant="h5" sx={{textAlign:"right", pr:"30%", fontWeight: "bold"}} > Estado: {datosRecaudador[0].estado}  </Typography >
     </td>
     </table>
 

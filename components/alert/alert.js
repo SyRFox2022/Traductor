@@ -12,10 +12,7 @@ const handleClose = () => {
 
     if (tipo === "error"){
         return(
-        
             <div className={Style.containerAlert}>
-            {open ? setTimeout(() => { setOpen(false)} , 3000) : null}
-            <Collapse in={open}>
             <Alert 
             severity="error"
             sx={{ 
@@ -27,9 +24,7 @@ const handleClose = () => {
                       
                 <AlertTitle>Error</AlertTitle>
                 {mensaje}
-
             </Alert>
-            </Collapse>
             </div>
         )
     }

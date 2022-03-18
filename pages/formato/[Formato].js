@@ -1,10 +1,12 @@
 import Bannerhero from '../../components/banner-hero';
 import Style from '../../styles/formato.module.css';
-import {Typography, Button} from '@mui/material';
+import {Typography, Link, Button} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState, useEffect } from 'react';
 import ListDesplegable1 from '../../components/list-desplegable-1';
 import { useRouter } from 'next/router'
+import Loading from '../../components/loading';
 
 
 export default function Formato (){
@@ -81,7 +83,7 @@ export default function Formato (){
      return (<>
     {loading ? 
         <div>
-            <h1>Cargando...</h1>
+            <Loading/>
             </div> : <>
     <Bannerhero title={`Formato de Archivos de ${datos[0].nombre}`}/>
 
@@ -90,6 +92,11 @@ export default function Formato (){
         <div className={Style.containerDatos}>
             
             <div className={Style.containerTitle}>
+
+            <Link href='../recaudadores' passHref>
+                <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'white'}} /> 
+          </Link>
+
             <Typography variant="h4">
              Formatos
             </Typography>

@@ -34,7 +34,6 @@ export default function Index({datos,tipo,datoTablas}) {
 
     const [datos1, setDatos1] = useState(datoTablas);
     let idAut = 1 + Math.max(...datos1.map(dato => dato.id));
-    console.log(idAut);
     const handleAdd = () => {
         setDatos1([...datos1, {
             id: idAut,
@@ -43,12 +42,13 @@ export default function Index({datos,tipo,datoTablas}) {
             tipo: '',
             desde: '',
         }]);
-    console.log(datos1);
+   
     }
 
     const handleRemove = (id) => {
-        setDatos1(datos1.filter(dato => dato.id !== id));
-        console.log(id);
+        if (datos1.length > 1) {
+            setDatos1(datos1.filter(dato => dato.id !== id));
+        }
     }
 
 

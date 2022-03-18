@@ -40,7 +40,7 @@ export default function CrearUsuarios(){
       .max(60, 'La contraseña debe tener como maximo 60 caracteres')
       .required('La contraseña es requerida') 
       .matches(
-        /^.(?=.{8,})((?=.[!@#$%^&()-_=+{};:,<.>]){1})(?=.\d)((?=.[a-z]){1})((?=.[A-Z]){1}).*$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
         "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial"
       ),
       
@@ -86,11 +86,25 @@ export default function CrearUsuarios(){
             console.error('Error:', error);
             setError(true);
             setErrorMsg(error);
+            setTimeout(() => {
+              setError(false)
+            }, 4000);
           })
           .then(response => { 
+            if(response.message){
+              setError(true);
+              setErrorMsg(response.message);
+              setTimeout(() => {
+                setError(false)
+              }, 4000);
+              return
+            }
             console.log('Success:', response);
             setSuccess(true);
             resetForm();
+            setTimeout(() => {
+              setSuccess(false)
+            }, 4000);
 
           });
             setSubmitting(false);

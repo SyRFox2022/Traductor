@@ -80,9 +80,24 @@ export default function Crear() {
           .catch(error =>{ 
           setError(true);
           setErrorMsg(error)
+          setTimeout(() => {
+            setError(false)
+          }, 4000);
         })
           .then(response => {
+            if (response.message) {
+              setError(true);
+              setErrorMsg(response.message)
+              setTimeout(() => {
+                setError(false)
+              }, 4000);
+              return
+            }
+            console.log(response);
             setSuccess(true);
+            setTimeout(() => {
+              setSuccess(false)
+            }, 4000);
             resetForm();
   
           });
@@ -96,7 +111,6 @@ export default function Crear() {
          touched,
          handleChange,
          handleBlur,
-         handleReset,
        }) => (
          <Form >
            <Typography variant="h6" >

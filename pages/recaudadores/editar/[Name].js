@@ -11,8 +11,8 @@ import Alerta from '../../../components/alert'
 
 async function Obtener(cod) {
     try{
-    const response = await fetch('http://localhost:5000/recaudadores/'+cod);
-    const data = await response.json();
+      const response = await fetch('http://localhost:5000/recaudadores/'+cod);
+      const data = await response.json();
     return data;
         }
     catch(error){
@@ -37,7 +37,6 @@ export default function Crear() {
           setCodigoRec(codRecaudadores);
           setDatos(data);
           setLoading(false);
-  
         }
           );
       }
@@ -125,10 +124,18 @@ export default function Crear() {
           }, 4000);
         })
         .then(response => {
+          if(response.message){
+            setError(true);
+            setErrorMsg(response.message)
+            setTimeout(() => {
+              setError(false)
+            }, 4000);
+          }
           setSuccess(true)
           setTimeout(() => {
             setSuccess(false)
           }, 4000);
+          router.push('/recaudadores');
         
         });
         setSubmitting(false);
