@@ -18,10 +18,10 @@ import { useState, useEffect } from 'react';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Link from 'next/link';
-
-
+import Loading from '../components/loading';
 
 export default function Recaudadores (){
+    
     const [recaudador, setRecaudador] = useState("");
     const [recaudadores,setRecaudadores] = useState([]);
     const [datosRecaudador, setDatosRecaudadores] = useState([{}]);
@@ -50,7 +50,7 @@ export default function Recaudadores (){
 
     const HandleClickDelete = (id) => {
        
-     fetch('http://localhost:5000/recaudadores/'+ id, {
+     fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ id, {
         method: 'DELETE',
     })
         .then(res => res.text()) // or res.json()
@@ -67,7 +67,7 @@ export default function Recaudadores (){
     const handleChange = (e,title,cod) => {
         setLoading(true);
         e.target.checked ? setRecaudador(title) : setRecaudador("");
-        fetch('http://localhost:5000/recaudadores/'+ cod, {
+        fetch( process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ cod, {
         method: 'GET',
     })
         .then(res => res.json()) // or res.json()
@@ -81,8 +81,10 @@ export default function Recaudadores (){
     };
 
     useEffect(() => {
+
+    const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
     setRole(localStorage.getItem('role'));
-    fetch('http://localhost:5000/recaudadores')
+    fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores')
          .then(response => response.json())
          .then(data => setRecaudadores(data))
          .catch(error => console.log(error));

@@ -7,11 +7,13 @@ import * as yup from 'yup';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import Alerta from '../../../components/alert'
+import Loading from '../../components/loading';
+
 
 
 async function Obtener(cod) {
     try{
-      const response = await fetch('http://localhost:5000/recaudadores/'+cod);
+      const response = await fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+cod);
       const data = await response.json();
     return data;
         }
@@ -73,7 +75,7 @@ export default function Crear() {
   });
   
     return (<>
-    {loading ? <h1>Cargando...</h1>  : 
+    {loading ? <Loading />  : 
     <>
     
         <Stack 
@@ -109,7 +111,7 @@ export default function Crear() {
         idPrograma: datos[0]?.idPrograma ,}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting }) => {
-        fetch('http://localhost:5000/recaudadores/'+ codigoRec, {
+        fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/recaudadores/'+ codigoRec, {
           method: 'PUT', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

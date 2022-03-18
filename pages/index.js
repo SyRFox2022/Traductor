@@ -2,10 +2,13 @@ import Bannerhero from '../components/banner-hero';
 import LogoCustom from '../components/logo';
 import Style from '../styles/index.module.css';
 import {Typography, Stack } from '@mui/material';
+import {useEffect} from 'react';
 
 export default function Home() {
  
-
+  useEffect(() => {
+  console.log(process.env.NEXT_PUBLIC_REACT_URL_API);
+  }, []);
 
   return (<>
     <Bannerhero title="Manejo de Archivos" />

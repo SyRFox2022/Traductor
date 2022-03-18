@@ -60,7 +60,7 @@ export default function Login(){
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
 
-            fetch('http://localhost:5000/usuarios/'+ values.email)
+            fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/usuarios/'+ values.email)
               .then(res => res.json())
               .catch(err => {setErr(true)
                 setTimeout(() => {

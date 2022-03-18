@@ -42,6 +42,11 @@ export default function TemporaryDrawer() {
       name: 'Crear Usuario',
       url: '/admin/crear-usuarios',
     },
+    {
+      name: 'Control de Usuarios',
+      url:'/admin/control-usuarios',
+    },
+
 
   ]
 

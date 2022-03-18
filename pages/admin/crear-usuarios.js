@@ -75,7 +75,7 @@ export default function CrearUsuarios(){
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
-          fetch('http://localhost:5000/usuarios', {
+          fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

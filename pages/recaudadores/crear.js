@@ -70,7 +70,7 @@ export default function Crear() {
        initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting,resetForm }) => {
-        fetch('http://localhost:5000/recaudadores', {
+        fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

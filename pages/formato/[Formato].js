@@ -16,7 +16,7 @@ export default function Formato (){
 
     async function Obtener(cod) {
         try{
-        const response = await fetch('http://localhost:5000/recaudadores/'+cod);
+        const response = await fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/recaudadores/'+cod);
         const data = await response.json();
         return data;
             }
@@ -81,10 +81,7 @@ export default function Formato (){
             desde: '',},
     ];
      return (<>
-    {loading ? 
-        <div>
-            <Loading/>
-            </div> : <>
+    {loading ? <Loading/> : <>
     <Bannerhero title={`Formato de Archivos de ${datos[0].nombre}`}/>
 
     <div className={Style.containerBody}>        
