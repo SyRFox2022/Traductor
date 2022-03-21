@@ -1,7 +1,7 @@
 import Bannerhero from '../components/banner-hero';
 import Style from '../styles/archivo.module.css';
 import {Typography,List, Select, Switch, MenuItem, ListItemIcon, ListItemText, Divider, Checkbox, Table, TableBody, TableCell, TableRow, OutlinedInput, InputAdornment, IconButton, ListItem, Collapse} from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SearchIcon from '@mui/icons-material/Search';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
@@ -11,6 +11,10 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export default function Archivos(){
+    const [role, setRole] = useState('');
+    useEffect(() => {
+        setRole(localStorage.getItem('role'));
+    }, []);
     const [open, setOpen] = useState(true);
     const handleClick = () => {
         setOpen(!open);
@@ -87,11 +91,12 @@ return( <>
         />
         
         <ListItemText primary={title} />
-
+            {role === 'admin' || role ==='userfull' ? 
         <ListItemIcon >
             <CreateOutlinedIcon sx={{color:"blue"}}/>
             <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
         </ListItemIcon>
+            :null}
         </ListItem > 
        
             <Divider/>  

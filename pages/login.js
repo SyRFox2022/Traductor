@@ -69,7 +69,8 @@ export default function Login(){
                 }, 4000);
               })
               .then(data => {
-                
+                console.log("data",data);
+                console.log("values",values);
                 if(data?.length > 0){
                   
                   if(data[0].Password === values.password){
@@ -90,6 +91,7 @@ export default function Login(){
 
                    }
                     else{
+                      console.log('no entre')
                       setErr(true)
                       setTimeout(() => {
                         setErr(false)

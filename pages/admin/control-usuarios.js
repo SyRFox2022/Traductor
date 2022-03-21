@@ -11,10 +11,28 @@ import Loading from '../../components/loading';
 
 
 export default function Control(){
+const [data, setData] = useState([]);
+const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API
+const FetchData = async () => {
+  fetch(`${APIURL}/usuarios`)
+  .then(res => res.json())
+  .catch(error => console.error('Error:', error))
+  .then(res => {
+    setData(res)
+    console.log(data)
+  })
+
+}
+
+    useEffect(() => {
+      
+        FetchData();
+
+    }, []);
+
+
     const [loading, setLoading] = useState(true);
-   {/* const [datos,setDatos] = useState([{}]);
-    const [codigoUsser, setCodigoUsser] = useState('');
-    const router = useRouter(); */}
+
     
       const listaUsers = [
           {
@@ -79,6 +97,6 @@ export default function Control(){
         
     </div>
 
-   {/* </>} */} 
+    
     </>)
 }
