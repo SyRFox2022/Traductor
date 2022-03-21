@@ -72,7 +72,7 @@ export default function Login(){
                 console.log("data",data);
                 console.log("values",values);
                 if(data?.length > 0){
-                  
+                  console.log(data[0].password);
                   if(data[0].Password === values.password){
                   console.log('entre')
                   localStorage.setItem("auth","true")
