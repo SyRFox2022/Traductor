@@ -5,9 +5,9 @@ import Style from '../../../styles/crear.module.css';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 import Alerta from '../../../components/alert'
-import Loading from '../../components/loading';
+import Loading from '../../../components/loading';
 
 
 
@@ -104,12 +104,14 @@ export default function Crear() {
         <Typography variant="h3">Editar entidad</Typography>
         <Formik
        initialValues={{ 
-        nombre: datos[0]?.nombre, 
-        codRecaudadores: datos[0]?.codRecaudadores, 
-        tipoArchivo: datos[0]?.tipoArchivo, 
-        estado: datos[0]?.estado, 
-        idPrograma: datos[0]?.idPrograma ,}}
+          nombre: datos[0]?.nombre, 
+          codRecaudadores: datos[0]?.codRecaudadores, 
+          tipoArchivo: datos[0]?.tipoArchivo, 
+          estado: datos[0]?.estado, 
+          idPrograma: datos[0]?.idPrograma ,}}
+
        validationSchema={validationSchema}
+       
        onSubmit={(values, { setSubmitting }) => {
         fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/recaudadores/'+ codigoRec, {
           method: 'PUT', // or 'PUT'

@@ -22,7 +22,7 @@ export default function Campo(){
       },
       {
           title:'Detalles',
-      },
+      }, 
       {
           title:'Pie',
       }

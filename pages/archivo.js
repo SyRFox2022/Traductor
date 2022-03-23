@@ -12,14 +12,11 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export default function Archivos(){
     const [role, setRole] = useState('');
-    useEffect(() => {
-        setRole(localStorage.getItem('role'));
-    }, []);
     const [open, setOpen] = useState(true);
-    const handleClick = () => {
-        setOpen(!open);
-      };
-      
+    const [recaudador, setRecaudador] = useState("");
+    const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
+    const [order, setOrder] = useState('');
+
     const listaArchivos = [
         {
             id: 1,
@@ -36,10 +33,15 @@ export default function Archivos(){
             tipo: 'salida',
         },
     ]
-    const [recaudador, setRecaudador] = useState("");
-    const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
-    const [order, setOrder] = useState('');
 
+    useEffect(() => {
+        setRole(localStorage.getItem('role'));
+    }, []);
+
+    const handleClick = () => {
+        setOpen(!open);
+      };
+      
     const handleChange = (e,title) => {
         e.target.checked ? setRecaudador(title) : setRecaudador("");
         setOrder(e.target.value);

@@ -2,7 +2,7 @@ import Style from '../../styles/control.module.css'
 import Bannerhero from '../../components/banner-hero';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { Table, TableBody, TableCell, TableRow, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, IconButton, Modal, Box, Button, Typography } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -11,49 +11,66 @@ import Loading from '../../components/loading';
 
 
 export default function Control(){
+
+  const boxModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'var(--color-light-gray)',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
 const [data, setData] = useState([]);
-const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API
+const [open, setOpen] = useState(false);
+const [id , setId] = useState('');
+const [actualizarecaudador, setActualizaRecaudador] = useState(false);
+const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
+
+const handleOpen = (IdUser) => {
+  setId(IdUser);
+  setOpen(true);
+}
+const handleClose = () => setOpen(false);
+
 const FetchData = async () => {
   fetch(`${APIURL}/usuarios`)
   .then(res => res.json())
   .catch(error => console.error('Error:', error))
   .then(res => {
     setData(res)
-    console.log(data)
   })
 
 }
+const HandleClickDelete = (idUser) => {
+       
+  fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios/'+ idUser, {
+     method: 'DELETE',
+ })
+     .then(res => res.text()) // or res.json()
+     .then(res => {
+        setOpen(false);
+        setActualizaRecaudador(!actualizarecaudador);
+     })    
+     .catch(error => console.log(error));
+     };
 
     useEffect(() => {
       
         FetchData();
 
-    }, []);
-
+    }, [actualizarecaudador]);
 
     const [loading, setLoading] = useState(true);
 
-    
-      const listaUsers = [
-          {
-              nombre:'',
-              apellido:'',
-              mail:'',
-              tipo:'',
-              estado:'',
-          },
-          {
-            nombre:'',
-            apellido:'',
-            mail:'',
-            tipo:'',
-            estado:'',
-        },
-      ]
 
 
     return(<>
-   {/* {loading ? <Loading/> : <> */} 
+   {/* {loading ? <Loading/> : <> */}
+
     <Bannerhero title="Control de Usuarios" />
 
     <div className={Style.containerBody}>
@@ -70,21 +87,23 @@ const FetchData = async () => {
             <TableCell> <SettingsIcon/> </TableCell>
           </TableRow>
     
-        {listaUsers.map((archivo) => {
+        {data.map((archivo) => {
         return (
-        <TableBody key={archivo.id}>
+        <TableBody key={archivo.Id}>
             <TableRow>
-                <TableCell> {archivo.nombre} </TableCell>
-                <TableCell> {archivo.apellido} </TableCell>
-                <TableCell> {archivo.mail} </TableCell>
-                <TableCell> {archivo.tipo} </TableCell>
-                <TableCell> {archivo.estado} </TableCell>
+                <TableCell> {archivo.FirstName} </TableCell>
+                <TableCell> {archivo.LastName} </TableCell>
+                <TableCell> {archivo.Mail} </TableCell>
+                <TableCell> {archivo.Role} </TableCell>
+                <TableCell> {archivo.Status} </TableCell>
                 <TableCell>
+                  <Link  href={`/admin/usuario/editar/${archivo.Id}`}>
                     <IconButton edge="end">
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>
+                    </Link>
                     <IconButton edge="end">
-                        <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
+                        <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id) }/>
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -92,11 +111,33 @@ const FetchData = async () => {
             )
         })}
       </Table>
+      <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            >
+            <Box sx={boxModal}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+            ¿Está seguro de eliminar este Usuario?
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Una vez eliminado no podrá recuperar los datos.
+            </Typography>
+
+            <div className={Style.modalButton}>
+            <Button  onClick={()=>HandleClickDelete(id) }>
+            Eliminar
+            </Button>
+            </div>
+                        
+            </Box>
+      </Modal>
 
       </div>
         
     </div>
 
-    
+   {/*  </>} */}
     </>)
 }

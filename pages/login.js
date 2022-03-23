@@ -9,6 +9,9 @@ import Alerta from '../components/alert'
 
 
 export default function Login(){
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [err , setErr] = useState(false);
   const validationSchema = yup.object({
     email: yup
       .string('Ingrese un email')
@@ -19,10 +22,6 @@ export default function Login(){
       .required('La contraseña es requerida'),
   });
 
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const [err , setErr] = useState(false);
-  
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -69,22 +68,22 @@ export default function Login(){
                 }, 4000);
               })
               .then(data => {
-                console.log("data",data);
-                console.log("values",values);
+               
                 if(data?.length > 0){
-                  console.log('Password minuscula',data[0].password);
-                  console.log('Password Mayuscula',data[0].Password);
-                  console.log('Value paswword',values.password);
+                  
                   if(data[0].Password === values.password){
-                  console.log('entre')
+                  
                   localStorage.setItem("auth","true")
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
+
                    if(data[0].Role === "admin"){
                     localStorage.setItem("role","admin")
                     }
+
                     else if(data[0].Role === "userfull"){
                     localStorage.setItem("role","userfull")
                     }
+
                     else if(data[0].Role === "userconsulta"){
                     localStorage.setItem("role","user")
                     }
@@ -117,8 +116,6 @@ export default function Login(){
          touched,
          handleChange,
          handleBlur,
-         handleSubmit,
-         isSubmitting,
        }) => (<Form>
 
             <div className={Style.form}>

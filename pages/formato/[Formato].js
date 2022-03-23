@@ -80,6 +80,8 @@ export default function Formato (){
             valor: '',
             desde: '',},
     ];
+
+
      return (<>
     {loading ? <Loading/> : <>
     <Bannerhero title={`Formato de Archivos de ${datos[0].nombre}`}/>

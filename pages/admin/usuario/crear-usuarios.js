@@ -1,40 +1,49 @@
-import { Stack, Typography, Button, Select, FilledInput, MenuItem } from '@mui/material'
-import Style from '../../styles/crear.module.css'
+import { Stack, Typography, InputAdornment, Button, IconButton, Select, FilledInput, MenuItem } from '@mui/material'
+import Style from '../../../styles/crear.module.css'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup';
-import Alerta from '../../components/alert'
+import Alerta from '../../../components/alert'
 import { useState } from 'react';
-
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 
 export default function CrearUsuarios(){
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState();
   const [success, setSuccess] = useState(false);
   const [error , setError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)}
+    
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault()
+    }
 
   const validationSchema = yup.object({
-    firstName: yup
+    FirstName: yup
       .string('Ingrese un nombre')
       .min(3, 'El nombre debe tener al menos 3 caracteres')
       .max(30, 'El nombre debe tener como maximo 50 caracteres')
       .required('El nombre es requerido') ,
 
-    lastName: yup
+    LastName: yup
       .string('Ingrese un apellido')
       .min(3, 'El apellido debe tener al menos 3 caracteres')
       .max(30, 'El apellido debe tener como maximo 60 caracteres')
       .required('El apellido es requerido'),
 
-    mail: yup
+    Mail: yup
       .string('Ingrese un email')
-      .email('Ingrese un mail valido')
-      .required('El mail es requerido'),
+      .email('Ingrese un email valido')
+      .required('El email es requerido'),
 
-    role: yup
+    Role: yup
       .string('Ingrese un tipo')
       .required('El tipo es requerido') ,
 
-    password: yup
+    Password: yup
       .string('Ingrese una contraseña')
       .min(8, 'La contraseña debe tener al menos 8 caracteres')
       .max(60, 'La contraseña debe tener como maximo 60 caracteres')
@@ -50,7 +59,6 @@ export default function CrearUsuarios(){
     return(
         <>
         <Stack
-          alignItems="center"
           sx={{
               p:'30px',
               borderRadius:'5px',
@@ -68,10 +76,10 @@ export default function CrearUsuarios(){
         
         {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
 
-        {success ? <> <Alerta tipo='success' mensaje='Creada con éxito' /></>:null}
+        {success ? <> <Alerta tipo='success' mensaje='Usuario creado con éxito' /></>:null}
 
         <Formik
-          initialValues={{ firstName: '', lastName: '', mail: '', role: '', password: '', company: 'default', status: 'A' }}
+          initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '', Company: 'default', Status: 'A' }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
@@ -132,72 +140,86 @@ export default function CrearUsuarios(){
            </Typography>
            <FilledInput
              type="text"
-             name="firstName"
+             name="FirstName"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.firstName}
-             error={touched.firstName && Boolean(errors.firstName)}
+             value={values.FirstName}
+             error={touched.FirstName && Boolean(errors.FirstName)}
            />
-            {touched.firstName && Boolean(errors.firstName) && <p className={Style.errorMsg}>{errors.firstName}</p>}
+            {touched.FirstName && Boolean(errors.FirstName) && <p className={Style.errorMsg}>{errors.FirstName}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Apellido/s
            </Typography>
            <FilledInput
              type="text"
-             name="lastName"
+             name="LastName"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.lastName}
-             error={touched.lastName && Boolean(errors.lastName)}
+             value={values.LastName}
+             error={touched.LastName && Boolean(errors.LastName)}
            />
-            {touched.lastName && Boolean(errors.lastName) && <p className={Style.errorMsg}>{errors.lastName}</p>}
+            {touched.LastName && Boolean(errors.LastName) && <p className={Style.errorMsg}>{errors.LastName}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Correo
            </Typography>
            <FilledInput
              type="text"
-             name="mail"
+             name="Mail"
              onChange={handleChange}
              onBlur={handleBlur}
-             value={values.mail}
-             error={touched.mail && Boolean(errors.mail)}
+             value={values.Mail}
+             error={touched.Mail && Boolean(errors.Mail)}
            />
-            {touched.mail && Boolean(errors.mail) && <p className={Style.errorMsg}>{errors.mail}</p>}
+            {touched.Mail && Boolean(errors.Mail) && <p className={Style.errorMsg}>{errors.Mail}</p>}
 
             <Typography variant="h6" sx={{mt:'20px'}}>
              Tipo de usuario
            </Typography>
            <Select
-              defaultValue="Admin"
+              defaultValue="admin"
              type="text"
-             name="role"
+             name="Role"
              onChange={handleChange}
              onBlur={handleBlur}
-             error={touched.role && Boolean(errors.role)}
-             value={values.role}
+             error={touched.Role && Boolean(errors.Role)}
+             value={values.Role}
              sx={{width:'100%',}}
              >
             <MenuItem value="admin">Admin</MenuItem>
             <MenuItem value="userfull">User Full</MenuItem>
             <MenuItem value="userconsulta">User Consulta</MenuItem>
            </Select>
-           {touched.role && Boolean(errors.role) && <p className={Style.errorMsg}>{errors.role}</p>}
+           {touched.Role && Boolean(errors.Role) && <p className={Style.errorMsg}>{errors.Role}</p>}
 
            
            <Typography variant="h6" sx={{mt:'20px'}}>
              Contraseña
            </Typography>
            <FilledInput
-             type="password"
-             name="password"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.password}
-             error={touched.password && Boolean(errors.password)}
-           />
-            {touched.password && Boolean(errors.password) && <p className={Style.errorMsg}>{errors.password}</p>}
+                required
+                id="contraseña"
+                type={showPassword ? 'text' : 'password'}
+                name="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.Password}
+                error={touched.Password && Boolean(errors.Password)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+            />
+            {touched.Password && Boolean(errors.Password) && <p className={Style.errorMsg}>{errors.Password}</p>}
 
            <div className={Style.containerButton}>
             <Button variant="contained" type="submit"  >

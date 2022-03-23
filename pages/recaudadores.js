@@ -30,10 +30,12 @@ export default function Recaudadores (){
     const [cod , setCod] = useState('');
     const [actualizarecaudador, setActualizaRecaudador] = useState(false);
     const [loading , setLoading] = useState(false);
+    
     const handleOpen = (codEnte) => {
         setCod(codEnte);
         setOpen(true);
     }
+    
     const handleClose = () => setOpen(false);
 
     const boxModal = {
@@ -100,7 +102,7 @@ export default function Recaudadores (){
         
     <List>
         <ListItem>
-            <Typography variant="h4"  >Entes Recaudores</Typography >
+            <Typography variant="h4"  >Entes Recaudadores</Typography >
             {role === 'admin' || role === 'userfull' ?
             <Link href='/recaudadores/crear'>
                 <a>
@@ -176,7 +178,12 @@ export default function Recaudadores (){
 {recaudador === "" && loading === false ? 
 
     <div>
-        <Typography variant="h4" sx={{color:"var(--color-other-grey)", fontWeight: "bold", textAlign:"center" }} >Seleccione una Entidad</Typography >  
+        <Typography variant="h4" 
+        sx={{color:"var(--color-other-grey)",
+        mt:'10%', 
+        fontWeight: "bold", 
+        textAlign:"center" }} 
+        >Seleccione una Entidad</Typography >  
     </div> 
 : 
 <>
