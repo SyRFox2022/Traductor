@@ -38,7 +38,7 @@ export default function Login(){
         <Stack
           alignItems="center"
           sx={{
-              p:'30px',
+              p:'3%',
               borderRadius:'5px',
               border: '1px solid',
               mt:'3%',

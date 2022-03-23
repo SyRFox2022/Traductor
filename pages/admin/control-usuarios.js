@@ -8,6 +8,9 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import SettingsIcon from '@mui/icons-material/Settings';
 import Link from 'next/link';
 import Loading from '../../components/loading';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 
 export default function Control(){
@@ -76,6 +79,17 @@ const HandleClickDelete = (idUser) => {
     <div className={Style.containerBody}>
     
     <div className={Style.bodyRight}>
+
+    <div className={Style.containerTitle}>
+
+            <Link href='../' passHref>
+                <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
+            </Link>
+
+            <Link href='usuario/crear-usuarios' passHref>
+            <AddOutlinedIcon sx={{'&:hover':{cursor:'pointer'},color:"var(--color-black)"}}/>
+            </Link>
+            </div>
 
     <Table>
           <TableRow>

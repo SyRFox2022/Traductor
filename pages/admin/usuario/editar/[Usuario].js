@@ -96,9 +96,8 @@ export default function CrearUsuarios(){
     <>
         <Stack
           sx={{
-              p:'30px',
+              p:'3%',
               borderRadius:'5px',
-              border: '1px solid',
               mt:'3%',
               ml:'30%',
               mr:'30%',

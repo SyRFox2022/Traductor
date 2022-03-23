@@ -22,3 +22,12 @@
     text-align-last: center;
     margin-top: 3%;
 }
+
+.containerTitle{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1%;
+
+}

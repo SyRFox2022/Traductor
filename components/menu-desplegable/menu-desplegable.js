@@ -39,10 +39,6 @@ export default function TemporaryDrawer() {
 
   const listMenuAdmin = [
     {
-      name: 'Crear Usuario',
-      url: '/admin/usuario/crear-usuarios',
-    },
-    {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },

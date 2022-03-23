@@ -1,10 +1,12 @@
-import { Stack, Typography, InputAdornment, Button, IconButton, Select, FilledInput, MenuItem } from '@mui/material'
+import { Stack, Typography, InputAdornment, Button, IconButton, Select, FilledInput, MenuItem, Link  } from '@mui/material'
 import Style from '../../../styles/crear.module.css'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup';
 import Alerta from '../../../components/alert'
 import { useState } from 'react';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 
 export default function CrearUsuarios(){
@@ -60,9 +62,8 @@ export default function CrearUsuarios(){
         <>
         <Stack
           sx={{
-              p:'30px',
+              p:'3%',
               borderRadius:'5px',
-              border: '1px solid',
               mt:'3%',
               ml:'30%',
               mr:'30%',
@@ -73,6 +74,10 @@ export default function CrearUsuarios(){
             }}
           spacing={3}
         >
+        
+        <Link href='/admin/control-usuarios' passHref>
+          <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)',}} /> 
+        </Link>
         
         {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
 
@@ -129,8 +134,8 @@ export default function CrearUsuarios(){
          handleReset,
        }) => (
          <Form >
-           
 
+           
             <Typography variant="h3"sx={{color:'var(--bg-color-dark-blue)'}} >
                 Registrar Usuario
             </Typography>

@@ -80,9 +80,8 @@ export default function Crear() {
     
         <Stack 
             sx={{
-                p:'30px',
+                p:'3%',
                 borderRadius:'5px',
-                border: '1px solid',
                 mt:'3%',
                 ml:'30%',
                 mr:'30%',
@@ -139,7 +138,10 @@ export default function Crear() {
           setTimeout(() => {
             setSuccess(false)
           }, 4000);
-          router.push('/recaudadores');
+          setTimeout(() => {
+            router.push('/recaudadores');
+          }, 2000);
+        
         
         });
         setSubmitting(false);
