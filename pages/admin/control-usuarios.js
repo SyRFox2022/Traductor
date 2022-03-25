@@ -87,7 +87,7 @@ const HandleClickDelete = (idUser) => {
             </Link>
 
             <Link href='usuario/crear-usuarios' passHref>
-            <AddOutlinedIcon sx={{'&:hover':{cursor:'pointer'},color:"var(--color-black)"}}/>
+                <AddOutlinedIcon sx={{'&:hover':{cursor:'pointer'},color:"var(--color-black)"}}/>
             </Link>
             </div>
 
@@ -111,7 +111,7 @@ const HandleClickDelete = (idUser) => {
                 <TableCell> {archivo.Role} </TableCell>
                 <TableCell> {archivo.Status} </TableCell>
                 <TableCell>
-                  <Link  href={`/admin/usuario/editar/${archivo.Id}`}>
+                  <Link  href={`/admin/usuario/editar/${archivo.Id}`} passHref>
                     <IconButton edge="end">
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>

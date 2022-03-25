@@ -1,6 +1,5 @@
 .containerBody{
     background-color: var(--color-white);
-    height: math(100% - 50px);
     width: 100%;
     display: flex;
     flex-direction: row;

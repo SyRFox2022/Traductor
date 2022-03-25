@@ -23,6 +23,7 @@ export default function Login(){
   });
 
 
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
@@ -75,19 +76,7 @@ export default function Login(){
                   
                   localStorage.setItem("auth","true")
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
-
-                   if(data[0].Role === "admin"){
-                    localStorage.setItem("role","admin")
-                    }
-
-                    else if(data[0].Role === "userfull"){
-                    localStorage.setItem("role","userfull")
-                    }
-
-                    else if(data[0].Role === "userconsulta"){
-                    localStorage.setItem("role","user")
-                    }
-
+                  localStorage.setItem("role",data[0].Role)
                   router.push('/')
 
                    }

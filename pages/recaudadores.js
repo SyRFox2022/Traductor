@@ -97,7 +97,7 @@ export default function Recaudadores (){
     <Bannerhero title="Recaudadores" />
    
 
-<div className={Style.containerBody} id="div2">
+<div className={Style.containerBody}>
 <div className={Style.containerLeft}>
         
     <List>

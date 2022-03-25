@@ -155,10 +155,12 @@ export default function CrearUsuarios(){
             }
             console.log('Success:', response);
             setSuccess(true);
-            resetForm();
             setTimeout(() => {
               setSuccess(false)
             }, 4000);
+            setTimeout(() => {
+              router.push('/admin/control-usuarios')
+            }, 1000);
 
           });
             setSubmitting(false);
