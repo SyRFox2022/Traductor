@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { useState } from 'react';
 
 export default function Crear() {
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState();
   const [success, setSuccess] = useState(false);
   const [error , setError] = useState(false);
   const validationSchema = yup.object({

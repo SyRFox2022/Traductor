@@ -93,12 +93,7 @@ return( <>
         />
         
         <ListItemText primary={title} />
-            {role === 'admin' || role ==='userfull' ? 
-        <ListItemIcon >
-            <CreateOutlinedIcon sx={{color:"blue"}}/>
-            <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
-        </ListItemIcon>
-            :null}
+           
         </ListItem > 
        
             <Divider/>  

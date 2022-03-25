@@ -127,21 +127,21 @@ export default function Crear() {
           }, 4000);
         })
         .then(response => {
-          if(response.message){
+          if(response.message || response.sqlMessage){
             setError(true);
-            setErrorMsg(response.message)
+            setErrorMsg(response.message || response.sqlMessage);
             setTimeout(() => {
               setError(false)
             }, 4000);
+              return;
           }
+          else{
           setSuccess(true)
           setTimeout(() => {
             setSuccess(false)
           }, 4000);
-          setTimeout(() => {
-            router.push('/recaudadores');
-          }, 2000);
-        
+          console.log(response);
+          }
         
         });
         setSubmitting(false);

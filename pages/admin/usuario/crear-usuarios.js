@@ -32,7 +32,7 @@ export default function CrearUsuarios(){
 
     LastName: yup
       .string('Ingrese un apellido')
-      .min(3, 'El apellido debe tener al menos 3 caracteres')
+      .min(2, 'El apellido debe tener al menos 3 caracteres')
       .max(30, 'El apellido debe tener como maximo 60 caracteres')
       .required('El apellido es requerido'),
 
