@@ -189,7 +189,7 @@ export default function Crear() {
 
            
            <div className={Style.containerButton}>
-            <Button sx={{width:"30%"}} variant="contained" type="submit"  >Crear entidad</Button>
+            <Button sx={{width:"30%", backgroundColor: 'var(--bg-color-other-blue)'}} variant="contained" type="submit"  >Crear entidad</Button>
 
            
 

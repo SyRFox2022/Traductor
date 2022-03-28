@@ -234,7 +234,7 @@ export default function Crear() {
 
            
            <div className={Style.containerButton}>
-            <Button sx={{width:"30%"}} variant="contained" type="submit"  >Aceptar</Button>
+            <Button sx={{width:"30%",  backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}} variant="contained" type="submit"  >Aceptar</Button>
 
 
            </div>

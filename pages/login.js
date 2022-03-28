@@ -7,11 +7,12 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup';
 import Alerta from '../components/alert'
 
-
 export default function Login(){
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [err , setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const validationSchema = yup.object({
     email: yup
       .string('Ingrese un email')
@@ -21,8 +22,6 @@ export default function Login(){
       .string('Ingrese una contraseña')
       .required('La contraseña es requerida'),
   });
-
-
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -59,7 +58,7 @@ export default function Login(){
           initialValues={{ email: '', password: '' }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-
+            setLoading(true)
             fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/usuarios/'+ values.email)
               .then(res => res.json())
               .catch(err => {setErr(true)
@@ -73,7 +72,7 @@ export default function Login(){
                 if(data?.length > 0){
                   
                   if(data[0].Password === values.password){
-                  
+                  setLoading(false)
                   localStorage.setItem("auth","true")
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
                   localStorage.setItem("role",data[0].Role)
@@ -81,6 +80,7 @@ export default function Login(){
 
                    }
                     else{
+                      setLoading(false)
                       console.log('no entre')
                       setErr(true)
                       setTimeout(() => {
@@ -89,6 +89,7 @@ export default function Login(){
                     }
                   }
                   else{
+                    setLoading(false)
                     setErr(true);
                     setTimeout(() => {
                       setErr(false)
@@ -96,6 +97,7 @@ export default function Login(){
                   }})
 
             setSubmitting(false);
+            
         }
        }
     >
@@ -158,10 +160,14 @@ export default function Login(){
             {touched.password && Boolean(errors.password) && <p className={Style.errorMsg}>{errors.password}</p>}
             
             </div>
-
-            <Button variant="contained" type="submit" sx={{mt:'10%'}} >
-              Iniciar sesion
+            {loading ?
+            <Button variant="contained" disabled sx={{mt:'10%'}} >
+                Loading...
             </Button>
+            : 
+            <Button variant="contained"  type="submit" sx={{mt:'10%', backgroundColor: 'var(--bg-color-other-blue)'}} >
+               Aceptar  
+            </Button> }
 
             </Form>
             

@@ -162,7 +162,7 @@ export default function Recaudadores (){
             </Typography>
 
             <div className={Style.modalButton}>
-            <Button  onClick={()=>HandleClickDelete(cod) }>
+            <Button variant="contained" color="error" onClick={()=>HandleClickDelete(cod) }>
             Eliminar
             </Button>
             </div>

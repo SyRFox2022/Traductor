@@ -28,13 +28,10 @@
   
   /*Config Botones*/
   .MuiButton-root{
-    color: var(--color-white);
-    background-color: var(--bg-color-other-blue);
     height: fit-content;
   }
 
   .MuiButton-root:hover{
-    background-color: var(--bg-color-old-blue);
     height: fit-content;
   }
 

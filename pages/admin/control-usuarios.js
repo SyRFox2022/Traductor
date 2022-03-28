@@ -140,7 +140,7 @@ const HandleClickDelete = (idUser) => {
             </Typography>
 
             <div className={Style.modalButton}>
-            <Button  onClick={()=>HandleClickDelete(id) }>
+            <Button  color="error" variant="contained" onClick={()=>HandleClickDelete(id)}>
             Eliminar
             </Button>
             </div>

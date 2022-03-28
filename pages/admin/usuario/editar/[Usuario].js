@@ -301,7 +301,7 @@ export default function CrearUsuarios(){
             {touched.Password && Boolean(errors.Password) && <p className={Style.errorMsg}>{errors.Password}</p>}
 
            <div className={Style.containerButton}>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={{backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>
               Aceptar
             </Button>
             </div>
