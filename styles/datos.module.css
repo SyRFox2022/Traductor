@@ -27,7 +27,7 @@
 
 .containerInfoRight{
     width: 50%;
-    border-left: 1px solid #C4C4C4;
+    border-left: 1px solid var(--color-light-gray);
     padding: 2%;
 }
 

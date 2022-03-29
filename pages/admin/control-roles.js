@@ -19,15 +19,27 @@ export default function Rol() {
         boxShadow: 24,
         p: 4,
       };
-
+    
+    const [loading, setLoading] = useState(true);
+    const [roles, setRoles] = useState([]);
+    const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
     const [open, setOpen] = useState(false);
-
     const handleClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
-      
+    
+    useEffect(() => {
+        fetch(`${APIURL}/roles`)
+        .then(response => response.json())
+        .catch(error => console.log(error))
+        .then(data => {
+            setRoles(data);
+            setLoading(false);
+        })
+    }, [])
         
 
   return (<>
+  {loading ? <p>Cargando...</p> :<>
     <Bannerhero title="Control de Roles" />
 
     <div className={Style.containerBody}>
@@ -112,5 +124,5 @@ export default function Rol() {
         </div>    
     </div>
 
-        </>)
+    </>}   </>)
 }
