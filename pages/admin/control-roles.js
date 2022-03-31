@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Typography, Button, Checkbox, Select, MenuItem, IconButton, Box, Modal, FilledInput } from "@mui/material";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { Check, DataObjectSharp } from '@mui/icons-material';
 
 
 export default function Rol() {
@@ -22,10 +23,15 @@ export default function Rol() {
     
     const [loading, setLoading] = useState(true);
     const [roles, setRoles] = useState([]);
+    const [rolesSelected, setRolesSelected] = useState([]);
     const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
+
+    const HandleChange = (e) => {
+       console.log(e)
+    }
     
     useEffect(() => {
         fetch(`${APIURL}/roles`)
@@ -39,7 +45,7 @@ export default function Rol() {
         
 
   return (<>
-  {loading ? <p>Cargando...</p> :<>
+  {loading ? <h1>cargando</h1> :<>
     <Bannerhero title="Control de Roles" />
 
     <div className={Style.containerBody}>
@@ -50,13 +56,19 @@ export default function Rol() {
             <div className={Style.containerSelect}>
                <Typography variant='h6' sx={{justifyContent:'center'}}>Roles</Typography>
                 <Select
-                defaultValue="A"
+                onChange={(e) => HandleChange(e)}
+                defaultValue={roles[0].id}
                 type="text"
                 name="tipoRol"
                 sx={{width:'100%'}}>
-                    <MenuItem value="A">Admin</MenuItem>
-                    <MenuItem value="UF">Usser Full</MenuItem>
-                    <MenuItem value="U">Usuario</MenuItem>
+                    {
+                    roles.map(rol => (
+                        <MenuItem key={rol.id} value={rol.id}>{rol.Nombre}</MenuItem>
+                    ))
+
+
+                   }
+                   
                 </Select>
             </div>
                 
@@ -71,11 +83,10 @@ export default function Rol() {
                 <Typography variant='h6'>Permisos Comunes </Typography>
                 <Typography variant='h6'>Permisos Admin</Typography>
                 
-            <div className={Style.containerCheckBox}>
-                <Checkbox>Hola1</Checkbox>
-                <Checkbox>Hola2</Checkbox>
-                <Checkbox>Hola3</Checkbox>
-                <Checkbox>Hola4</Checkbox>
+            <div className={Style.containerCheckBox}> 
+                {
+                    console.log(rolesSelected)
+                }
             </div>
             <div className={Style.containerCheckBox}>
                 <Checkbox>Hola1</Checkbox>
