@@ -54,6 +54,10 @@ export default function Recaudadores (){
        
      fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ id, {
         method: 'DELETE',
+        headers: {
+            'permisos': 'DeleteEntidades',
+            'usuariorolid': 1,
+        }
     })
         .then(res => res.text()) // or res.json()
         .then(res => {
