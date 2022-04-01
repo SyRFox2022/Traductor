@@ -133,7 +133,7 @@ const HandleClickDelete = (idUser) => {
             >
             <Box sx={boxModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-            ¿Está seguro de eliminar este Usuario?
+            ¿Está seguro de eliminar ?
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Una vez eliminado no podrá recuperar los datos.

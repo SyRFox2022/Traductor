@@ -201,7 +201,7 @@ export default function Recaudadores (){
     <td>
         <Link href={`/formato/${datosRecaudador[0].codRecaudadores}`}>
         <a className={Style.link}>
-        <Typography variant="h6"> Formato de archivos </Typography >
+        <Typography variant="h6"> Ver formato de archivos </Typography >
         </a>
         </Link>
     </td><td>

@@ -51,10 +51,11 @@ export default function CrearUsuarios(){
       .max(60, 'La contraseña debe tener como maximo 60 caracteres')
       .required('La contraseña es requerida') 
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.-])(?=.{8,})/,
         "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial"
       ),
-      
+      //(?=.*[!@#$%^&*])
+      //(?=.*[!@#\$%\^&\*])
       
   });
 
@@ -98,7 +99,7 @@ export default function CrearUsuarios(){
           .catch(error =>{ 
             console.error('Error:', error);
             setError(true);
-            setErrorMsg(error);
+            setErrorMsg('Error al crear el usuario');
             setTimeout(() => {
               setError(false)
             }, 4000);
@@ -106,7 +107,12 @@ export default function CrearUsuarios(){
           .then(response => { 
             if(response.message){
               setError(true);
-              setErrorMsg(response.message);
+              if(response.message.details){
+                setErrorMsg(response.message.details[0].message);
+              }
+              else{
+                setErrorMsg(response.message);
+              }
               setTimeout(() => {
                 setError(false)
               }, 4000);
