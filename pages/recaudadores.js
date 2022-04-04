@@ -22,6 +22,7 @@ import Loading from '../components/loading';
 
 export default function Recaudadores (){
     
+    const [nombre, setNombre] = useState('');
     const [recaudador, setRecaudador] = useState("");
     const [recaudadores,setRecaudadores] = useState([]);
     const [datosRecaudador, setDatosRecaudadores] = useState([{}]);
@@ -31,8 +32,9 @@ export default function Recaudadores (){
     const [actualizarecaudador, setActualizaRecaudador] = useState(false);
     const [loading , setLoading] = useState(false);
     
-    const handleOpen = (codEnte) => {
+    const handleOpen = (codEnte,nombre) => {
         setCod(codEnte);
+        setNombre(nombre);
         setOpen(true);
     }
     
@@ -55,7 +57,7 @@ export default function Recaudadores (){
      fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ id, {
         method: 'DELETE',
         headers: {
-            'permisos': 'DeleteEntidades',
+            'permiso': 'DeleteEntidades',
             'usuariorolid': 1,
         }
     })
@@ -138,7 +140,7 @@ export default function Recaudadores (){
             </Link>
             
 
-            <ListItemButton onClick={()=> handleOpen(parseInt(title.codRecaudadores))}>
+            <ListItemButton onClick={()=> handleOpen(title.codRecaudadores,title.nombre.toString())}>
                 <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
             </ListItemButton>
                 
@@ -159,7 +161,7 @@ export default function Recaudadores (){
             >
             <Box sx={boxModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-            ¿Está seguro de eliminar la entidad?
+            ¿Está seguro de eliminar la entidad {nombre}?
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Una vez eliminada no podrá recuperar los datos.

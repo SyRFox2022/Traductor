@@ -1,4 +1,4 @@
-import Style from '../../styles/control.module.css'
+import Style from '../../styles/control-u.module.css'
 import Bannerhero from '../../components/banner-hero';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
@@ -26,15 +26,16 @@ export default function Control(){
     boxShadow: 24,
     p: 4,
   };
-
+const [nombre, setNombre] = useState('');
 const [data, setData] = useState([]);
 const [open, setOpen] = useState(false);
 const [id , setId] = useState('');
 const [actualizarecaudador, setActualizaRecaudador] = useState(false);
 const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
 
-const handleOpen = (IdUser) => {
+const handleOpen = (IdUser,nombre,apellido) => {
   setId(IdUser);
+  setNombre(nombre + ' ' + apellido);
   setOpen(true);
 }
 const handleClose = () => setOpen(false);
@@ -48,8 +49,8 @@ const FetchData = async () => {
   })
 
 }
-const HandleClickDelete = (idUser) => {
-       
+
+const HandleClickDelete = (idUser) => {    
   fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios/'+ idUser, {
      method: 'DELETE',
  })
@@ -62,7 +63,7 @@ const HandleClickDelete = (idUser) => {
      };
 
     useEffect(() => {
-      
+        setLoading(false);
         FetchData();
 
     }, [actualizarecaudador]);
@@ -72,7 +73,7 @@ const HandleClickDelete = (idUser) => {
 
 
     return(<>
-   {/* {loading ? <Loading/> : <> */}
+   {loading ? <Loading/> : <>
 
     <Bannerhero title="Control de Usuarios" />
 
@@ -117,7 +118,7 @@ const HandleClickDelete = (idUser) => {
                     </IconButton>
                     </Link>
                     <IconButton edge="end">
-                        <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id) }/>
+                        <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id,archivo.FirstName,archivo.LastName) }/>
                     </IconButton>
                 </TableCell>
             </TableRow>
@@ -131,9 +132,10 @@ const HandleClickDelete = (idUser) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
+  
             <Box sx={boxModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-            ¿Está seguro de eliminar ?
+            ¿Está seguro de eliminar {nombre}?
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Una vez eliminado no podrá recuperar los datos.
@@ -152,6 +154,6 @@ const HandleClickDelete = (idUser) => {
         
     </div>
 
-   {/*  </>} */}
+   </>}
     </>)
 }

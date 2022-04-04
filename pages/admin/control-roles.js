@@ -1,11 +1,13 @@
-import Style from '../../styles/roles.module.css'
+import Style from '../../styles/c-roles.module.css'
 import Bannerhero from '../../components/banner-hero';
+import Loading from '../../components/loading';
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { Typography, Button, Checkbox, Select, MenuItem, IconButton, Box, Modal, FilledInput } from "@mui/material";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { Check, DataObjectSharp } from '@mui/icons-material';
+import { Formik, Form } from 'formik';
 
 
 export default function Rol() {
@@ -20,7 +22,31 @@ export default function Rol() {
         boxShadow: 24,
         p: 4,
       };
-    
+
+  const permisosComun= 
+        [
+            "EDitEntidades",
+            "EditArchivos",
+            "DeleteEntidades",
+            "CreateEntidades",
+            "CreateArchivos",
+            "DeleteArchivos",
+           
+        ]
+  const  permisosAdmin=
+        [
+            "A_EditUsuarios",
+            "A_DeleteUsuarios",
+            "A_CreateRoles",
+            "A_EditRoles",
+            "A_DeleteRoles",
+            "A_MakeAdmin",
+            "A_DoubleVer",
+            "A_CreateUsuarios"
+
+            ]
+    const [rolselect, setRolSelect] = useState('');
+    const [rolData, setRolData] = useState({});
     const [loading, setLoading] = useState(true);
     const [roles, setRoles] = useState([]);
     const [rolesSelected, setRolesSelected] = useState([]);
@@ -30,7 +56,13 @@ export default function Rol() {
     const handleOpen = () => setOpen(true);
 
     const HandleChange = (e) => {
-       console.log(e)
+      
+        setRolSelect(e.target.value);
+        fetch(`${APIURL}/roles/${rolselect}`)
+            .then(res => res.json())
+            .then(data => {
+                setRolData(data);
+            })
     }
     
     useEffect(() => {
@@ -39,13 +71,20 @@ export default function Rol() {
         .catch(error => console.log(error))
         .then(data => {
             setRoles(data);
-            setLoading(false);
+            setRolSelect(data[0].id);
         })
+        fetch(`${APIURL}/roles/${rolselect}`)
+            .then(res => res.json())
+            .then(data => {
+                setRolData(data);
+                setLoading(false);
+            })
+        
     }, [])
         
 
   return (<>
-  {loading ? <h1>cargando</h1> :<>
+  {loading ? <Loading/> :<>
     <Bannerhero title="Control de Roles" />
 
     <div className={Style.containerBody}>
@@ -71,7 +110,7 @@ export default function Rol() {
                    
                 </Select>
             </div>
-                
+            
             <div className={Style.containerInput}>
                 <Typography variant='h6'>Nombre del Rol</Typography>
                 <FilledInput  />
@@ -85,14 +124,29 @@ export default function Rol() {
                 
             <div className={Style.containerCheckBox}> 
                 {
-                    console.log(rolesSelected)
+                   permisosComun.map(permiso => (
+                     
+                       <span key={permiso}>
+                       <Checkbox  >{permiso}</Checkbox>
+                       <Typography  variant='h7'>{permiso}</Typography>
+                       </span>
+                         
+                         
+                     ))
                 }
             </div>
             <div className={Style.containerCheckBox}>
-                <Checkbox>Hola1</Checkbox>
-                <Checkbox>Hola2</Checkbox>
-                <Checkbox>Hola3</Checkbox>
-                <Checkbox>Hola4</Checkbox>
+            {
+                   permisosAdmin.map(permiso => (
+                     
+                       <span key={permiso}>
+                       <Checkbox >{permiso}</Checkbox>
+                       <Typography  variant='h7'>{permiso}</Typography>
+                       </span>
+                         
+                         
+                     ))
+                }
             </div>
             </div>
 
@@ -131,8 +185,9 @@ export default function Rol() {
                             
                 </Box>
             </Modal>
-
+           
         </div>    
+   
     </div>
 
     </>}   </>)

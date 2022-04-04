@@ -2,8 +2,8 @@
 .containerAlert{
    position: fixed;
    top: 15%;
-   left: 0;
+   right: 2%;
    z-index: 99999;
-   width: 100%; 
+   width: 20%; 
    text-align: -webkit-right;
 }

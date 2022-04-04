@@ -13,9 +13,11 @@ export default function TemporaryDrawer() {
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
+  
   useEffect(() => {
     setRole(localStorage.getItem('role'));
   }, []);
+
   const listMenuu = [
     {
       name: 'Inicio',
@@ -30,9 +32,11 @@ export default function TemporaryDrawer() {
       url: '/archivo',
     },
   ];
+
   const handleClick = () => {
     setOpen(!open);
   };
+
   const handleClickAdmin = () => {
     setOpenAdmin(!openAdmin);
     };
@@ -42,10 +46,10 @@ export default function TemporaryDrawer() {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },
-   // {
-     // name: 'Control de Roles',
-    // url:'/admin/control-roles',
-   // },
+    {
+      name: 'Control de Roles',
+     url:'/admin/control-roles',
+    },
 
   ]
 

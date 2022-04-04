@@ -17,7 +17,7 @@ const handleClose = () => {
             severity="error"
             sx={{ 
                 backgroundColor: '#F08182',
-                width: '20%',
+                width: '100%',
                 mr: '2%',
                 textAlign: 'left',
                 color: 'black' }}>
@@ -37,7 +37,7 @@ const handleClose = () => {
             severity="success"
             sx={{ 
                 backgroundColor: '#97F18E',
-                width: '20%',
+                width: '100%',
                 mr: '2%',
                 textAlign: 'left' }}>
 
