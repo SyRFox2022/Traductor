@@ -23,28 +23,7 @@ export default function Rol() {
         p: 4,
       };
 
-  const permisosComun= 
-        [
-            "EDitEntidades",
-            "EditArchivos",
-            "DeleteEntidades",
-            "CreateEntidades",
-            "CreateArchivos",
-            "DeleteArchivos",
-           
-        ]
-  const  permisosAdmin=
-        [
-            "A_EditUsuarios",
-            "A_DeleteUsuarios",
-            "A_CreateRoles",
-            "A_EditRoles",
-            "A_DeleteRoles",
-            "A_MakeAdmin",
-            "A_DoubleVer",
-            "A_CreateUsuarios"
-
-            ]
+    
     const [rolselect, setRolSelect] = useState('');
     const [rolData, setRolData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -89,6 +68,10 @@ export default function Rol() {
 
     <div className={Style.containerBody}>
         <div className={Style.containerForm}>
+<Formik
+initialValues={{ email: '', password: '' }}
+>
+        <Form>
 
             <div className={Style.containerRol}>
 
@@ -96,7 +79,7 @@ export default function Rol() {
                <Typography variant='h6' sx={{justifyContent:'center'}}>Roles</Typography>
                 <Select
                 onChange={(e) => HandleChange(e)}
-                defaultValue={roles[0].id}
+                defaultValue={roles[0]?.id}
                 type="text"
                 name="tipoRol"
                 sx={{width:'100%'}}>
@@ -123,30 +106,78 @@ export default function Rol() {
                 <Typography variant='h6'>Permisos Admin</Typography>
                 
             <div className={Style.containerCheckBox}> 
-                {
-                   permisosComun.map(permiso => (
-                     
-                       <span key={permiso}>
-                       <Checkbox  >{permiso}</Checkbox>
-                       <Typography  variant='h7'>{permiso}</Typography>
-                       </span>
-                         
-                         
-                     ))
-                }
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Crear Entidades</Typography>
+                </span>
+
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Crear Archivo</Typography>
+                </span> 
+               
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Editar Entidades</Typography>
+                </span>
+                
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Editar Archivos</Typography>
+                </span>
+
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Eliminar Entidades</Typography>
+                </span>
+                
+                <span>
+                    <Checkbox></Checkbox>
+                    <Typography  variant='h7'>Eliminar Archivos</Typography>
+                </span>    
             </div>
-            <div className={Style.containerCheckBox}>
-            {
-                   permisosAdmin.map(permiso => (
-                     
-                       <span key={permiso}>
-                       <Checkbox >{permiso}</Checkbox>
-                       <Typography  variant='h7'>{permiso}</Typography>
-                       </span>
+
+            <div className={Style.containerCheckBox}>   
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Crear Usuarios</Typography>
+                </span>
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Crear Roles</Typography>
+                </span>
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Editar Usuarios</Typography>
+                </span>
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Editar Roles</Typography>
+                </span>
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Eliminar Usuarios</Typography>
+                </span>                
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Eliminar Roles</Typography>
+                </span>
+                
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Hacer Admin</Typography>
+                </span>
+
+                <span>
+                    <Checkbox ></Checkbox>
+                    <Typography  variant='h7'>Doble Verificacion</Typography>
+                </span>                      
                          
-                         
-                     ))
-                }
             </div>
             </div>
 
@@ -159,6 +190,10 @@ export default function Rol() {
 
                 <Button variant="contained" sx={{width:'20%', backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>Guardar cambios</Button>
             </div>
+
+
+            </Form>
+            </Formik>
 
             <Modal
             open={open}
@@ -185,7 +220,7 @@ export default function Rol() {
                             
                 </Box>
             </Modal>
-           
+         
         </div>    
    
     </div>

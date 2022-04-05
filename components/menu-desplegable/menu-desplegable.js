@@ -34,7 +34,7 @@ export default function TemporaryDrawer() {
   ];
 
   const handleClick = () => {
-    setOpen(!open);
+    setShowMenu(!showMenu);
   };
 
   const handleClickAdmin = () => {
@@ -46,10 +46,10 @@ export default function TemporaryDrawer() {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },
-    {
+   /*{
       name: 'Control de Roles',
      url:'/admin/control-roles',
-    },
+    },   */ 
 
   ]
 
@@ -93,8 +93,8 @@ export default function TemporaryDrawer() {
 
         {listMenuu.map((lista) =>{
           return ( 
-          <Link key={lista.name} href={lista.url} passHref>      
-            <ListItemButton >
+          <Link  key={lista.name} href={lista.url} passHref>      
+            <ListItemButton onClick={handleClick}  >
                 <ListItemText primary={lista.name} />
             </ListItemButton>
           </Link>
@@ -117,7 +117,10 @@ export default function TemporaryDrawer() {
               listMenuAdmin.map((value)=>{
               return(
               <Link key={value.name} href={value.url} passHref>
-              <ListItemButton sx={{ pl: 4 }}>
+              <ListItemButton
+               sx={{ pl: 4 }}
+               onClick={handleClick}
+               >
                 <ListItemText primary={value.name} />
               </ListItemButton>
               </Link> 

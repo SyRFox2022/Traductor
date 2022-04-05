@@ -2,7 +2,7 @@ import Style from '../../styles/control-u.module.css'
 import Bannerhero from '../../components/banner-hero';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { Table, TableBody, TableCell, TableRow, IconButton, Modal, Box, Button, Typography } from '@mui/material';
+import { Switch, Table, TableBody, TableCell, TableRow, IconButton, Modal, Box, Button, Typography } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -110,7 +110,10 @@ const HandleClickDelete = (idUser) => {
                 <TableCell> {archivo.LastName} </TableCell>
                 <TableCell> {archivo.Mail} </TableCell>
                 <TableCell> {archivo.Role} </TableCell>
-                <TableCell> {archivo.Status} </TableCell>
+                <TableCell> 
+                  <Switch defaultChecked />
+                  {archivo.Status} 
+                </TableCell>
                 <TableCell>
                   <Link  href={`/admin/usuario/editar/${archivo.Id}`} passHref>
                     <IconButton edge="end">

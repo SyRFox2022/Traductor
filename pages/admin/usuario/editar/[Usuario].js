@@ -85,7 +85,7 @@ export default function CrearUsuarios(){
      .max(60, 'La contraseña debe tener como maximo 60 caracteres')
      .required('La contraseña es requerida') 
      .matches(
-       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*.-])(?=.{8,})/,
        "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial"
      ),
             
