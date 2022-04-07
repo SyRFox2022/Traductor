@@ -46,10 +46,14 @@ export default function TemporaryDrawer() {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },
-   /*{
+   {
       name: 'Control de Roles',
      url:'/admin/control-roles',
-    },   */ 
+    },
+    {
+      name: 'Notificaciones',
+      url:'/admin/notificacion'
+    }   
 
   ]
 

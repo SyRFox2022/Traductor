@@ -106,14 +106,16 @@ const HandleClickDelete = (idUser) => {
         return (
         <TableBody key={archivo.Id}>
             <TableRow>
+              {/* */}
                 <TableCell> {archivo.FirstName} </TableCell>
                 <TableCell> {archivo.LastName} </TableCell>
                 <TableCell> {archivo.Mail} </TableCell>
                 <TableCell> {archivo.Role} </TableCell>
-                <TableCell> 
+                <TableCell > 
                   <Switch defaultChecked />
                   {archivo.Status} 
                 </TableCell>
+                {/* */}
                 <TableCell>
                   <Link  href={`/admin/usuario/editar/${archivo.Id}`} passHref>
                     <IconButton edge="end">

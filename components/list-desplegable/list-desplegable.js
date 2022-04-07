@@ -10,6 +10,7 @@ export default function Index({tipo,datoTablas}) {
     const handleClickDatos = () =>{
         setOpen(!open)
     } 
+
     return (
         <List key={tipo.nombre}>
                 <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={handleClickDatos}>

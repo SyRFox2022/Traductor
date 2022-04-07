@@ -1,0 +1,11 @@
+.containerDatos{
+    color: var(--color-black);
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.containerMap{
+    padding: 1% 2%;
+}
