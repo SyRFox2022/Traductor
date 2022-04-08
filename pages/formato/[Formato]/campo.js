@@ -5,7 +5,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { useState } from 'react';
-import ListDesplegable2 from '../../../components/list-desplegable-2';
+import ListDesplegable2 from '../../../components/lists/list-campo';
 import Link from 'next/link';
 
 

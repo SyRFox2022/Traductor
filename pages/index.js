@@ -7,6 +7,18 @@ import {useEffect} from 'react';
 
 export default function Home() {
  
+useEffect(() => {
+  const IDrol = localStorage.getItem('idRol');
+  fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles/'+ IDrol)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    localStorage.setItem('roles', JSON.stringify(data));
+  }
+  )
+  console.log(localStorage.getItem('roles'));
+
+}, []);
 
   return (<>
     <Bannerhero title="Manejo de Archivos" />

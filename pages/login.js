@@ -76,9 +76,9 @@ export default function Login(){
                   localStorage.setItem("auth","true")
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
                   localStorage.setItem("role",data[0].Role)
+                  localStorage.setItem("idRol",data[0].IdRol)
                   router.push('/')
-
-                   }
+                  }
                     else{
                       setLoading(false)
                       console.log('no entre')

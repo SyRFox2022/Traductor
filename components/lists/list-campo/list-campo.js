@@ -6,7 +6,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
-import Style from '../../styles/datos1.module.css';
+import Style from '../../../styles/datos1.module.css';
 
 export default function Index({datos,datoTablas}) {
     

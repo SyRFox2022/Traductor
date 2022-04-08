@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { IconButton, ListItemText,  Divider, Drawer, Box, List, ListItemButton, Collapse } from '@mui/material';
-import ListNotificacion from '../../components/list-notificaciones';
+import ListNotificacion from '../../components/lists/list-notificaciones';
 
 
 export default function Aviso(){

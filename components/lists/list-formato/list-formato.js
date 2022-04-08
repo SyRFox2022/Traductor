@@ -7,7 +7,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import Style from '../../styles/datos1.module.css';
+import Style from '../../../styles/datos1.module.css';
 import { Formik, Form } from 'formik'
 import * as yup from 'yup';
 
@@ -223,11 +223,7 @@ export default function Index({datos,tipo,datoTablas}) {
 
                     <div className={Style.containerButtons}>
 
-                    <Button 
-                     sx={{mr:'1%'}}
-                     onClick={handleAdd}
-                     variant="text"
-                    >
+                    <Button onClick={handleAdd} variant="text">
                         <AddIcon />
                     </Button>
 

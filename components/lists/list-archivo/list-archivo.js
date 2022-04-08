@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import Style from '../../styles/datos.module.css';
+import Style from '../../../styles/datos.module.css';
 
 export default function Index({tipo,datoTablas}) {
     const [open,setOpen] = useState(false)
