@@ -117,14 +117,18 @@ const HandleClickDelete = (idUser) => {
                 </TableCell>
                 {/* */}
                 <TableCell>
+                {localStorage.getItem('A_EditUsuarios') == 1 ?
                   <Link  href={`/admin/usuario/editar/${archivo.Id}`} passHref>
                     <IconButton edge="end">
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>
                     </Link>
+                  : null}
+                {localStorage.getItem('A_DeleteUsuarios') == 1 ?
                     <IconButton edge="end">
                         <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id,archivo.FirstName,archivo.LastName) }/>
                     </IconButton>
+                : null}
                 </TableCell>
             </TableRow>
         </TableBody>

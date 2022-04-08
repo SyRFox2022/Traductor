@@ -26,7 +26,6 @@ export default function Recaudadores (){
     const [recaudador, setRecaudador] = useState("");
     const [recaudadores,setRecaudadores] = useState([]);
     const [datosRecaudador, setDatosRecaudadores] = useState([{}]);
-    const [role, setRole] = useState('');
     const [open, setOpen] = useState(false);
     const [cod , setCod] = useState('');
     const [actualizarecaudador, setActualizaRecaudador] = useState(false);
@@ -89,9 +88,10 @@ export default function Recaudadores (){
     };
 
     useEffect(() => {
+        console.log(localStorage.getItem('DeleteEntidades'));
 
     const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
-    setRole(localStorage.getItem('role'));
+    
     fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores')
          .then(response => response.json())
          .then(data => setRecaudadores(data))
@@ -109,7 +109,7 @@ export default function Recaudadores (){
     <List>
         <ListItem>
             <Typography variant="h4"  >Entes Recaudadores</Typography >
-            {role === 'admin' || role === 'userfull' ?
+            {localStorage.getItem('CreateEntidades') == 1 ?
             <Link href='/recaudadores/crear'>
                 <a>
                     <ListItemIcon>
@@ -131,22 +131,24 @@ export default function Recaudadores (){
         />
 
         <ListItemText primary={title.nombre.toString()} />
-            {role === 'admin' || role ==='userfull' ?
+           
         <ListItemIcon >
+        {localStorage.getItem('EDitEntidades') == 1?
             <Link href={`/recaudadores/editar/${title.codRecaudadores.toString()}`} passHref>
             <ListItemButton>
                 <CreateOutlinedIcon sx={{color:"blue"}}/>
             </ListItemButton>
             </Link>
-            
+            :null}
 
+        {localStorage.getItem('DeleteEntidades') == 1?
             <ListItemButton onClick={()=> handleOpen(title.codRecaudadores,title.nombre.toString())}>
                 <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
             </ListItemButton>
-                
+                :null}
             
         </ListItemIcon>
-        :null}
+        
 
         </ListItem>
             <Divider/>  

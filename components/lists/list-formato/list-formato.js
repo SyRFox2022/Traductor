@@ -191,11 +191,11 @@ export default function Index({datos,tipo,datoTablas}) {
 
                                 <div className={Style.containerBtn}>
                                 <ListItemButton onClick={()=>handleRemove(datos.id) }>
-                                <RemoveIcon />
+                                <RemoveIcon sx={{color:'var(--color-redB)'}}/>
                                 </ListItemButton>
                                 </div>
                             </div>
-                            <Button sx={{display:'none'}} id={datos.id} type="submit"  />
+                            <Button sx={{display:'none',}} id={datos.id} type="submit"  />
                             </Form>
                          )}
                             </Formik>
@@ -223,18 +223,23 @@ export default function Index({datos,tipo,datoTablas}) {
 
                     <div className={Style.containerButtons}>
 
-                    <Button onClick={handleAdd} variant="text">
+                    <Button variant="contained" onClick={handleAdd}
+                    sx={{backgroundColor:'var(--color-greenB)',
+                    '&:hover':{backgroundColor: 'var(--color-greenC)'}}}>
                         <AddIcon />
                     </Button>
 
                     
                     <Link href='../../formato/hola/campo' passHref>
-                        <Button sx={{backgroundColor:'black'}}>
+                        <Button variant="contained" sx={{backgroundColor: 'var(--bg-color-other-blue)',
+                        '&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>
                             Editar Formato de Campos
                         </Button>
                     </Link>
                     
-                        <Button sx={{ml:'1%'}} onClick={handleClickSubmit}>
+                        <Button variant="contained" onClick={handleClickSubmit}
+                        sx={{ml:'1%', backgroundColor: 'var(--bg-color-other-blue)',
+                        '&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>
                             Guardar
                             <SaveOutlinedIcon />
                         </Button>

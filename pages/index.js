@@ -9,15 +9,30 @@ export default function Home() {
  
 useEffect(() => {
   const IDrol = localStorage.getItem('idRol');
+  console.log(localStorage.getItem('role'));
+  console.log("idrol",IDrol);
+  console.log("localstorage",localStorage.getItem('idRol'));
   fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles/'+ IDrol)
   .then(res => res.json())
   .then(data => {
     console.log(data);
-    localStorage.setItem('roles', JSON.stringify(data));
+    localStorage.setItem('A_CreateRoles', data[0]?.A_CreateRoles);
+    localStorage.setItem('A_CreateUsuarios', data[0]?.A_CreateUsuarios);
+    localStorage.setItem('A_DeleteRoles', data[0]?.A_DeleteRoles);
+    localStorage.setItem('A_DeleteUsuarios', data[0]?.A_DeleteUsuarios);
+    localStorage.setItem('A_DoubleVer', data[0]?.A_DoubleVer);
+    localStorage.setItem('A_EditRoles', data[0]?.A_EditRoles);
+    localStorage.setItem('A_EditUsuarios', data[0]?.A_EditUsuarios);
+    localStorage.setItem('A_MakeAdmin', data[0]?.A_MakeAdmin);
+    localStorage.setItem('CreateArchivos', data[0]?.CreateArchivos);
+    localStorage.setItem('CreateEntidades', data[0]?.CreateEntidades);
+    localStorage.setItem('DeleteArchivos', data[0]?.DeleteArchivos);
+    localStorage.setItem('DeleteEntidades', data[0]?.DeleteEntidades);
+    localStorage.setItem('EDitEntidades', data[0]?.EDitEntidades);
+    localStorage.setItem('EditArchivos', data[0]?.EditArchivos);
+
   }
   )
-  console.log(localStorage.getItem('roles'));
-
 }, []);
 
   return (<>

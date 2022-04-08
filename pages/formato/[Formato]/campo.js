@@ -5,7 +5,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { useState } from 'react';
-import ListDesplegable2 from '../../../components/lists/list-campo';
+import ListCampo from '../../../components/lists/list-campo';
 import Link from 'next/link';
 
 
@@ -68,10 +68,11 @@ export default function Campo(){
 
           {listFormat.map((datos) =>{
           return(
-              <ListDesplegable2 key={datos.title} datos={datos} datoTablas={datosTabla} />
+              <ListCampo key={datos.title} datos={datos} datoTablas={datosTabla} />
           )})}
 
-              <Button sx={{mt:'1%'}}>
+              <Button variant="contained" sx={{mt:'1%', backgroundColor: 'var(--bg-color-other-blue)',
+                        '&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>
                   Guardar
                   <SaveOutlinedIcon />
               </Button>

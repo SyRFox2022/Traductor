@@ -11,7 +11,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
 export default function Archivos(){
-    const [role, setRole] = useState('');
     const [open, setOpen] = useState(true);
     const [recaudador, setRecaudador] = useState("");
     const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
@@ -34,9 +33,7 @@ export default function Archivos(){
         },
     ]
 
-    useEffect(() => {
-        setRole(localStorage.getItem('role'));
-    }, []);
+   
 
     const handleClick = () => {
         setOpen(!open);
@@ -159,12 +156,16 @@ return( <>
                     <Switch defaultChecked />
                 </TableCell>
                 <TableCell>
+                {localStorage.getItem('EditArchivos') == 1 ?
                     <IconButton edge="end">
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>
+                :null}
+                {localStorage.getItem('DeleteArchivos') == 1 ?
                     <IconButton edge="end">
                         <DeleteOutlineOutlinedIcon sx={{color:"red"}}/>
                     </IconButton>
+                :null}
                 </TableCell>
             </TableRow>
         </TableBody>

@@ -200,11 +200,16 @@ onSubmit={(values, { setSubmitting }) => {
             <div className={Style.containerRol}>
 
             <div className={Style.containerSA}>
+                {localStorage.getItem('A_CreateRoles') == 1 ? 
                 <div className={Style.containerAdd}>
-                <Button onClick={CrearRol} sx={{backgroundColor:'var(--color-greenB)','&:hover':{backgroundColor: 'var(--color-greenC)'}}} variant="contained">
+
+                <Button onClick={CrearRol} variant="contained" 
+                sx={{backgroundColor:'var(--color-greenB)',
+                '&:hover':{backgroundColor: 'var(--color-greenC)'}}}>
                     <AddOutlinedIcon/>
                 </Button>
                 </div>
+                    : null}
                 <div className={Style.containerSelect}>
                <Typography variant='h6' sx={{justifyContent:'center'}}>Roles</Typography>
                 <Select
@@ -473,18 +478,22 @@ onSubmit={(values, { setSubmitting }) => {
                      setFieldValue('A_CreateUsuarios', roles[0].A_CreateUsuarios)
 
                 }}  />
+                {localStorage.getItem('A_DeleteRoles') == 1 ?
                 <Button 
                 onClick={()=>handleOpen()}
                 variant="contained" 
                 color="error" 
                 sx={{width:'20%'}}>Eliminar rol</Button>
+            :null}
 
+                {localStorage.getItem('A_EditRoles') == 1 ?
                 <Button 
                 type="submit" 
                 variant="contained" 
                 sx={{width:'20%', 
                 backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}
                 }}>Guardar cambios</Button>
+                :null }
             </div>
             
             

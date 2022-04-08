@@ -27,8 +27,9 @@
 .containerSA{
     display:flex;
     flex-direction: row;
-    width: 30%;
+    width: 40%;
     align-items: center;
+   
 }
 
 .containerAdd{
@@ -36,11 +37,12 @@
 }
 
 .containerSelect{
-    width: 100%;
+    width: 80%;
 }
 
 .containerInput{
-    width: 30%;
+   
+    width: 35%;
 }
 
 .containerPermisos{

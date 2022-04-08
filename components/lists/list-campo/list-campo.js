@@ -31,7 +31,7 @@ export default function Index({datos,datoTablas}) {
 
             <div className={Style.containerRight}> 
             <ListItemButton>
-                <RemoveIcon sx={{color:'red'}}/>
+                <RemoveIcon sx={{color:'var(--color-redB)'}}/>
             </ListItemButton>
 
             <ListItemButton onClick={handleClick}>
@@ -114,10 +114,10 @@ export default function Index({datos,datoTablas}) {
 
                                 <div className={Style.containerBtn}>
                                 <ListItemButton>
-                                <AddIcon />
+                                <AddIcon sx={{color:'var(--color-greenB)'}}/>
                                 </ListItemButton>
                                 <ListItemButton>
-                                <RemoveIcon />
+                                <RemoveIcon sx={{color:'var(--color-other-grey)'}}/>
                                 </ListItemButton>
                                 </div>
                             </div>

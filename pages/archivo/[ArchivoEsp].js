@@ -1,6 +1,6 @@
 import Bannerhero from '../../components/banner-hero';
 import Style from '../../styles/datos.module.css';
-import ListDesplegable from '../../components/list-archivo';
+import ListArchivo from '../../components/lists/list-archivo';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Typography, Button } from '@mui/material';
 import Link from 'next/link';
@@ -126,7 +126,7 @@ export default function ArchivoEsp(){
         <div className={Style.containerDatos}>
         {tipoDatos.map((tipo)=>{
             return(
-                <ListDesplegable key={tipo.nombre} tipo={tipo} datoTablas={datosTabla} />
+                <ListArchivo key={tipo.nombre} tipo={tipo} datoTablas={datosTabla} />
             )})}
             
         </div>

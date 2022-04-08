@@ -105,7 +105,16 @@ export default function TemporaryDrawer() {
         )})} 
           
         </List>
-        {role === 'admin' ? <>
+        {localStorage.getItem('A_EditUsuarios') == 1  || 
+        localStorage.getItem('A_DeleteUsuarios') == 1  || 
+        localStorage.getItem('A_CreateRoles') == 1  ||
+        localStorage.getItem('A_EditRoles') == 1  ||
+        localStorage.getItem('A_DeleteRoles') == 1  ||
+        localStorage.getItem('A_CreateUsuarios') == 1  ||
+        localStorage.getItem('A_DeleteUsuarios') == 1  ||
+        localStorage.getItem('A_MakeAdmin') == 1  ||
+        localStorage.getItem('A_DoubleVer') == 1  
+        ? <>
       <Divider sx={{bgcolor:'white'}}/>
 
       <List >

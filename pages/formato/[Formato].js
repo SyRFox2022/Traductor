@@ -4,7 +4,7 @@ import {Typography, Link, Button} from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState, useEffect } from 'react';
-import ListDesplegable1 from '../../components/lists/list-formato';
+import ListFormato from '../../components/lists/list-formato';
 import { useRouter } from 'next/router'
 import Loading from '../../components/loading';
 
@@ -105,7 +105,7 @@ export default function Formato (){
 
             {listFormat.map((datos) =>{
             return(
-                <ListDesplegable1 key={datos.title} datos={datos} tipo={datos.tipo} datoTablas={datosTabla} />
+                <ListFormato key={datos.title} datos={datos} tipo={datos.tipo} datoTablas={datosTabla} />
             )})}
 
         </div>
