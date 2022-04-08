@@ -1,9 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import { Typography, Button, List, ListItemButton, ListItemText, Collapse } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Style from '../../styles/list-notificacion.module.css';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+
 
 export default function Index({subtitulo, descripcion}) {
 const [open, setOpen] = useState(false);
@@ -14,27 +17,54 @@ const [open, setOpen] = useState(false);
 
     
   return (
-    <div className={Style.containerMap}>
-    <List key={subtitulo.titulo}>
-            <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={handleClick}>
-                    <ListItemText variant="h5" primary={subtitulo.titulo} />
-                    <div className={Style.containerDatos}>
-                    <ListItemText primary={subtitulo.nombre} />
-                    <ListItemText primary={subtitulo.fecha} />
-                    <ListItemText primary={subtitulo.hora} />
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                    </div>
-            </ListItemButton>
-                <Collapse  in={open} timeout="auto" unmountOnExit>
+    
+    <List key={subtitulo.titulo}
+        sx={{backgroundColor:'var(--color-white)', 
+        width: '100%',}}>
+        <div className={Style.containerMap}>
+           
+           
+           <ListItemButton onClick={handleClick}
+            sx={{backgroundColor:'var(--bg-color-lb-table)',}}>
+           <div className={Style.containerTitle}>
+              <Typography variant="h5"> {subtitulo.titulo} </Typography>
+           </div>
+          
 
-                        {descripcion.map((datos)=>{
-                      return( 
-                          <h1>{datos.texto}</h1>
-                        )})}
-                        
-                </Collapse> 
+           <div className={Style.containerDatos}>
+              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.nombre} </Typography>
+              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.fecha} </Typography>
+              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.hora} </Typography>
+           </div>
+           
+              {open ? <ExpandLess /> : <ExpandMore />}
+           </ListItemButton>
+           
+          </div>
+           
+           <Collapse  in={open} timeout="auto" unmountOnExit>
+           
+               {descripcion.map((datos)=>{
+                return( 
+                <div key={datos.accion} className={Style.containerDescripcion}>
+                <Typography>Acción: {datos.accion}</Typography>
+                <Typography>A: {datos.a}</Typography>
+                <Typography>De: {datos.de}</Typography>
+                <Typography>Descripción: {datos.desc}</Typography>
+
+                <Typography>Ver Cambios</Typography>
+
+
+                <div>
+                <Button sx={{color:'var(--color-greenB)'}}> <CheckCircleOutlineOutlinedIcon/> </Button>
+                <Button sx={{color:'var(--color-redB)'}}> <CancelOutlinedIcon/> </Button> 
+                </div>            
+                </div>  
+                )})}
+                     
+           </Collapse> 
         </List>
-        </div>
+       
         
 )
 }

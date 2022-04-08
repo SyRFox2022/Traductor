@@ -6,10 +6,13 @@ import Alerta from '../../../components/alert'
 import { useState } from 'react';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useEffect } from 'react';
 
 
 
 export default function CrearUsuarios(){
+  const [loading, setLoading] = useState(true);
+  const [roles,setRoles] = useState([{}]);
   const [errorMsg, setErrorMsg] = useState();
   const [success, setSuccess] = useState(false);
   const [error , setError] = useState(false);
@@ -22,6 +25,16 @@ export default function CrearUsuarios(){
     const handleMouseDownPassword = (event) => {
       event.preventDefault()
     }
+
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setRoles(data)
+      setLoading(false)
+    })
+  }, [])
 
   const validationSchema = yup.object({
     FirstName: yup
@@ -41,7 +54,7 @@ export default function CrearUsuarios(){
       .email('Ingrese un email valido')
       .required('El email es requerido'),
 
-    Role: yup
+    IdRol: yup
       .string('Ingrese un tipo')
       .required('El tipo es requerido') ,
 
@@ -61,6 +74,7 @@ export default function CrearUsuarios(){
 
     return(
         <>
+        {loading ? <h1>Cargando</h1>:<>
         <Stack
           sx={{
               p:'3%',
@@ -85,7 +99,7 @@ export default function CrearUsuarios(){
         {success ? <> <Alerta tipo='success' mensaje='Usuario creado con éxito' /></>:null}
 
         <Formik
-          initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '', Company: 'default', Status: 'A' }}
+          initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '', Company: 'default', Status: 'A', IdRol: '', }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
@@ -135,6 +149,7 @@ export default function CrearUsuarios(){
          touched,
          handleChange,
          handleBlur,
+         setFieldValue,
          handleSubmit,
          isSubmitting,
          handleReset,
@@ -189,20 +204,25 @@ export default function CrearUsuarios(){
              Tipo de usuario
            </Typography>
            <Select
-              defaultValue="admin"
              type="text"
-             name="Role"
-             onChange={handleChange}
+             name="IdRol"
+             onChange={(event)=>{
+              setFieldValue('IdRol', event.target.value)
+              roles.map(role => {
+                if(role.id === event.target.value){
+                  console.log(role)
+                setFieldValue('Role', role.Nombre)
+                }})}}
              onBlur={handleBlur}
-             error={touched.Role && Boolean(errors.Role)}
-             value={values.Role}
+             error={touched.IdRol && Boolean(errors.IdRol)}
+             value={values.IdRol}
              sx={{width:'100%',}}
              >
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="userfull">User Full</MenuItem>
-            <MenuItem value="userconsulta">User Consulta</MenuItem>
+            {roles.map(role => (
+              <MenuItem key={role.id} value={role.id}> {role.Nombre} </MenuItem>
+            ))}
            </Select>
-           {touched.Role && Boolean(errors.Role) && <p className={Style.errorMsg}>{errors.Role}</p>}
+           {touched.IdRol && Boolean(errors.IdRol) && <p className={Style.errorMsg}>{errors.IdRol}</p>}
 
            
            <Typography variant="h6" sx={{mt:'20px'}}>
@@ -243,6 +263,7 @@ export default function CrearUsuarios(){
 
           
         </Stack>
+        </>}
         
         </>
     )

@@ -5,9 +5,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Typography, Button, Checkbox, Select, MenuItem, IconButton, Box, Modal, FilledInput } from "@mui/material";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { Check, DataObjectSharp } from '@mui/icons-material';
 import { Formik, Form } from 'formik';
+import Alerta from '../../components/alert';
+
 
 
 export default function Rol() {
@@ -23,16 +23,25 @@ export default function Rol() {
         p: 4,
       };
     
-    const [actualizarDatos, setActualizarDatos] = useState(false);
     const [actualizar, setActualizar] = useState(false);
     const [rolselect, setRolSelect] = useState('');
     const [rolData, setRolData] = useState({});
     const [loading, setLoading] = useState(true);
     const [roles, setRoles] = useState([]);
-    const [rolesSelected, setRolesSelected] = useState([]);
-    const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
     const [open, setOpen] = useState(false);
-    const handleClose = () =>{
+
+    const [successMsg, setSuccessMsg] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [error , setError] = useState(false);
+
+    const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
+
+    const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true);
+    
+
+    const handleDelete = () =>{
         fetch(APIURL + '/roles/'+rolselect, {
             method: 'DELETE',
             headers: {
@@ -43,15 +52,18 @@ export default function Rol() {
             .then(data => {
                 console.log(data);
                 setOpen(false);
+                obtenerTodosRoles();
+                setSuccess(true);
+                setSuccessMsg('Rol eliminado con éxito')
                 setTimeout(() => {
-                    setActualizar(!actualizar); 
-                }, 1000);
+                    setSuccess(false)
+                  }, 4000);
             })
-
+            .then(dato => {
+                setRolSelect(roles[0].id)
+                document.getElementById("Resetear").click()})
     } 
-    const handleOpen = () => setOpen(true);
 
-    
     const CrearRol = () => {
         console.log("Creado");
         fetch(APIURL+'/roles', {
@@ -80,19 +92,22 @@ export default function Rol() {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            setActualizar(!actualizar);
-        })
+            obtenerTodosRoles();
+            setSuccess(true);
+            setSuccessMsg('Rol creado con éxito, seleccionalo para cambiar su nombre y darle permisos.')
+            setTimeout(() => {
+              setSuccess(false)
+            }, 4000);})
         .catch(error => console.error('Error:', error));
         }
 
     const HandleChange = (e) => {
-        setActualizarDatos(true);
         setRolSelect(e.target.value);
-        fetch(`${APIURL}/roles/${rolselect}`)
+        fetch(`${APIURL}/roles/${e.target.value}`)
             .then(res => res.json())
             .then(data => {
                 setRolData(data);
-                setActualizarDatos(false);
+                obtenerTodosRoles();
             })
     }
     
@@ -116,6 +131,16 @@ export default function Rol() {
         })
         
     }, [actualizar])
+
+    const obtenerTodosRoles = () => {
+        fetch(`${APIURL}/roles`)
+        .then(response => response.json())
+        .catch(error => console.log(error))
+        .then(data => {
+            setRoles(data);
+        })
+    }
+
         
 
   return (<>
@@ -124,6 +149,11 @@ export default function Rol() {
 
     <div className={Style.containerBody}>
         <div className={Style.containerForm}>
+
+        {error ? <Alerta tipo='error' mensaje={errorMsg}/>:null}
+
+        {success ? <Alerta tipo='success' mensaje={successMsg} /> :null}
+
 <Formik
 initialValues={{ 
 Nombre: rolData[0]?.Nombre,
@@ -152,7 +182,12 @@ onSubmit={(values, { setSubmitting }) => {
     .then(res => res.json())
     .then(data => {
         console.log(data);
-        setActualizar(!actualizar);}
+        obtenerTodosRoles();
+        setSuccess(true);
+        setSuccessMsg('Cambios realizados con éxito')
+        setTimeout(() => {
+            setSuccess(false)
+          }, 4000);}
         )
     
     .catch(error => console.error('Error:', error))
@@ -191,12 +226,10 @@ onSubmit={(values, { setSubmitting }) => {
                                 setFieldValue('A_DoubleVer', rol.A_DoubleVer)
                                 setFieldValue('DeleteArchivos', rol.DeleteArchivos)
                                 setFieldValue('A_CreateUsuarios', rol.A_CreateUsuarios)
-
                             }
-                        })
-                            
-                       
+                        })      
                 }}
+                value={rolselect}
                 defaultValue={roles[0]?.id}
                 type="text"
                 name="tipoRol"
@@ -206,13 +239,10 @@ onSubmit={(values, { setSubmitting }) => {
                         <MenuItem key={rol.id} value={rol.id}>{rol.Nombre}</MenuItem>
                     ))
                    }
-                   
                 </Select>
                 </div>
             </div>
             
-           
-                   {actualizarDatos ? null :
             <div className={Style.containerInput}>
                 
                 <Typography variant='h6'>Nombre del Rol</Typography>
@@ -222,17 +252,14 @@ onSubmit={(values, { setSubmitting }) => {
                 value={values.Nombre}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                
                 />
             
             </div>
-            }
-
+          
             </div>
 
-            {actualizarDatos ? <Loading/>:<>
-            
             <div className={Style.containerPermisos}>
+
                 <Typography variant='h6'>Permisos Comunes </Typography>
                 <Typography variant='h6'>Permisos Admin</Typography>
                 
@@ -428,21 +455,41 @@ onSubmit={(values, { setSubmitting }) => {
             </div>
 
             <div className={Style.containerButton}>
+                <Button sx={{display:'none'}} id="Resetear" onClick={() =>{
+                     setFieldValue('Nombre', roles[0].Nombre)
+                     setFieldValue('EDitEntidades', roles[0].EDitEntidades)
+                     setFieldValue('EditArchivos', roles[0].EditArchivos)
+                     setFieldValue('DeleteEntidades', roles[0].DeleteEntidades)
+                     setFieldValue('CreateEntidades', roles[0].CreateEntidades)
+                     setFieldValue('CreateArchivos', roles[0].CreateArchivos)
+                     setFieldValue('A_EditUsuarios', roles[0].A_EditUsuarios)
+                     setFieldValue('A_DeleteUsuarios', roles[0].A_DeleteUsuarios)
+                     setFieldValue('A_CreateRoles', roles[0].A_CreateRoles)
+                     setFieldValue('A_EditRoles', roles[0].A_EditRoles)
+                     setFieldValue('A_DeleteRoles', roles[0].A_DeleteRoles)
+                     setFieldValue('A_MakeAdmin', roles[0].A_MakeAdmin)
+                     setFieldValue('A_DoubleVer', roles[0].A_DoubleVer)
+                     setFieldValue('DeleteArchivos', roles[0].DeleteArchivos)
+                     setFieldValue('A_CreateUsuarios', roles[0].A_CreateUsuarios)
+
+                }}  />
                 <Button 
                 onClick={()=>handleOpen()}
                 variant="contained" 
                 color="error" 
                 sx={{width:'20%'}}>Eliminar rol</Button>
 
-                <Button type="submit" variant="contained" sx={{width:'20%', backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}}}>Guardar cambios</Button>
+                <Button 
+                type="submit" 
+                variant="contained" 
+                sx={{width:'20%', 
+                backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}
+                }}>Guardar cambios</Button>
             </div>
             
-            </>}
             
 
-            </Form>
-)}
-            </Formik>
+ 
 
             <Modal
             open={open}
@@ -460,7 +507,9 @@ onSubmit={(values, { setSubmitting }) => {
 
                     <div className={Style.modalButton}>
                     <Button 
-                    onClick={()=>handleClose()}
+                    onClick={()=>{
+                        handleDelete()
+                    }}
                     variant="contained"
                     color="error">
                     Eliminar
@@ -469,7 +518,9 @@ onSubmit={(values, { setSubmitting }) => {
                             
                 </Box>
             </Modal>
-         
+            </Form>
+)}
+            </Formik>
         </div>    
    
     </div>

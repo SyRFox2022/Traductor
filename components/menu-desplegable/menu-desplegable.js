@@ -12,7 +12,7 @@ export default function TemporaryDrawer() {
   const [role, setRole] = useState('');
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState(false);
-  const [openAdmin, setOpenAdmin] = useState(false);
+  const [openAdmin, setOpenAdmin] = useState(true);
   
   useEffect(() => {
     setRole(localStorage.getItem('role'));

@@ -5,8 +5,6 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 import { IconButton, ListItemText,  Divider, Drawer, Box, List, ListItemButton, Collapse } from '@mui/material';
 import ListNotificacion from '../../components/list-notificaciones';
 
@@ -42,7 +40,10 @@ export default function Aviso(){
 
     const ejemploDesc = [
         {
-            texto:'Hola',
+            accion:'Editar',
+            a:'Formato de Entrada',
+            de:'RapiPago',
+            desc:'Realice el cambio del Formato de Archivo a pedido de la empresa',
         }
     ]
     

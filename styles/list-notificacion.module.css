@@ -1,11 +1,26 @@
+.containerMap{
+    width: 100%;
+    padding: 1% 2%;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.containerTitle{
+    width: 70%;
+  
+}
+
 .containerDatos{
     color: var(--color-black);
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
     width: 30%;
 }
 
-.containerMap{
-    padding: 1% 2%;
+.containerDescripcion{
+    margin: 0% 5% ; 
+    background-color: var(--color-light-grey);
+    display:grid;
+    grid-template-columns: 1fr 1fr;
 }
