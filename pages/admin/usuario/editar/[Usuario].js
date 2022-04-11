@@ -22,6 +22,7 @@ async function Obtener(id) {
 }
 
 export default function CrearUsuarios(){
+  const [roles, setRoles] = useState([]);
   const [datos,setDatos] = useState([{}]);
   const [idUser, setIdUser] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -43,6 +44,13 @@ export default function CrearUsuarios(){
       }
         );
     }
+    fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setRoles(data)
+      setLoading(false)
+    })
   }, [router]);
 
   const handleClickShowPassword = () => {
@@ -126,6 +134,7 @@ export default function CrearUsuarios(){
           Password: datos[0]?.Password, 
           Company: datos[0]?.Company ,
           Status: datos[0]?.Status ,
+          IdRol: datos[0]?.IdRol,
         }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -175,6 +184,7 @@ export default function CrearUsuarios(){
          handleSubmit,
          isSubmitting,
          handleReset,
+         setFieldValue,
        }) => (
          <Form >
            
@@ -239,27 +249,33 @@ export default function CrearUsuarios(){
              Tipo de usuario
            </Typography>
            <Select
-             defaultValue="Admin"
+            defaultValue={datos[0]?.IdRol}
              type="text"
-             name="Role"
-             onChange={handleChange}
+             name="IdRol"
+             onChange={(event)=>{
+              setFieldValue('IdRol', event.target.value)
+              roles.map(role => {
+                if(role.id === event.target.value){
+                  console.log(role)
+                setFieldValue('Role', role.Nombre)
+                }})}}
              onBlur={handleBlur}
-             error={touched.Role && Boolean(errors.Role)}
-             value={values.Role}
+             error={touched.IdRol && Boolean(errors.IdRol)}
+             value={values.IdRol}
              sx={{width:'100%',}}
              >
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="userfull">User Full</MenuItem>
-            <MenuItem value="userconsulta">User Consulta</MenuItem>
+          {roles.map(role => (
+              <MenuItem key={role.id} value={role.id}> {role.Nombre} </MenuItem>
+            ))}
            </Select>
-           {touched.Role && Boolean(errors.Role) && <p className={Style.errorMsg}>{errors.Role}</p>}
+           {touched.IdRol && Boolean(errors.IdRol) && <p className={Style.errorMsg}>{errors.IdRol}</p>}
 
            
            <Typography variant="h6" sx={{mt:'20px'}}>
              Estado
            </Typography>
            <Select
-            defaultValue="Activo"
+            defaultValue={datos[0]?.Status}
              type="text"
              name="Status"
              onChange={handleChange}

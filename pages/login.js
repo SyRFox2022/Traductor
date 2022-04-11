@@ -11,6 +11,7 @@ export default function Login(){
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [err , setErr] = useState(false);
+  const [errInac , setErrInac] = useState('');
   const [loading, setLoading] = useState(false);
 
   const validationSchema = yup.object({
@@ -33,7 +34,8 @@ export default function Login(){
     return(      
         <>
         
-        {err ? <Alerta tipo='error' mensaje="Datos invalidos"/>:null}
+        {err ? <Alerta tipo='error' mensaje="Datos invalidos."/>:null}
+        {errInac ? <Alerta tipo='error' mensaje="Cuenta inactiva, consulte con un administrador."/>:null}
 
         <Stack
           alignItems="center"
@@ -68,9 +70,19 @@ export default function Login(){
                 }, 4000);
               })
               .then(data => {
-               
+
+          
                 if(data?.length > 0){
                   
+                  if(data?.[0]?.Status == 'I'){
+                    setErrInac(true)
+                    setTimeout(() => {
+                      setErrInac(false)
+                    }, 4000);
+                    setLoading(false)
+                    return
+                  }
+
                   if(data[0].Password === values.password){
                   setLoading(false)
                   localStorage.setItem("auth","true")

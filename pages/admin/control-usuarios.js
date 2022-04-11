@@ -87,9 +87,10 @@ const HandleClickDelete = (idUser) => {
                 <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
             </Link>
 
-            <Link href='usuario/crear-usuarios' passHref>
+      { localStorage.getItem('A_CreateUsuarios') == '1' ?       
+      <Link href='usuario/crear-usuarios' passHref>
                 <AddOutlinedIcon sx={{'&:hover':{cursor:'pointer'},color:"var(--color-black)"}}/>
-            </Link>
+            </Link>:null}
             </div>
 
     <Table>
@@ -112,7 +113,7 @@ const HandleClickDelete = (idUser) => {
                 <TableCell> {archivo.Mail} </TableCell>
                 <TableCell> {archivo.Role} </TableCell>
                 <TableCell > 
-                  <Switch defaultChecked />
+                  <Switch checked={archivo.Status == "A" ?  true :  false} />
                   {archivo.Status} 
                 </TableCell>
                 {/* */}

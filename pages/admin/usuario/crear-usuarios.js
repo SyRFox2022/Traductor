@@ -7,6 +7,8 @@ import { useState } from 'react';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useEffect } from 'react';
+import Loading from '../../../components/loading';
+
 
 
 
@@ -74,7 +76,7 @@ export default function CrearUsuarios(){
 
     return(
         <>
-        {loading ? <h1>Cargando</h1>:<>
+        {loading ? <Loading/>:<>
         <Stack
           sx={{
               p:'3%',
@@ -99,7 +101,15 @@ export default function CrearUsuarios(){
         {success ? <> <Alerta tipo='success' mensaje='Usuario creado con éxito' /></>:null}
 
         <Formik
-          initialValues={{ FirstName: '', LastName: '', Mail: '', Role: '', Password: '', Company: 'default', Status: 'A', IdRol: '', }}
+          initialValues={{
+          FirstName: '',
+          LastName: '',
+          Mail: '',
+          Role: '',
+          Password: '',
+          Company: 'default',
+          Status: 'A',
+          IdRol: '', }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
