@@ -35,6 +35,8 @@ return(
             Traductor de Archivos
           </Typography>
 
+          { localStorage.getItem('A_DoubleVer') == '1' ?
+          <Link href='admin/notificacion' passHref>
           <IconButton
               size="large"
               edge="end"
@@ -44,6 +46,8 @@ return(
             >
               <NotificationsOutlinedIcon />
             </IconButton>
+            </Link>
+            : null}
 
           <Typography variant="h6" component="div" sx={{pl:'20px',}}>
             {name}
