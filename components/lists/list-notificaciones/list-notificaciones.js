@@ -32,9 +32,9 @@ const [open, setOpen] = useState(false);
           
 
            <div className={Style.containerDatos}>
-              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.nombre} </Typography>
-              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.fecha} </Typography>
-              <Typography variant="h6" sx={{pr:'5%'}}> {subtitulo.hora} </Typography>
+              <Typography variant="h5" sx={{pr:'5%'}}> {subtitulo.nombre} </Typography>
+              <Typography variant="h5" sx={{pr:'5%'}}> {subtitulo.fecha} </Typography>
+              <Typography variant="h5" sx={{pr:'5%'}}> {subtitulo.hora} </Typography>
            </div>
            
               {open ? <ExpandLess /> : <ExpandMore />}
@@ -48,17 +48,17 @@ const [open, setOpen] = useState(false);
                {descripcion.map((datos)=>{
                 return( 
                 <div key={datos.accion} className={Style.containerDescripcion}>
-                  <Typography>Acción: {datos.accion}</Typography>
-                  <Typography></Typography>
-                  <Typography>A: {datos.a}</Typography>
-                  <Typography>Descripción: {datos.desc}</Typography>
-                  <Typography>De: {datos.de}</Typography>
-                  <Typography></Typography>
+                  <Typography variant="h6">Acción: {datos.accion}</Typography>
+                  <Typography variant="h6"></Typography>
+                  <Typography variant="h6">A: {datos.a}</Typography>
+                  <Typography variant="h6">Descripción: {datos.desc}</Typography>
+                  <Typography variant="h6">De: {datos.de}</Typography>
+                  <Typography variant="h6"></Typography>
 
                   
                   <Link href='#' passHref 
                   sx={{justifySelf: 'end', mt:'2%'}}>
-                     <Typography>Ver Cambios</Typography>
+                     <Typography variant="h6">Ver Cambios</Typography>
                     </Link>
 
 

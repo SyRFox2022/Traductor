@@ -29,6 +29,7 @@ export default function Rol() {
     const [loading, setLoading] = useState(true);
     const [roles, setRoles] = useState([]);
     const [open, setOpen] = useState(false);
+    const [existe, setExiste] = useState(false);
 
     const [successMsg, setSuccessMsg] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -39,29 +40,57 @@ export default function Rol() {
 
     const handleClose = () => setOpen(false);
     const handleOpen = () => setOpen(true);
-    
 
     const handleDelete = () =>{
-        fetch(APIURL + '/roles/'+rolselect, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }})
-            .then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(data => {
-                console.log(data);
-                setOpen(false);
-                obtenerTodosRoles();
-                setSuccess(true);
-                setSuccessMsg('Rol eliminado con éxito')
-                setTimeout(() => {
-                    setSuccess(false)
-                  }, 4000);
+        fetch(`${APIURL}/usuarios`)
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(res => {
+            //comprobar si existe un usuario con la idrol de rolselect y si existe no se puede eliminar el rol 
+            let existe = false;
+            res.map(item => {
+                if(item.IdRol === rolselect){
+                    existe = true;
+                }
             })
-            .then(dato => {
-                setRolSelect(roles[0].id)
-                document.getElementById("Resetear").click()})
+            if(existe){
+                setErrorMsg('No se puede eliminar el rol porque existen usuarios con este rol');
+                setError(true);
+                setTimeout(() => {
+                    setError(false);
+                }, 3000);
+            }else{
+                fetch(`${APIURL}/roles/${rolselect}`, {
+                    method: 'DELETE',
+                })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => {
+                        console.log(data);
+                    setOpen(false);
+                    obtenerTodosRoles();
+                    setSuccess(true);
+                    setSuccessMsg('Rol eliminado con éxito')
+                    setTimeout(() => {
+                        setSuccess(false)
+                      }, 4000);
+                    })
+                    .then(dato => {
+                        setRolSelect(roles[0].id)
+                        document.getElementById("Resetear").click()})
+                    .catch(error => console.log(error));
+            }
+        })
+            /*res.map(usuario => {
+                console.log(usuario.IdRol,'soy la idrol usuario')
+                if (usuario.IdRol == rolselect) {
+                    console.log('ENtre', usuario.IdRol, rolselect)
+                    setExiste(true);
+                    console.log('existe', existe)
+                }
+            })
+            if(existe != true){
+                setExiste(false);
+            }*/
     } 
 
     const CrearRol = () => {
@@ -101,6 +130,7 @@ export default function Rol() {
         .catch(error => console.error('Error:', error));
         }
 
+
     const HandleChange = (e) => {
         setRolSelect(e.target.value);
         fetch(`${APIURL}/roles/${e.target.value}`)
@@ -110,7 +140,7 @@ export default function Rol() {
                 obtenerTodosRoles();
             })
     }
-    
+
     useEffect(() => {
     setLoading(true)
         fetch(`${APIURL}/roles`)
@@ -193,10 +223,9 @@ onSubmit={(values, { setSubmitting }) => {
     .catch(error => console.error('Error:', error))
 }}
 >
-    {({ values, handleChange, errors ,handleBlur, handleSubmit, setFieldValue, ...rest }) => (
+    {({ values, handleChange, errors ,handleBlur, handleSubmit, setFieldValue}) => (
         <Form>
             
-             {console.log(rest)}
             <div className={Style.containerRol}>
 
             <div className={Style.containerSA}>

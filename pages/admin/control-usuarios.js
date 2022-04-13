@@ -26,6 +26,8 @@ export default function Control(){
     boxShadow: 24,
     p: 4,
   };
+  
+const [roles, setRoles] = useState([]);
 const [nombre, setNombre] = useState('');
 const [data, setData] = useState([]);
 const [open, setOpen] = useState(false);
@@ -51,7 +53,7 @@ const FetchData = async () => {
 }
 
 const HandleClickDelete = (idUser) => {    
-  fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios/'+ idUser, {
+  fetch(APIURL +'/usuarios/'+ idUser, {
      method: 'DELETE',
  })
      .then(res => res.text()) // or res.json()
@@ -63,6 +65,12 @@ const HandleClickDelete = (idUser) => {
      };
 
     useEffect(() => {
+        fetch(APIURL +'/roles')
+        .then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(res => {
+          setRoles(res)
+        })
         setLoading(false);
         FetchData();
 
@@ -93,7 +101,7 @@ const HandleClickDelete = (idUser) => {
             </Link>:null}
             </div>
 
-    <Table>
+    <Table sx={{mb:'2%'}}>
           <TableRow>
             <TableCell sx={{fontWeight:"bold"}}>Nombre</TableCell>
             <TableCell sx={{fontWeight:"bold"}}>Apellido/s</TableCell>
@@ -111,7 +119,12 @@ const HandleClickDelete = (idUser) => {
                 <TableCell> {archivo.FirstName} </TableCell>
                 <TableCell> {archivo.LastName} </TableCell>
                 <TableCell> {archivo.Mail} </TableCell>
-                <TableCell> {archivo.Role} </TableCell>
+                <TableCell> 
+                  {roles.map((rol) => {
+                  if(archivo.IdRol == rol.id){
+                    return rol.Nombre
+                  }})}
+                </TableCell>
                 <TableCell > 
                   <Switch checked={archivo.Status == "A" ?  true :  false} />
                   {archivo.Status} 

@@ -85,11 +85,33 @@ export default function Login(){
 
                   if(data[0].Password === values.password){
                   setLoading(false)
+                  //setear permisos y nombre de usuario en localstorage y redireccionar a home 
+
                   localStorage.setItem("auth","true")
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
                   localStorage.setItem("role",data[0].Role)
                   localStorage.setItem("idRol",data[0].IdRol)
-                  router.push('/')
+                  fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles/'+ data[0].IdRol)
+                    .then(res => res.json())
+                    .then(data => {
+                      console.log(data);
+                      localStorage.setItem('A_CreateRoles', data[0]?.A_CreateRoles);
+                      localStorage.setItem('A_CreateUsuarios', data[0]?.A_CreateUsuarios);
+                      localStorage.setItem('A_DeleteRoles', data[0]?.A_DeleteRoles);
+                      localStorage.setItem('A_DeleteUsuarios', data[0]?.A_DeleteUsuarios);
+                      localStorage.setItem('A_DoubleVer', data[0]?.A_DoubleVer);
+                      localStorage.setItem('A_EditRoles', data[0]?.A_EditRoles);
+                      localStorage.setItem('A_EditUsuarios', data[0]?.A_EditUsuarios);
+                      localStorage.setItem('A_MakeAdmin', data[0]?.A_MakeAdmin);
+                      localStorage.setItem('CreateArchivos', data[0]?.CreateArchivos);
+                      localStorage.setItem('CreateEntidades', data[0]?.CreateEntidades);
+                      localStorage.setItem('DeleteArchivos', data[0]?.DeleteArchivos);
+                      localStorage.setItem('DeleteEntidades', data[0]?.DeleteEntidades);
+                      localStorage.setItem('EDitEntidades', data[0]?.EDitEntidades);
+                      localStorage.setItem('EditArchivos', data[0]?.EditArchivos);
+                    })
+                    .then(data=>router.push('/'))
+                  
                   }
                     else{
                       setLoading(false)
