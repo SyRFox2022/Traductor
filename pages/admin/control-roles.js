@@ -22,7 +22,7 @@ export default function Rol() {
         boxShadow: 24,
         p: 4,
       };
-    
+    const [disabled, setDisabled] = useState(false);
     const [actualizar, setActualizar] = useState(false);
     const [rolselect, setRolSelect] = useState('');
     const [rolData, setRolData] = useState({});
@@ -290,8 +290,22 @@ onSubmit={(values, { setSubmitting }) => {
                 <Typography variant='h6'>Permisos Admin</Typography>
                 
             <div className={Style.containerCheckBox}> 
+
                 <span>
                     <Checkbox
+                    name="SoloVisualizar"
+                    type="checkbox"
+                    value="SoloVisualizar"
+                    onChange={(e) => {
+                        e.target.checked ? setDisabled(true) : setDisabled(false)
+                    }}
+                    />
+                    <Typography  variant='h7'>Solo Visualizar</Typography>
+                </span>
+
+                <span>
+                    <Checkbox
+                    disabled={disabled}
                     name="CreateEntidades"
                     type="checkbox"
                     value={values.CreateEntidades}
@@ -305,6 +319,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name="CreateArchivos"
                     type="checkbox"
                     values={values.CreateArchivos}
@@ -319,6 +334,7 @@ onSubmit={(values, { setSubmitting }) => {
                
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='EDitEntidades'
                     type="checkbox"
                     checked={values.EDitEntidades}
@@ -334,6 +350,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='EditArchivos'
                     type="checkbox"
                     checked={values.EditArchivos}
@@ -347,6 +364,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='DeleteEntidades'
                     type="checkbox"
                     checked={values.DeleteEntidades}
@@ -360,6 +378,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='DeleteArchivos'
                     type="checkbox"
                     checked={values.DeleteArchivos}
@@ -375,6 +394,7 @@ onSubmit={(values, { setSubmitting }) => {
             <div className={Style.containerCheckBox}>   
                 <span>
                     <Checkbox 
+                    disabled={disabled}
                     name='A_CreateUsuarios'
                     type="checkbox"
                     checked={values.A_CreateUsuarios}
@@ -388,6 +408,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='A_CreateRoles'
                     type="checkbox"
                     checked={values.A_CreateRoles}
@@ -401,6 +422,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='A_EditUsuarios'
                     type="checkbox"
                     checked={values.A_EditUsuarios}
@@ -414,6 +436,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='A_EditRoles'
                     type="checkbox"
                     checked={values.A_EditRoles}
@@ -427,6 +450,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
+                    disabled={disabled}
                     name='A_DeleteUsuarios'
                     type="checkbox"
                     checked={values.A_DeleteUsuarios}
@@ -439,7 +463,8 @@ onSubmit={(values, { setSubmitting }) => {
                 </span>                
 
                 <span>
-                    <Checkbox 
+                    <Checkbox
+                    disabled={disabled} 
                     name='A_DeleteRoles'
                     type="checkbox"
                     checked={values.A_DeleteRoles}
@@ -453,6 +478,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox 
+                    disabled={disabled}
                     name='A_MakeAdmin'
                     type="checkbox"
                     checked={values.A_MakeAdmin}
@@ -466,6 +492,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                 <Checkbox
+                disabled={disabled}
                 name='A_DoubleVer'
                 type="checkbox"
                 checked={values.A_DoubleVer}
