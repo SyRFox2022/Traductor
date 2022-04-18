@@ -31,12 +31,14 @@ return(
         <Toolbar sx={{ justifyContent: 'space-between'  }}>
          
           <TemporaryDrawer />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link href="/" passHref>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, '&:hover':{cursor:'pointer', color:'var(--color-light-gray)'}}}>
             Traductor de Archivos
           </Typography>
+          </Link>
 
           { localStorage.getItem('A_DoubleVer') == '1' ?
-          <Link href='admin/notificacion' passHref>
+          <Link href='/admin/notificacion' passHref>
           <IconButton
               size="large"
               edge="end"

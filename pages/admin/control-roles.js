@@ -39,7 +39,8 @@ export default function Rol() {
     const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
 
     const handleClose = () => setOpen(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () =>  setOpen(true);
+
 
     const handleDelete = () =>{
         fetch(`${APIURL}/usuarios`)
@@ -65,32 +66,23 @@ export default function Rol() {
                 })
                     .then(res => res.text()) // or res.json()
                     .then(res => {
-                        console.log(data);
+                    console.log(res);
                     setOpen(false);
                     obtenerTodosRoles();
                     setSuccess(true);
                     setSuccessMsg('Rol eliminado con éxito')
+                    console.log('llegue aca')
                     setTimeout(() => {
                         setSuccess(false)
+                        console.log('llegue aca time out')
                       }, 4000);
                     })
                     .then(dato => {
                         setRolSelect(roles[0].id)
                         document.getElementById("Resetear").click()})
-                    .catch(error => console.log(error));
+                    .catch(error => console.log(error,'error'));
             }
         })
-            /*res.map(usuario => {
-                console.log(usuario.IdRol,'soy la idrol usuario')
-                if (usuario.IdRol == rolselect) {
-                    console.log('ENtre', usuario.IdRol, rolselect)
-                    setExiste(true);
-                    console.log('existe', existe)
-                }
-            })
-            if(existe != true){
-                setExiste(false);
-            }*/
     } 
 
     const CrearRol = () => {

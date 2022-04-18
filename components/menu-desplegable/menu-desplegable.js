@@ -53,7 +53,11 @@ export default function TemporaryDrawer() {
     {
       name: 'Notificaciones',
       url:'/admin/notificacion'
-    }   
+    },
+    {
+      name:'Procesos',
+      url:'/admin/procesos'
+    }
 
   ]
 
