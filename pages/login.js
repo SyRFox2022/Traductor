@@ -14,6 +14,7 @@ export default function Login(){
   const [errInac , setErrInac] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // validation schema del formulario 
   const validationSchema = yup.object({
     email: yup
       .string('Ingrese un email')
@@ -71,9 +72,9 @@ export default function Login(){
               })
               .then(data => {
 
-          
+          //comprueba si hay un usuario con ese email
                 if(data?.length > 0){
-                  
+                  //comprueba si el usuario esta activo 
                   if(data?.[0]?.Status == 'I'){
                     setErrInac(true)
                     setTimeout(() => {
@@ -82,7 +83,7 @@ export default function Login(){
                     setLoading(false)
                     return
                   }
-
+                  //comprueba si la contraseña es correcta
                   if(data[0].Password === values.password){
                   setLoading(false)
                   //setear permisos y nombre de usuario en localstorage y redireccionar a home 
@@ -91,10 +92,12 @@ export default function Login(){
                   localStorage.setItem("nombre",data[0].FirstName + ' ' + data[0].LastName)
                   localStorage.setItem("role",data[0].Role)
                   localStorage.setItem("idRol",data[0].IdRol)
+                  localStorage.setItem("idUser",data[0].Id)
                   fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles/'+ data[0].IdRol)
                     .then(res => res.json())
                     .then(data => {
                       console.log(data);
+                      //setear permisos en localstorage
                       localStorage.setItem('A_CreateRoles', data[0]?.A_CreateRoles);
                       localStorage.setItem('A_CreateUsuarios', data[0]?.A_CreateUsuarios);
                       localStorage.setItem('A_DeleteRoles', data[0]?.A_DeleteRoles);
@@ -113,6 +116,7 @@ export default function Login(){
                     .then(data=>router.push('/'))
                   
                   }
+                  //si la contraseña no es correcta
                     else{
                       setLoading(false)
                       console.log('no entre')
@@ -122,6 +126,7 @@ export default function Login(){
                       }, 4000);
                     }
                   }
+                  //si no hay un usuario con ese email
                   else{
                     setLoading(false)
                     setErr(true);

@@ -15,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function Control(){
 
+  //style del modal eliminar usuario
   const boxModal = {
     position: 'absolute',
     top: '50%',
@@ -51,7 +52,7 @@ const FetchData = async () => {
   })
 
 }
-
+ 
 const HandleClickDelete = (idUser) => {    
   fetch(APIURL +'/usuarios/'+ idUser, {
      method: 'DELETE',
@@ -65,6 +66,7 @@ const HandleClickDelete = (idUser) => {
      };
 
     useEffect(() => {
+      console.log(localStorage.getItem('IdUser'))
         fetch(APIURL +'/roles')
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
@@ -95,6 +97,7 @@ const HandleClickDelete = (idUser) => {
                 <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
             </Link>
 
+      {/*comprueba si el usuario tiene asignado el permiso*/}    
       { localStorage.getItem('A_CreateUsuarios') == '1' ?       
       <Link href='usuario/crear-usuarios' passHref>
                 <AddOutlinedIcon sx={{'&:hover':{cursor:'pointer'},color:"var(--color-black)"}}/>
@@ -115,34 +118,39 @@ const HandleClickDelete = (idUser) => {
         return (
         <TableBody key={archivo.Id}>
             <TableRow>
-              {/* */}
                 <TableCell> {archivo.FirstName} </TableCell>
                 <TableCell> {archivo.LastName} </TableCell>
                 <TableCell> {archivo.Mail} </TableCell>
                 <TableCell> 
+
+                  {/*recorre todos los roles hasta encontrar el que coincide con el asignado al usuario*/}
                   {roles.map((rol) => {
                   if(archivo.IdRol == rol.id){
                     return rol.Nombre
                   }})}
+
                 </TableCell>
                 <TableCell > 
                   <Switch checked={archivo.Status == "A" ?  true :  false} />
                   {archivo.Status} 
                 </TableCell>
-                {/* */}
+
                 <TableCell>
-                {localStorage.getItem('A_EditUsuarios') == 1 ?
+                
+                {localStorage.getItem('A_EditUsuarios') == 1 && localStorage.getItem('idUser') != archivo.Id ?
                   <Link  href={`/admin/usuario/editar/${archivo.Id}`} passHref>
                     <IconButton edge="end">
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>
                     </Link>
                   : null}
-                {localStorage.getItem('A_DeleteUsuarios') == 1 ?
+
+                {localStorage.getItem('A_DeleteUsuarios') == 1  && localStorage.getItem('idUser') != archivo.Id ?
                     <IconButton edge="end">
                         <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id,archivo.FirstName,archivo.LastName) }/>
                     </IconButton>
                 : null}
+
                 </TableCell>
             </TableRow>
         </TableBody>

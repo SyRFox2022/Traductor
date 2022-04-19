@@ -5,9 +5,6 @@
     height: fit-content;
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 0%;
-    top:25%;
 }
 
 .containerDatos{

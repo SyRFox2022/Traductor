@@ -3,9 +3,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 0%;
-    top: 25%;
     height: fit-content;
 }
 
@@ -22,6 +19,7 @@
     display:flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: self-start;
 }
 
 .containerSA{
@@ -29,7 +27,6 @@
     flex-direction: row;
     width: 40%;
     align-items: center;
-   
 }
 
 .containerAdd{
@@ -41,8 +38,13 @@
 }
 
 .containerInput{
-   
     width: 35%;
+}
+
+.errorMsg{
+    color: red;
+    font-size: 0.7rem;
+    text-align: left;
 }
 
 .containerPermisos{

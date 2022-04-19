@@ -52,7 +52,7 @@ export default function Recaudadores (){
       };
 
     const HandleClickDelete = (id) => {
-       
+     // elimina el ente recaudador 
      fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ id, {
         method: 'DELETE',
         headers: {
@@ -62,6 +62,7 @@ export default function Recaudadores (){
     })
         .then(res => res.text()) // or res.json()
         .then(res => {
+            // actualiza la pagina
             setActualizaRecaudador(!actualizarecaudador);
             setOpen(false);
             console.log(res);
@@ -73,6 +74,7 @@ export default function Recaudadores (){
 
     const handleChange = (e,title,cod) => {
         setLoading(true);
+
         e.target.checked ? setRecaudador(title) : setRecaudador("");
         fetch( process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ cod, {
         method: 'GET',

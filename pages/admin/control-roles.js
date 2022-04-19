@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Typography, Button, Checkbox, Select, MenuItem, IconButton, Box, Modal, FilledInput } from "@mui/material";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { Formik, Form } from 'formik';
+import * as yup from 'yup';
 import Alerta from '../../components/alert';
 
 
@@ -22,7 +23,6 @@ export default function Rol() {
         boxShadow: 24,
         p: 4,
       };
-    const [disabled, setDisabled] = useState(false);
     const [actualizar, setActualizar] = useState(false);
     const [rolselect, setRolSelect] = useState('');
     const [rolData, setRolData] = useState({});
@@ -38,6 +38,13 @@ export default function Rol() {
 
     const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
 
+    // validation schema del formulario 
+    const validationSchema = yup.object({
+       Nombre: yup
+          .string('Ingrese un nombre de rol')
+          .required('Se requiere un nombre de rol'),
+      });
+
     const handleClose = () => setOpen(false);
     const handleOpen = () =>  setOpen(true);
 
@@ -47,37 +54,41 @@ export default function Rol() {
         .then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(res => {
-            //comprobar si existe un usuario con la idrol de rolselect y si existe no se puede eliminar el rol 
+            //comprobar si existe un usuario con la idrol de rolselect
             let existe = false;
             res.map(item => {
                 if(item.IdRol === rolselect){
                     existe = true;
                 }
             })
+            // si existe no se puede eliminar el rol
             if(existe){
                 setErrorMsg('No se puede eliminar el rol porque existen usuarios con este rol');
                 setError(true);
                 setTimeout(() => {
                     setError(false);
                 }, 3000);
-            }else{
+            }
+            // si no existe se puede eliminar el rol
+            else{
+                
                 fetch(`${APIURL}/roles/${rolselect}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.text()) // or res.json()
                     .then(res => {
-                    console.log(res);
                     setOpen(false);
                     obtenerTodosRoles();
+                    // se notifica que se elimino el rol
                     setSuccess(true);
                     setSuccessMsg('Rol eliminado con éxito')
-                    console.log('llegue aca')
                     setTimeout(() => {
                         setSuccess(false)
                         console.log('llegue aca time out')
                       }, 4000);
                     })
                     .then(dato => {
+                        //resetea el estado de la pagina
                         setRolSelect(roles[0].id)
                         document.getElementById("Resetear").click()})
                     .catch(error => console.log(error,'error'));
@@ -93,6 +104,7 @@ export default function Rol() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                //asigna los valores del formulario
                 Nombre: 'Nuevo rol',
                 EDitEntidades: 0,
                 EditArchivos: 0,
@@ -107,13 +119,15 @@ export default function Rol() {
                 A_MakeAdmin: 0,
                 A_DoubleVer: 0,
                 DeleteArchivos: 0,
-                A_CreateUsuarios: 0, 
+                A_CreateUsuarios: 0,
+                SoloVisualizar: 0, 
             })
         })
         .then(res => res.json())
         .then(data => {
             console.log(data);
             obtenerTodosRoles();
+            // se notifica de que se creo el rol
             setSuccess(true);
             setSuccessMsg('Rol creado con éxito, seleccionalo para cambiar su nombre y darle permisos.')
             setTimeout(() => {
@@ -124,6 +138,7 @@ export default function Rol() {
 
 
     const HandleChange = (e) => {
+        //asigna el valor del input a una variable
         setRolSelect(e.target.value);
         fetch(`${APIURL}/roles/${e.target.value}`)
             .then(res => res.json())
@@ -134,6 +149,7 @@ export default function Rol() {
     }
 
     useEffect(() => {
+        //obtiene todos los roles de la base de datos y los asigna a una variable para mostrarlos en el select de la pagina 
     setLoading(true)
         fetch(`${APIURL}/roles`)
         .then(response => response.json())
@@ -178,6 +194,7 @@ export default function Rol() {
 
 <Formik
 initialValues={{ 
+    //asigna los valores de la base de datos a los inputs
 Nombre: rolData[0]?.Nombre,
 EDitEntidades: rolData[0]?.EDitEntidades,
 EditArchivos: rolData[0]?.EditArchivos,
@@ -192,8 +209,10 @@ A_DeleteRoles: rolData[0]?.A_DeleteRoles,
 A_MakeAdmin: rolData[0]?.A_MakeAdmin,
 A_DoubleVer: rolData[0]?.A_DoubleVer,
 DeleteArchivos: rolData[0]?.DeleteArchivos,
-A_CreateUsuarios: rolData[0]?.A_CreateUsuarios, 
+A_CreateUsuarios: rolData[0]?.A_CreateUsuarios,
+SoloVisualizar: rolData[0]?.SoloVisualizar,  
 }}
+validationSchema={validationSchema}
 onSubmit={(values, { setSubmitting }) => {
    fetch(`${APIURL}/roles/${rolselect}`, {
        method: 'PUT',
@@ -215,7 +234,16 @@ onSubmit={(values, { setSubmitting }) => {
     .catch(error => console.error('Error:', error))
 }}
 >
-    {({ values, handleChange, errors ,handleBlur, handleSubmit, setFieldValue}) => (
+    {({ 
+
+    values,
+    handleChange,
+    touched,
+    errors,
+    handleBlur,
+    setFieldValue
+
+}) => (
         <Form>
             
             <div className={Style.containerRol}>
@@ -236,6 +264,7 @@ onSubmit={(values, { setSubmitting }) => {
                 <Select
                 onChange={(e) => {HandleChange(e)
                         roles.map(rol => {
+                            //setea los valores de los roles en el select
                             if(rol.id === e.target.value){
                                 setFieldValue('Nombre', rol.Nombre)
                                 setFieldValue('EDitEntidades', rol.EDitEntidades)
@@ -252,6 +281,7 @@ onSubmit={(values, { setSubmitting }) => {
                                 setFieldValue('A_DoubleVer', rol.A_DoubleVer)
                                 setFieldValue('DeleteArchivos', rol.DeleteArchivos)
                                 setFieldValue('A_CreateUsuarios', rol.A_CreateUsuarios)
+                                setFieldValue('SoloVisualizar', rol.SoloVisualizar)
                             }
                         })      
                 }}
@@ -278,7 +308,9 @@ onSubmit={(values, { setSubmitting }) => {
                 value={values.Nombre}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                error={touched.Nombre && Boolean(errors.Nombre)}
                 />
+                {touched.Nombre && Boolean(errors.Nombre) && <p className={Style.errorMsg}>{errors.Nombre}</p>}
             
             </div>
           
@@ -293,19 +325,38 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    name="SoloVisualizar"
-                    type="checkbox"
-                    value="SoloVisualizar"
-                    onChange={(e) => {
-                        e.target.checked ? setDisabled(true) : setDisabled(false)
-                    }}
+                   name="SoloVisualizar"
+                   type="checkbox"
+                   value={values.SoloVisualizar}
+                   checked={values.SoloVisualizar}
+                   onChange={(e) => {
+                       e.target.checked ? setFieldValue(e.target.name, 1) : setFieldValue(e.target.name, 0)
+                       //si esta checkeado, se setea el valor de todos los campos en 0
+                       if(e.target.checked){
+                            setFieldValue('A_EditUsuarios', 0)
+                            setFieldValue('A_DeleteUsuarios', 0)
+                            setFieldValue('A_CreateRoles', 0)
+                            setFieldValue('A_EditRoles', 0)
+                            setFieldValue('A_DeleteRoles', 0)
+                            setFieldValue('A_MakeAdmin', 0)
+                            setFieldValue('A_DoubleVer', 0)
+                            setFieldValue('DeleteArchivos', 0)
+                            setFieldValue('A_CreateUsuarios', 0)
+                            setFieldValue('EDitEntidades', 0)
+                            setFieldValue('EditArchivos', 0)
+                            setFieldValue('DeleteEntidades', 0)
+                            setFieldValue('CreateEntidades', 0)
+                            setFieldValue('CreateArchivos', 0)
+                          }
+                   }}
+                  
                     />
                     <Typography  variant='h7'>Solo Visualizar</Typography>
                 </span>
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name="CreateEntidades"
                     type="checkbox"
                     value={values.CreateEntidades}
@@ -319,7 +370,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name="CreateArchivos"
                     type="checkbox"
                     values={values.CreateArchivos}
@@ -334,7 +385,7 @@ onSubmit={(values, { setSubmitting }) => {
                
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='EDitEntidades'
                     type="checkbox"
                     checked={values.EDitEntidades}
@@ -350,7 +401,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='EditArchivos'
                     type="checkbox"
                     checked={values.EditArchivos}
@@ -364,7 +415,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='DeleteEntidades'
                     type="checkbox"
                     checked={values.DeleteEntidades}
@@ -378,7 +429,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='DeleteArchivos'
                     type="checkbox"
                     checked={values.DeleteArchivos}
@@ -394,7 +445,7 @@ onSubmit={(values, { setSubmitting }) => {
             <div className={Style.containerCheckBox}>   
                 <span>
                     <Checkbox 
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_CreateUsuarios'
                     type="checkbox"
                     checked={values.A_CreateUsuarios}
@@ -408,7 +459,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_CreateRoles'
                     type="checkbox"
                     checked={values.A_CreateRoles}
@@ -422,7 +473,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_EditUsuarios'
                     type="checkbox"
                     checked={values.A_EditUsuarios}
@@ -436,7 +487,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_EditRoles'
                     type="checkbox"
                     checked={values.A_EditRoles}
@@ -450,7 +501,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_DeleteUsuarios'
                     type="checkbox"
                     checked={values.A_DeleteUsuarios}
@@ -464,7 +515,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                     <Checkbox
-                    disabled={disabled} 
+                    disabled={values.SoloVisualizar === 1 ? true : false} 
                     name='A_DeleteRoles'
                     type="checkbox"
                     checked={values.A_DeleteRoles}
@@ -478,7 +529,7 @@ onSubmit={(values, { setSubmitting }) => {
                 
                 <span>
                     <Checkbox 
-                    disabled={disabled}
+                    disabled={values.SoloVisualizar === 1 ? true : false}
                     name='A_MakeAdmin'
                     type="checkbox"
                     checked={values.A_MakeAdmin}
@@ -492,7 +543,7 @@ onSubmit={(values, { setSubmitting }) => {
 
                 <span>
                 <Checkbox
-                disabled={disabled}
+                disabled={values.SoloVisualizar === 1 ? true : false}
                 name='A_DoubleVer'
                 type="checkbox"
                 checked={values.A_DoubleVer}
@@ -524,6 +575,7 @@ onSubmit={(values, { setSubmitting }) => {
                      setFieldValue('A_DoubleVer', roles[0].A_DoubleVer)
                      setFieldValue('DeleteArchivos', roles[0].DeleteArchivos)
                      setFieldValue('A_CreateUsuarios', roles[0].A_CreateUsuarios)
+                     setFieldValue('SoloVisualizar', roles[0].SoloVisualizar)
 
                 }}  />
                 {localStorage.getItem('A_DeleteRoles') == 1 ?

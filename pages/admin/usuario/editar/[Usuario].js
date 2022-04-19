@@ -60,7 +60,7 @@ export default function CrearUsuarios(){
     event.preventDefault()
   }
 
-  
+  // validation schema del formulario 
   const validationSchema = yup.object({
     FirstName: yup
       .string('Ingrese un nombre')

@@ -10,7 +10,10 @@ function MyApp({ Component, pageProps }) {
   }, [])
   
 return(<>
-  {server == true ? <Login/> : localStorage.getItem('auth') ?  
+  {// mientras se carga el servidor se muestra el login y
+  // cuando se carga el servidor se muestra el y
+  // si no esta logueado se muestra el login y si esta logueado se muestra el componente correspondiente
+  server == true ? <Login/> : localStorage.getItem('auth') ?  
       <Layout>
        <Component {...pageProps} />
       </Layout>
