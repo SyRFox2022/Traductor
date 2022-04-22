@@ -17,8 +17,14 @@
   /*Config Select*/
   .MuiSelect-select{
     height: fit-content; 
-    background-color: var(--color-light-gray);    
+    background-color: var(--color-light-gray); 
+    text-transform: capitalize;  
   }
+
+  .MuiMenuItem-root{
+    text-transform: capitalize; 
+  }
+
 
 /*Config de la appbar*/
   .MuiAppBar-root{

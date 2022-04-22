@@ -55,8 +55,8 @@ export default function TemporaryDrawer() {
       url:'/admin/notificacion'
     },
     {
-      name:'Procesos',
-      url:'/admin/procesos'
+      name:'Configuración Procesos',
+      url:'/admin/config-procesos'
     }
 
   ]

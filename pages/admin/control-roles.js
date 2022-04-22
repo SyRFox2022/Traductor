@@ -354,6 +354,8 @@ onSubmit={(values, { setSubmitting }) => {
                     <Typography  variant='h7'>Solo Visualizar</Typography>
                 </span>
 
+                <span></span>
+
                 <span>
                     <Checkbox
                     disabled={values.SoloVisualizar === 1 ? true : false}
@@ -442,7 +444,7 @@ onSubmit={(values, { setSubmitting }) => {
                 </span>    
             </div>
 
-            <div className={Style.containerCheckBox}>   
+            {localStorage.getItem('A_MakeAdmin') == 1 ?<div className={Style.containerCheckBox}>   
                 <span>
                     <Checkbox 
                     disabled={values.SoloVisualizar === 1 ? true : false}
@@ -555,7 +557,12 @@ onSubmit={(values, { setSubmitting }) => {
                     <Typography  variant='h7'>Doble Verificacion</Typography>
                 </span>                      
                          
-            </div>
+            </div> : 
+
+            <div className={Style.containerMsg}>
+              <Typography variant='h6'>No tienes permisos para modificar los roles de admin</Typography>
+            </div>}
+
             </div>
 
             <div className={Style.containerButton}>
@@ -578,27 +585,40 @@ onSubmit={(values, { setSubmitting }) => {
                      setFieldValue('SoloVisualizar', roles[0].SoloVisualizar)
 
                 }}  />
-                {localStorage.getItem('A_DeleteRoles') == 1 ?
+                
+                {localStorage.getItem('A_DeleteRoles') == 1 && rolselect != localStorage.getItem('idRol') ?
                 <Button 
                 onClick={()=>handleOpen()}
                 variant="contained" 
                 color="error" 
-                sx={{width:'20%'}}>Eliminar rol</Button>
-            :null}
+                sx={{width:'20%'}}>
+                Eliminar rol
+                </Button>
+                :
+                <Button 
+                variant="contained" 
+                disabled={true} 
+                sx={{width:'20%'}}>
+                Eliminar rol
+                </Button>
+                }
 
-                {localStorage.getItem('A_EditRoles') == 1 ?
+                {localStorage.getItem('A_EditRoles') == 1 && rolselect != localStorage.getItem('idRol') ?
                 <Button 
                 type="submit" 
                 variant="contained" 
                 sx={{width:'20%', 
                 backgroundColor: 'var(--bg-color-other-blue)','&:hover':{backgroundColor: 'var(--bg-color-old-blue)'}
                 }}>Guardar cambios</Button>
-                :null }
+                : 
+                <Button 
+                variant="contained" 
+                disabled={true} 
+                sx={{width:'20%'}}>
+                Guardar cambios
+                </Button>
+                }
             </div>
-            
-            
-
- 
 
             <Modal
             open={open}

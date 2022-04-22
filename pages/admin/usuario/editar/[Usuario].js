@@ -40,7 +40,7 @@ export default function CrearUsuarios(){
         setIdUser(idUsuario);
         setDatos(data);
         setLoading(false);
-        console.log(datos)
+        console.log(data)
       }
         );
     }

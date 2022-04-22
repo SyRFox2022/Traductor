@@ -20,6 +20,7 @@ export default function Crear() {
 
     codRecaudadores: yup
       .number('Ingrese un codigo')
+      .integer('El codigo debe ser un numero entero')
       .required('El codigo es requerido')
       .min(1, 'El codigo debe tener al menos 1 caracter'),
 

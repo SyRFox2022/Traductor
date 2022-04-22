@@ -143,13 +143,22 @@ const HandleClickDelete = (idUser) => {
                         <CreateOutlinedIcon sx={{color:"blue"}}/>
                     </IconButton>
                     </Link>
-                  : null}
+                  : 
+                  <IconButton edge="end" disabled={true}>
+                        <CreateOutlinedIcon sx={{color:"gray"}}/>
+                  </IconButton>
+                  }
 
                 {localStorage.getItem('A_DeleteUsuarios') == 1  && localStorage.getItem('idUser') != archivo.Id ?
                     <IconButton edge="end">
                         <DeleteOutlineOutlinedIcon sx={{color:"red"}} onClick={()=>handleOpen(archivo.Id,archivo.FirstName,archivo.LastName) }/>
                     </IconButton>
-                : null}
+                : 
+                <IconButton edge="end" disabled={true} >
+                        <DeleteOutlineOutlinedIcon sx={{color:"gray"}} />
+                </IconButton>
+                
+                }
 
                 </TableCell>
             </TableRow>
