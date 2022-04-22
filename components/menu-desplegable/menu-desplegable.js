@@ -55,10 +55,10 @@ export default function TemporaryDrawer() {
       url:'/admin/notificacion'
     },
     {
-      name:'Configuración Procesos',
-      url:'/admin/config-procesos'
-    }
-*/
+      name:'Procesos',
+      url:'/admin/procesos/procesos'
+    },*/
+
   ]
 
   const toggleDrawer = () => (event) => {

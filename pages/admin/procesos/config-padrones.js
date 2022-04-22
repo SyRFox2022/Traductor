@@ -1,7 +1,8 @@
-import Style from '../../styles/config-procesos.module.css';
-import Bannerhero from '../../components/banner-hero';
-import Loading from '../../components/loading';
+import Style from '../../../styles/config-padrones.module.css';
+import Bannerhero from '../../../components/banner-hero';
+import Loading from '../../../components/loading';
 import * as yup from 'yup';
+import Alerta from '../../../components/alert';
 import { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -55,6 +56,10 @@ export default function Procesos(){
          }) => (<Form>
 
             <div className={Style.containerForm}>
+
+            <Link href='/admin/procesos/padrones' passHref>
+                <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
+            </Link>
 
             <div className={Style.containerRow}>
 
