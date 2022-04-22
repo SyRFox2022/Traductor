@@ -46,7 +46,7 @@ export default function TemporaryDrawer() {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },
-   {
+ /*  {
       name: 'Control de Roles',
      url:'/admin/control-roles',
     },
@@ -58,7 +58,7 @@ export default function TemporaryDrawer() {
       name:'Configuración Procesos',
       url:'/admin/config-procesos'
     }
-
+*/
   ]
 
   const toggleDrawer = () => (event) => {

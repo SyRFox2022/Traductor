@@ -6,7 +6,11 @@ export default function test() {
     <div>
 hola
 
+<div>
+<h1>Hola mundo</h1>
+<h2>Hola mundo</h2>
 
+</div>
 
     </div>
   )
