@@ -46,7 +46,7 @@ export default function TemporaryDrawer() {
       name: 'Control de Usuarios',
       url:'/admin/control-usuarios',
     },
- /*  {
+    {
       name: 'Control de Roles',
      url:'/admin/control-roles',
     },
@@ -56,8 +56,8 @@ export default function TemporaryDrawer() {
     },
     {
       name:'Procesos',
-      url:'/admin/procesos/procesos'
-    },*/
+      url:'/admin/procesos'
+    },
 
   ]
 

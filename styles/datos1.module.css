@@ -16,6 +16,14 @@
     border-radius: 5px;
 }
 
+.containerTitle{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+}
+
 .conteinerCamp{
     display: flex;
     flex-direction: row;

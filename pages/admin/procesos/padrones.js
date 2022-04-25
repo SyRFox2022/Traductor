@@ -29,14 +29,14 @@ export default function Padrones(){
          <div className={Style.containerBody}>
 
         <div className={Style.containerArrow}>
-         <Link href='/admin/procesos/procesos' passHref>
+         <Link href='/admin/procesos' passHref>
                 <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
         </Link>
         </div>
 
             {ejemploPadron.map((dato) =>{
                 return(
-                  <ListPadrones key={dato.name} dato={dato}/>
+                  <ListPadrones key={dato.name} titulo={dato}/>
                         
             )})}
 

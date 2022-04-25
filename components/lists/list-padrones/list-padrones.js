@@ -7,28 +7,32 @@ import { useState } from 'react'
 
 
 
-export default function Index(dato) {
+export default function Index({titulo}) {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);
   };
 return( <>
-<List>
-            <ListItemButton onClick={handleClick}
+    <List>
+            <ListItemButton onClick={handleClick} 
             sx={{backgroundColor:'var(--bg-color-lb-table)',}}>
-            <Typography>{dato.name}</Typography>
-            {open ? <ExpandLess /> : <ExpandMore />}
+
+            <div className={Style.containerTitle}>
+              <Typography variant='h5'>{titulo.name}</Typography>
+              {open ? <ExpandLess /> : <ExpandMore />}
+            </div>
+
             </ListItemButton>
 
             <div className={Style.containerButtons}>
-            <Collapse  in={open} timeout="auto" unmountOnExit 
-            sx={{width:'100%'}}>
-            <Link href='/admin/procesos/config-padrones' passHref>
-            <Button variant="contained" color="primary" sx={{m:'1%'}}>
-               Configurar
-            </Button>
-            </Link>
+            <Collapse  in={open} timeout="auto" unmountOnExit sx={{width:'100%'}}>
+
+              <Link href='/admin/procesos/config-padrones' passHref>
+                <Button variant="contained" color="primary" sx={{m:'1%'}}>
+                  Configurar
+                </Button>
+              </Link>
 
             <Button variant="contained" color="primary" sx={{m:'1%'}}>
                Exportar
@@ -38,6 +42,6 @@ return( <>
             </div>
             
 
-</List>
+    </List>
 
     </> )}

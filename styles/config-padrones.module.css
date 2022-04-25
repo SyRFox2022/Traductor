@@ -22,6 +22,12 @@
 
 }
 
+.containerArrow{
+    width: 100%;
+    text-align: -webkit-auto;
+    margin: 1% 1%;
+}
+
 .containerRow{
     margin: 1% 0%;
     text-align: left;

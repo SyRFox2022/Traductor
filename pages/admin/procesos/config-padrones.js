@@ -57,9 +57,11 @@ export default function Procesos(){
 
             <div className={Style.containerForm}>
 
-            <Link href='/admin/procesos/padrones' passHref>
-                <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
-            </Link>
+            <div className={Style.containerArrow}>
+                <Link href='/admin/procesos/padrones' passHref>
+                        <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
+                </Link>
+            </div>
 
             <div className={Style.containerRow}>
 
