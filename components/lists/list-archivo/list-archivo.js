@@ -13,7 +13,7 @@ export default function Index({tipo,datoTablas}) {
 
     return (
         <List key={tipo.nombre}>
-                <ListItemButton sx={{backgroundColor:'var(--color-info-table)'}} onClick={handleClickDatos}>
+                <ListItemButton sx={{backgroundColor:'var(--color-info-table)',  boxShadow:'0px 4px 4px rgba(0, 0, 0, 0.25)'}} onClick={handleClickDatos}>
                         <ListItemText primary={tipo.nombre} />
                         {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>

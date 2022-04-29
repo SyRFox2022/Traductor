@@ -63,7 +63,7 @@ export default function Rol() {
             })
             // si existe no se puede eliminar el rol
             if(existe){
-                setErrorMsg('No se puede eliminar el rol porque existen usuarios con este rol');
+                setErrorMsg('No se puede eliminar, existen usuarios con este rol.');
                 setError(true);
                 setTimeout(() => {
                     setError(false);

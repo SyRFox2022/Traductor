@@ -68,7 +68,7 @@ export default function Index({datos,tipo,datoTablas}) {
             <div className={Style.containerListCollapse}> 
 
             <ListItemButton onClick={handleClick}>
-            <Typography variant="h5"> {datos.title} </Typography>
+            <Typography sx={{textTransform:'capitalize'}} variant="h5"> {datos.title} </Typography>
             </ListItemButton>
 
             <div className={Style.containerRight}> 

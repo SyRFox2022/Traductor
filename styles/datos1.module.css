@@ -67,3 +67,10 @@
     width: 40%;
     justify-content: space-between;
 }
+
+.containerButtonsP{
+    display: flex;
+    align-self: flex-end;
+    width: 12%;
+    justify-content: space-between;
+}

@@ -6,8 +6,8 @@ import Alerta from '../../../components/alert';
 import { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Stack, Typography, Button, Select, MenuItem, IconButton, FilledInput } from "@mui/material";
 import Link from 'next/link';
+import { Stack, Typography, Button, Select, MenuItem, IconButton, FilledInput } from "@mui/material";
 
 export default function Procesos(){
     const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
@@ -56,13 +56,13 @@ export default function Procesos(){
          handleBlur,
          }) => (<Form>
 
+            <div className={Style.containerForm}>
+
             <div className={Style.containerArrow}>
-                <Link href='/admin/procesos/padrones' passHref>
+                <Link href='/admin/procesos' passHref>
                         <ArrowBackIcon sx={{'&:hover':{cursor:'pointer'}, color:'var(--color-black)'}} /> 
                 </Link>
             </div>
-
-            <div className={Style.containerForm}>
 
             <div className={Style.containerRow}>
 
@@ -144,7 +144,7 @@ export default function Procesos(){
 
             <div className={Style.containerBS}>
             <Button type='submit' variant="contained" color="error" sx={{m:'1%'}}>
-                Guardar cambios
+                Exportar
             </Button>
 
             <Select
@@ -166,4 +166,3 @@ export default function Procesos(){
         
  </>)
 }
-

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
-import { Typography, Link, Button, List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import { Typography, Button, List, ListItemButton, ListItemText, Collapse } from '@mui/material';
+import Link from 'next/link';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Style from '../../../styles/list-notificacion.module.css';

@@ -1,4 +1,4 @@
-import { Stack, Typography, InputAdornment, IconButton, Button, Select, FilledInput, MenuItem, Link } from '@mui/material';
+import { Stack, Typography, InputAdornment, IconButton, Button, Select, FilledInput, MenuItem } from '@mui/material';
 import Style from '../../../../styles/editar-usuarios.module.css';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 import Loading from '../../../../components/loading';
+import Link from 'next/link';
 
 
 async function Obtener(id) {

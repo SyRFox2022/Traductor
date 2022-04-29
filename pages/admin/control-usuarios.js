@@ -104,7 +104,7 @@ const HandleClickDelete = (idUser) => {
             </Link>:null}
             </div>
 
-    <Table sx={{mb:'2%'}}>
+    <Table sx={{mb:'2%', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'}}>
           <TableRow>
             <TableCell sx={{fontWeight:"bold"}}>Nombre</TableCell>
             <TableCell sx={{fontWeight:"bold"}}>Apellido/s</TableCell>

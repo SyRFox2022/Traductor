@@ -75,7 +75,7 @@ export default function Recaudadores (){
     const handleChange = (e,title,cod) => {
         setLoading(true);
 
-        e.target.checked ? setRecaudador(title) : setRecaudador("");
+        e.target.checked ? setRecaudador(cod) : setRecaudador("");
         fetch( process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ cod, {
         method: 'GET',
     })
@@ -127,7 +127,7 @@ export default function Recaudadores (){
             <span key={title.codRecaudadores.toString()}>
         <ListItem>  
         <Checkbox
-            checked={recaudador === title.nombre.toString() ? true : false}
+            checked={recaudador === title.codRecaudadores.toString() ? true : false}
             onChange={(e) => handleChange(e,title.nombre.toString(),title.codRecaudadores.toString())}
             inputProps={{ 'aria-label': 'controlled' }}
         />

@@ -1,4 +1,5 @@
-import { Stack, Typography, InputAdornment, Button, IconButton, Select, FilledInput, MenuItem, Link  } from '@mui/material'
+import { Stack, Typography, InputAdornment, Button, IconButton, Select, FilledInput, MenuItem } from '@mui/material'
+import Link from 'next/link';
 import Style from '../../../styles/crear.module.css'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup';

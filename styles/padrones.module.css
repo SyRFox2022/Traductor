@@ -1,6 +1,9 @@
 .containerBody{
     background-color: var(--color-white);
-    width: 100%;
+    width: 98%;
+    border-radius: 5px;
+    margin-left: 1%;
+    height: fit-content;
     padding: 1%;
     text-align: -webkit-center;
 } 

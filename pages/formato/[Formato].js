@@ -1,6 +1,7 @@
 import Bannerhero from '../../components/banner-hero';
 import Style from '../../styles/formato.module.css';
-import {Typography, Link, Button} from '@mui/material';
+import {Typography, Button} from '@mui/material';
+import Link from 'next/link';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState, useEffect } from 'react';

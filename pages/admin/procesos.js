@@ -1,18 +1,28 @@
 import Style from '../../styles/procesos.module.css';
 import Bannerhero from '../../components/banner-hero';
-import { Typography, Button, Link } from '@mui/material';
+import { Typography, Button } from '@mui/material';
+import Link from 'next/link';
+
 
 export default function Procesos(){
     const pruebaBotones = [
         {
-            name: 'Proceso 1',
+            name: 'Padrones',
+            url: '/admin/procesos/padrones',
         },
         {
-            name: 'Proceso 2',
+            name: 'Configuración',
+            url: '/admin/procesos/config-copia',
         },
         {
-            name: 'Proceso 3',
+            name: 'Proceso3',
+            url: ' ',
         },
+        {
+            name: 'Proceso4',
+            url: '',
+        },
+        
     ]
 
 
@@ -22,26 +32,19 @@ export default function Procesos(){
             
             <div className={Style.containerProcesos}>
 
-            <div className={Style.containerMap}>
-                <div className={Style.containerBox}></div>
-                <Link href='/admin/procesos/padrones' passHref>
-                <Button variant="contained" color="primary" sx={{m:'1%'}}>
-                    Padrones
-                </Button>
-                </Link>
-                </div>
-
                 {pruebaBotones.map((dato) =>{
                 return(
                     <div className={Style.containerMap} key={dato.name}>
                     <div className={Style.containerBox}></div>
-                    <Button variant="contained" color="primary" disabled sx={{m:'1%'}}>
-                        {dato.name}
-                    </Button>
+                        <Link href={dato.url} passHref>
+                            <Button variant="contained" color="primary" sx={{m:'1%'}}>
+                                {dato.name}
+                            </Button>
+                        </Link>
                     </div>
                 )})}
 
             </div>
         </div>
-        </>)
+     </>)
 }
