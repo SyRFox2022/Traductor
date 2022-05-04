@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { useState } from 'react';
 
 export default function Crear() {
+  const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
   const [errorMsg, setErrorMsg] = useState();
   const [success, setSuccess] = useState(false);
   const [error , setError] = useState(false);
@@ -70,7 +71,7 @@ export default function Crear() {
        initialValues={{ nombre: '', codRecaudadores: '', tipoArchivo: '', estado: '', idPrograma: '',}}
        validationSchema={validationSchema}
        onSubmit={(values, { setSubmitting,resetForm }) => {
-        fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores', {
+        fetch(URLAPI +'/recaudadores', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

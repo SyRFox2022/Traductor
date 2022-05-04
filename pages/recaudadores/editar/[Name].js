@@ -9,11 +9,11 @@ import { useRouter } from 'next/router';
 import Alerta from '../../../components/alert'
 import Loading from '../../../components/loading';
 
-
+const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
 
 async function Obtener(cod) {
     try{
-      const response = await fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+cod);
+      const response = await fetch(URLAPI +'/recaudadores/'+cod);
       const data = await response.json();
     return data;
         }
@@ -112,7 +112,7 @@ export default function Crear() {
        validationSchema={validationSchema}
        
        onSubmit={(values, { setSubmitting }) => {
-        fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/recaudadores/'+ codigoRec, {
+        fetch(URLAPI+'/recaudadores/'+ codigoRec, {
           method: 'PUT', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

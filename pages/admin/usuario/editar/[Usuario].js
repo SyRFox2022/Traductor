@@ -10,10 +10,10 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import Loading from '../../../../components/loading';
 import Link from 'next/link';
 
-
+const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
 async function Obtener(id) {
   try{
-    const response = await fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios/buscar/'+id);
+    const response = await fetch(APIURL +'/usuarios/buscar/'+id);
     const data = await response.json();
   return data;
       }
@@ -140,7 +140,7 @@ export default function CrearUsuarios(){
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
-          fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios/'+ idUser, {
+          fetch(APIURL +'/usuarios/'+ idUser, {
           method: 'PUT', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

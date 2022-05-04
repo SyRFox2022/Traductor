@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import Alerta from '../components/alert'
 
 export default function Login(){
+  const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [err , setErr] = useState(false);
@@ -62,7 +63,7 @@ export default function Login(){
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
             setLoading(true)
-            fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/usuarios/'+ values.email)
+            fetch(URLAPI+'/usuarios/'+ values.email)
               .then(res => res.json())
               .catch(err => {setErr(true)
                 setTimeout(() => {
@@ -93,7 +94,7 @@ export default function Login(){
                   localStorage.setItem("role",data[0].Role)
                   localStorage.setItem("idRol",data[0].IdRol)
                   localStorage.setItem("idUser",data[0].Id)
-                  fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles/'+ data[0].IdRol)
+                  fetch(URLAPI+'/roles/'+ data[0].IdRol)
                     .then(res => res.json())
                     .then(data => {
                       console.log(data);

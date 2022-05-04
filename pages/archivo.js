@@ -15,7 +15,9 @@ export default function Archivos(){
     const [recaudador, setRecaudador] = useState("");
     const recaudadores = ['PagoFacil','IBM', 'MasterCard'];
     const [order, setOrder] = useState('');
-
+    useEffect(() => {
+        console.log(localStorage.getItem('DeleteArchivos'));
+    }, []);
     const listaArchivos = [
         {
             id: 1,

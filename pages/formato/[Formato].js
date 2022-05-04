@@ -11,13 +11,14 @@ import Loading from '../../components/loading';
 
 
 export default function Formato (){
+    const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
     const [loading, setLoading] = useState(true);
     const [datos,setDatos] = useState([{}]);
     const router = useRouter();
 
     async function Obtener(cod) {
         try{
-        const response = await fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/recaudadores/'+cod);
+        const response = await fetch(URLAPI+'/recaudadores/'+cod);
         const data = await response.json();
         return data;
             }

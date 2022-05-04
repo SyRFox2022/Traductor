@@ -21,7 +21,7 @@ import Link from 'next/link';
 import Loading from '../components/loading';
 
 export default function Recaudadores (){
-    
+    const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
     const [nombre, setNombre] = useState('');
     const [recaudador, setRecaudador] = useState("");
     const [recaudadores,setRecaudadores] = useState([]);
@@ -53,11 +53,11 @@ export default function Recaudadores (){
 
     const HandleClickDelete = (id) => {
      // elimina el ente recaudador 
-     fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores/'+ id, {
+     fetch( URLAPI +'/recaudadores/'+ id, {
         method: 'DELETE',
         headers: {
             'permiso': 'DeleteEntidades',
-            'usuariorolid': 1,
+            'usuariorolid': 31,
         }
     })
         .then(res => res.text()) // or res.json()
@@ -90,11 +90,8 @@ export default function Recaudadores (){
     };
 
     useEffect(() => {
-        console.log(localStorage.getItem('DeleteEntidades'));
 
-    const URLAPI = process.env.NEXT_PUBLIC_REACT_URL_API;
-    
-    fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/recaudadores')
+    fetch( URLAPI +'/recaudadores')
          .then(response => response.json())
          .then(data => setRecaudadores(data))
          .catch(error => console.log(error));

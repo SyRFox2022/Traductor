@@ -14,6 +14,7 @@ import Loading from '../../../components/loading';
 
 
 export default function CrearUsuarios(){
+  const APIURL = process.env.NEXT_PUBLIC_REACT_URL_API;
   const [loading, setLoading] = useState(true);
   const [roles,setRoles] = useState([{}]);
   const [errorMsg, setErrorMsg] = useState();
@@ -30,7 +31,7 @@ export default function CrearUsuarios(){
     }
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_REACT_URL_API+'/roles')
+    fetch(APIURL+'/roles')
     .then(res => res.json())
     .then(data => {
       console.log(data)
@@ -114,7 +115,7 @@ export default function CrearUsuarios(){
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
 
-          fetch(process.env.NEXT_PUBLIC_REACT_URL_API +'/usuarios', {
+          fetch(APIURL +'/usuarios', {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(values), // data can be `string` or {object}!
           headers:{

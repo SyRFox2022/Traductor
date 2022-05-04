@@ -12,16 +12,16 @@ export default function Navbar(){
 const [name, setName] = useState('');
 const router = useRouter();
 const [openIcon, setOpenIcon] = useState(false);
+
 const handleLogout = () => {
-localStorage.removeItem("auth")
-localStorage.removeItem("nombre")
-localStorage.removeItem("rol")
-router.push('/login')
+  localStorage.removeItem("auth")
+  localStorage.removeItem("nombre")
+  localStorage.removeItem("rol")
+  router.push('/login')
 }
 
 useEffect(() => {
   setName(localStorage.getItem('nombre'))
-  
 }, [])
   
 return(
