@@ -28,6 +28,14 @@ export default function TemporaryDrawer() {
       url: '/recaudadores',
     },
     {
+      name: 'logs-Padrones',
+      url: '/logs-padrones',
+    },
+    {
+      name: 'logs-Entidades',
+      url: '/logs-entidades',
+    },
+    {
       name: 'Archivos',
       url: '/archivo',
     },
